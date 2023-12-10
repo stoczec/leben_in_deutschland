@@ -6,7 +6,7 @@ const data = [
     ua: 'У Німеччині люди можуть відкрито висловлюватися проти уряду, тому що...',
     ru: 'В Германии люди могут открыто высказываться против правительства, потому что...',
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأن',
-    img: 'src/assets/images/1.jpg',
+    img: '/src/assets/images/1.jpg',
     answers: {
       de: 'hier Meinungsfreiheit gilt',
       en: 'here freedom of speech applies',
@@ -166,7 +166,7 @@ const data = [
     ua: 'Як називається конституція Федеративної Республіки Німеччина?',
     ru: 'Как называется конституция Федеративной Республики Германия?',
     ar: 'ما اسم دستور جمهورية ألمانيا الاتحادية؟',
-    img: 'src/assets/images/11.jpg',
+    img: '/assets/images/11.jpg',
     answers: {
       de: 'Grundgesetz',
       en: 'Basic Law',
