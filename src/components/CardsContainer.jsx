@@ -12,7 +12,7 @@ export function CardsContainer() {
   return (
     <Container gap="small" vertical justify="center" align="start">
       {data.map((question, index) => {
-        const img = `/src/assets/images/${question.id}.jpg`;
+        const img = `src/assets/images/${question.id}.jpg`;
         return (
           <Card
             key={question.id}
