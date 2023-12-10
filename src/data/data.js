@@ -1,3 +1,4 @@
+import img from '../assets/images/1.jpg';
 const data = [
   {
     id: 1,
@@ -6,7 +7,7 @@ const data = [
     ua: 'У Німеччині люди можуть відкрито висловлюватися проти уряду, тому що...',
     ru: 'В Германии люди могут открыто высказываться против правительства, потому что...',
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأن',
-    img: '/src/assets/images/1.jpg',
+    img: img,
     answers: {
       de: 'hier Meinungsfreiheit gilt',
       en: 'here freedom of speech applies',
