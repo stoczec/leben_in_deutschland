@@ -10,7 +10,7 @@ const CustomExpandIcon = ({ isActive }) =>
     <CaretRightOutlined style={{ fontSize: '20px', color: '#FFFFFF' }} />
   );
 
-const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
+const Card = ({ id, questionDe, answerDe, question, answer }) => {
   const { Text } = Typography;
   const itemsNest = [
     {
@@ -39,8 +39,8 @@ const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
         </StyledText>
       ),
       children: [
-        <Container gap="20px" align="center">
-          <StyledImage width={150} src={image} alt="Image" />
+        <Container align="center" justify="center">
+          {/* <StyledImage width={150} src={image} alt="Image" /> */}
           <StyledLabelText keyboard>{answerDe}</StyledLabelText>
         </Container>,
         <Collapse

@@ -1,4 +1,6 @@
-import img from '../assets/images/1.jpg';
+// import img1 from '../assets/images/1.jpg';
+// import img2 from '../assets/images/2.jpg';
+
 const data = [
   {
     id: 1,
@@ -7,7 +9,7 @@ const data = [
     ua: 'У Німеччині люди можуть відкрито висловлюватися проти уряду, тому що...',
     ru: 'В Германии люди могут открыто высказываться против правительства, потому что...',
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأن',
-    img: img,
+    // img: img1,
     answers: {
       de: 'hier Meinungsfreiheit gilt',
       en: 'here freedom of speech applies',
@@ -23,7 +25,7 @@ const data = [
     ua: 'У Німеччині батьки можуть вирішувати до 14 років своєї дитини, чи буде вона брати участь у школі на…',
     ru: 'В Германии родители могут решать до 14 лет своего ребенка, будет ли он участвовать в школе на…',
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأنفي ألمانيا، يمكن للوالدين أن يقرروا حتى السنة الرابعة عشر من عمر طفلهم ما إذا كان سيشارك في المدرسة في…',
-    img: 'src/assets/images/2.jpg',
+    // img: img2,
     answers: {
       de: 'Religionsunterricht teilnimmt.',
       en: 'participation in religious education.',
@@ -39,7 +41,7 @@ const data = [
     ua: 'Німеччина - це правова держава. Що це означає?',
     ru: 'Германия - это правовое государство. Что это значит?',
     ar: 'ألمانيا هي دولة قانون. ماذا يعني ذلك؟',
-    img: 'src/assets/images/3.jpg',
+    // img: 'src/assets/images/3.jpg',
     answers: {
       de: 'Alle Einwohner und Einwohnerinnen und der Staat müssen sich an die Gesetze halten.',
       en: 'All residents and the state itself must abide by the laws.',
@@ -55,7 +57,7 @@ const data = [
     ua: 'Яке право належить до основних прав в Німеччині?',
     ru: 'Какое право относится к основным правам в Германии?',
     ar: 'ما هو الحق الذي يعتبر من الحقوق الأساسية في ألمانيا؟',
-    img: 'src/assets/images/4.jpg',
+    // img: 'src/assets/images/4.jpg',
     answers: {
       de: 'Meinungsfreiheit',
       en: 'Freedom of speech',
@@ -71,7 +73,7 @@ const data = [
     ua: 'Вибори в Німеччині є вільними. Що це означає?',
     ru: 'Выборы в Германии свободны. Что это значит?',
     ar: 'الانتخابات في ألمانيا حرة. ماذا يعني ذلك؟',
-    img: 'src/assets/images/5.jpg',
+    // img: 'src/assets/images/5.jpg',
     answers: {
       de: 'Der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben.',
       en: 'The voter must not be influenced or forced to vote in a certain way and must not suffer any disadvantages from voting.',
@@ -87,7 +89,7 @@ const data = [
     ua: 'Як називається німецька конституція?',
     ru: 'Как называется немецкая конституция?',
     ar: 'ما اسم الدستور الألماني؟',
-    img: 'src/assets/images/6.jpg',
+    // img: 'src/assets/images/6.jpg',
     answers: {
       de: 'Grundgesetz',
       en: 'Basic Law',
@@ -103,7 +105,7 @@ const data = [
     ua: 'Яке право є одним з основних прав, гарантованих німецькою конституцією? Право на …',
     ru: 'Какое право является одним из основных прав, гарантированных немецкой конституцией? Право на …',
     ar: 'ما هو الحق الذي يعتبر من الحقوق الأساسية المضمونة بموجب الدستور الألماني؟ الحق في …',
-    img: 'src/assets/images/7.jpg',
+    // img: 'src/assets/images/7.jpg',
     answers: {
       de: 'Glaubens- und Gewissensfreiheit.',
       en: 'Freedom of belief and conscience.',
@@ -119,7 +121,7 @@ const data = [
     ua: 'Що не зазначено в Основному Законі Німеччини?',
     ru: 'Что не указано в Основном законе Германии?',
     ar: 'ما الذي لا يُذكر في القانون الأساسي لألمانيا؟',
-    img: 'src/assets/images/8.jpg',
+    // img: 'src/assets/images/8.jpg',
     answers: {
       de: 'Alle sollen gleich viel Geld haben.',
       en: 'Everyone should have the same amount of money.',
@@ -135,7 +137,7 @@ const data = [
     ua: 'Яке основне право в Німеччині застосовується тільки до іноземців? Основне право на…',
     ru: 'Какое основное право в Германии применяется только к иностранцам? Основное право на…',
     ar: 'ما هو الحق الأساسي في ألمانيا الذي ينطبق فقط على الأجانب؟ الحق الأساسي في…',
-    img: 'src/assets/images/9.jpg',
+    // img: 'src/assets/images/9.jpg',
     answers: {
       de: 'Asyl',
       en: 'Asylum',
@@ -151,7 +153,7 @@ const data = [
     ua: 'Що сумісно з Основним Законом Німеччини?',
     ru: 'Что совместимо с Основным законом Германии?',
     ar: 'ما الذي يتوافق مع القانون الأساسي الألماني؟',
-    img: 'src/assets/images/10.jpg',
+    // img: 'src/assets/images/10.jpg',
     answers: {
       de: 'die Geldstrafe',
       en: 'the fine',
@@ -167,7 +169,7 @@ const data = [
     ua: 'Як називається конституція Федеративної Республіки Німеччина?',
     ru: 'Как называется конституция Федеративной Республики Германия?',
     ar: 'ما اسم دستور جمهورية ألمانيا الاتحادية؟',
-    img: '/assets/images/11.jpg',
+    // img: '/assets/images/11.jpg',
     answers: {
       de: 'Grundgesetz',
       en: 'Basic Law',
@@ -183,7 +185,7 @@ const data = [
     ua: '',
     ru: '',
     ar: '',
-    img: 'src/assets/images/3.jpg',
+    // img: 'src/assets/images/3.jpg',
     answers: {
       de: '',
       en: '',

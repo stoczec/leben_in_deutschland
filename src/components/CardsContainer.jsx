@@ -11,20 +11,17 @@ export function CardsContainer() {
 
   return (
     <Container gap="small" vertical justify="center" align="start">
-      {data.map((question, index) => {
-        const img = `src/assets/images/${question.id}.jpg`;
-        return (
-          <Card
-            key={question.id}
-            id={question.id}
-            questionDe={question.de}
-            answerDe={question.answers.de}
-            question={question[language]}
-            answer={question.answers[language]}
-            image={img}
-          />
-        );
-      })}
+      {data.map((question, index) => (
+        <Card
+          key={question.id}
+          id={question.id}
+          questionDe={question.de}
+          answerDe={question.answers.de}
+          question={question[language]}
+          answer={question.answers[language]}
+          // image={question.img}
+        />
+      ))}
     </Container>
   );
 }
