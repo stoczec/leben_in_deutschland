@@ -19,7 +19,7 @@ export function CardsContainer() {
           answerDe={question.answers.de}
           question={question[language]}
           answer={question.answers[language]}
-          image={question.img}
+          image={`src/assets/images/${question.id}.jpg`}
         />
       ))}
     </Container>
