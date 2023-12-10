@@ -6,7 +6,7 @@ const data = [
     ua: 'У Німеччині люди можуть відкрито висловлюватися проти уряду, тому що...',
     ru: 'В Германии люди могут открыто высказываться против правительства, потому что...',
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأن',
-    img: '/assets/images/1.jpg',
+    img: '../assets/images/1.jpg',
     answers: {
       de: 'hier Meinungsfreiheit gilt',
       en: 'here freedom of speech applies',
