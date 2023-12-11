@@ -1,12 +1,27 @@
-import React, { useEffect, useRef } from 'react';
-import { FloatButton, Layout, Space, Typography } from 'antd';
+import React from 'react';
+import { FloatButton, Layout, Space, Typography, Flex, Divider } from 'antd';
+import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { LanguageSelector } from './LanguageSelector';
 import { CardsContainer } from './CardsContainer';
 import Starfield from 'react-starfield';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import linkedin from '../assets/linkedin.svg';
+import telegram from '../assets/telegram.svg';
+import whatsapp from '../assets/whatsapp.svg';
+
+const pulseAnimation = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
 
 const { Header, Footer, Content } = Layout;
-const { Title } = Typography;
 
 const layoutStyle = {
   display: 'flex',
@@ -21,7 +36,6 @@ const headerStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  // fontFamaly: 'Roboto',
 };
 
 const contentStyle = {
@@ -61,10 +75,40 @@ function App() {
             speedFactor={0.05}
             backgroundColor="black"
           />
-          <LanguageSelector />
+          <Flex gap={10}>
+            <AnimatedRightIcon />
+            <LanguageSelector />
+            <AnimatedLeftIcon />
+          </Flex>
+          <Divider style={{ backgroundColor: 'white' }} />
+          <StyledLabelText>FRAGEN</StyledLabelText>
+          <Divider style={{ backgroundColor: 'white' }} />
           <CardsContainer />
         </Content>
         <Footer style={footerStyle}>
+          <FooterLinks>
+            <a
+              href="https://t.me/DmytroHerashchenko"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <CustomImage src={telegram} alt="telegram" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/herashchenko-dmytro/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <CustomImage src={linkedin} alt="linkedin" />
+            </a>
+            <a
+              href="https://wa.me/+4915120495620"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <CustomImage src={whatsapp} alt="whatsapp" />
+            </a>
+          </FooterLinks>
           ©2023 Created by Dmytro Herashchenko
         </Footer>
         <FloatButton.BackTop visibilityHeight={0} />
@@ -93,4 +137,34 @@ const CustomTitle = styled.p`
       background-position: 100% 50%;
     }
   }
+`;
+
+const AnimatedRightIcon = styled(ArrowRightOutlined)`
+  animation: ${pulseAnimation} 1s infinite;
+  font-weight: bolder;
+  font-size: 20px;
+  color: #f00;
+`;
+
+const AnimatedLeftIcon = styled(ArrowLeftOutlined)`
+  animation: ${pulseAnimation} 1s infinite;
+  font-weight: bolder;
+  font-size: 20px;
+  color: #f00;
+`;
+
+const StyledLabelText = styled(Typography.Text)`
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: bold;
+`;
+
+const FooterLinks = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+`;
+
+const CustomImage = styled.img`
+  width: 32px;
 `;

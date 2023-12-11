@@ -10,7 +10,7 @@ const CustomExpandIcon = ({ isActive }) =>
     <CaretRightOutlined style={{ fontSize: '20px', color: '#FFFFFF' }} />
   );
 
-const Card = ({ id, questionDe, answerDe, question, answer }) => {
+const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
   const { Text } = Typography;
   const itemsNest = [
     {
@@ -39,8 +39,8 @@ const Card = ({ id, questionDe, answerDe, question, answer }) => {
         </StyledText>
       ),
       children: [
-        <Container align="center" justify="center">
-          {/* <StyledImage width={150} src={image} alt="Image" /> */}
+        <Container align="center" gap={15}>
+          <StyledImage width={150} src={image} alt="Image" />
           <StyledLabelText keyboard>{answerDe}</StyledLabelText>
         </Container>,
         <Collapse
@@ -74,6 +74,7 @@ const StyledCollapse = styled(Collapse)`
   .ant-collapse-header {
     background-color: #242323;
   }
+
   .ant-collapse-content-box {
     background-color: #faebd7;
   }

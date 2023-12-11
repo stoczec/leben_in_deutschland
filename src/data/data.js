@@ -1,5 +1,16 @@
-// import img1 from '../assets/images/1.jpg';
-// import img2 from '../assets/images/2.jpg';
+import img1 from '../assets/images/1.jpg';
+import img2 from '../assets/images/2.jpg';
+import img3 from '../assets/images/3.jpg';
+import img4 from '../assets/images/4.jpg';
+import img5 from '../assets/images/5.jpg';
+import img6 from '../assets/images/6.jpg';
+import img7 from '../assets/images/7.jpg';
+import img8 from '../assets/images/8.jpg';
+import img9 from '../assets/images/9.jpg';
+import img10 from '../assets/images/10.jpg';
+import img11 from '../assets/images/11.jpg';
+import img12 from '../assets/images/12.jpg';
+import img13 from '../assets/images/13.jpg';
 
 const data = [
   {
@@ -9,7 +20,7 @@ const data = [
     ua: 'У Німеччині люди можуть відкрито висловлюватися проти уряду, тому що...',
     ru: 'В Германии люди могут открыто высказываться против правительства, потому что...',
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأن',
-    // img: img1,
+    img: img1,
     answers: {
       de: 'hier Meinungsfreiheit gilt',
       en: 'here freedom of speech applies',
@@ -25,7 +36,7 @@ const data = [
     ua: 'У Німеччині батьки можуть вирішувати до 14 років своєї дитини, чи буде вона брати участь у школі на…',
     ru: 'В Германии родители могут решать до 14 лет своего ребенка, будет ли он участвовать в школе на…',
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأنفي ألمانيا، يمكن للوالدين أن يقرروا حتى السنة الرابعة عشر من عمر طفلهم ما إذا كان سيشارك في المدرسة في…',
-    // img: img2,
+    img: img2,
     answers: {
       de: 'Religionsunterricht teilnimmt.',
       en: 'participation in religious education.',
@@ -41,7 +52,7 @@ const data = [
     ua: 'Німеччина - це правова держава. Що це означає?',
     ru: 'Германия - это правовое государство. Что это значит?',
     ar: 'ألمانيا هي دولة قانون. ماذا يعني ذلك؟',
-    // img: 'src/assets/images/3.jpg',
+    img: img3,
     answers: {
       de: 'Alle Einwohner und Einwohnerinnen und der Staat müssen sich an die Gesetze halten.',
       en: 'All residents and the state itself must abide by the laws.',
@@ -57,7 +68,7 @@ const data = [
     ua: 'Яке право належить до основних прав в Німеччині?',
     ru: 'Какое право относится к основным правам в Германии?',
     ar: 'ما هو الحق الذي يعتبر من الحقوق الأساسية في ألمانيا؟',
-    // img: 'src/assets/images/4.jpg',
+    img: img4,
     answers: {
       de: 'Meinungsfreiheit',
       en: 'Freedom of speech',
@@ -73,7 +84,7 @@ const data = [
     ua: 'Вибори в Німеччині є вільними. Що це означає?',
     ru: 'Выборы в Германии свободны. Что это значит?',
     ar: 'الانتخابات في ألمانيا حرة. ماذا يعني ذلك؟',
-    // img: 'src/assets/images/5.jpg',
+    img: img5,
     answers: {
       de: 'Der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben.',
       en: 'The voter must not be influenced or forced to vote in a certain way and must not suffer any disadvantages from voting.',
@@ -89,7 +100,7 @@ const data = [
     ua: 'Як називається німецька конституція?',
     ru: 'Как называется немецкая конституция?',
     ar: 'ما اسم الدستور الألماني؟',
-    // img: 'src/assets/images/6.jpg',
+    img: img6,
     answers: {
       de: 'Grundgesetz',
       en: 'Basic Law',
@@ -105,7 +116,7 @@ const data = [
     ua: 'Яке право є одним з основних прав, гарантованих німецькою конституцією? Право на …',
     ru: 'Какое право является одним из основных прав, гарантированных немецкой конституцией? Право на …',
     ar: 'ما هو الحق الذي يعتبر من الحقوق الأساسية المضمونة بموجب الدستور الألماني؟ الحق في …',
-    // img: 'src/assets/images/7.jpg',
+    img: img7,
     answers: {
       de: 'Glaubens- und Gewissensfreiheit.',
       en: 'Freedom of belief and conscience.',
@@ -121,7 +132,7 @@ const data = [
     ua: 'Що не зазначено в Основному Законі Німеччини?',
     ru: 'Что не указано в Основном законе Германии?',
     ar: 'ما الذي لا يُذكر في القانون الأساسي لألمانيا؟',
-    // img: 'src/assets/images/8.jpg',
+    img: img8,
     answers: {
       de: 'Alle sollen gleich viel Geld haben.',
       en: 'Everyone should have the same amount of money.',
@@ -137,7 +148,7 @@ const data = [
     ua: 'Яке основне право в Німеччині застосовується тільки до іноземців? Основне право на…',
     ru: 'Какое основное право в Германии применяется только к иностранцам? Основное право на…',
     ar: 'ما هو الحق الأساسي في ألمانيا الذي ينطبق فقط على الأجانب؟ الحق الأساسي في…',
-    // img: 'src/assets/images/9.jpg',
+    img: img9,
     answers: {
       de: 'Asyl',
       en: 'Asylum',
@@ -153,7 +164,7 @@ const data = [
     ua: 'Що сумісно з Основним Законом Німеччини?',
     ru: 'Что совместимо с Основным законом Германии?',
     ar: 'ما الذي يتوافق مع القانون الأساسي الألماني؟',
-    // img: 'src/assets/images/10.jpg',
+    img: img10,
     answers: {
       de: 'die Geldstrafe',
       en: 'the fine',
@@ -169,7 +180,7 @@ const data = [
     ua: 'Як називається конституція Федеративної Республіки Німеччина?',
     ru: 'Как называется конституция Федеративной Республики Германия?',
     ar: 'ما اسم دستور جمهورية ألمانيا الاتحادية؟',
-    // img: '/assets/images/11.jpg',
+    img: img11,
     answers: {
       de: 'Grundgesetz',
       en: 'Basic Law',
@@ -180,20 +191,52 @@ const data = [
   },
   {
     id: 12,
-    de: '',
-    en: '',
-    ua: '',
-    ru: '',
-    ar: '',
-    // img: 'src/assets/images/3.jpg',
+    de: 'Eine Partei im Deutschen Bundestag will die Pressefreiheit abschaffen. Ist das möglich?',
+    en: 'A party in the German Bundestag wants to abolish press freedom. Is that possible?',
+    ua: 'Партія в Німецькому Бундестазі хоче скасувати свободу преси. Чи це можливо?',
+    ru: 'Партия в Немецком Бундестаге хочет отменить свободу прессы. Возможно ли это?',
+    ar: 'تريد حزب في البوندستاغ الألماني إلغاء حرية الصحافة. هل هذا ممكن؟',
+    img: img12,
     answers: {
-      de: '',
-      en: '',
-      ua: '',
-      ru: '',
-      ar: '',
+      de: 'Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden.',
+      en: 'No, because press freedom is a fundamental right. It cannot be abolished.',
+      ua: 'Ні, оскільки свобода преси є основним правом. Її не можна скасувати.',
+      ru: 'Нет, потому что свобода прессы является основным правом. Ее нельзя отменить.',
+      ar: 'لا، لأن حرية الصحافة هي حق أساسي. لا يمكن إلغاؤها.',
     },
   },
+  {
+    id: 13,
+    de: 'Im Parlament steht der Begriff “Opposition” für…',
+    en: 'In the parliament, the term “opposition” stands for…',
+    ua: 'У парламенті термін “опозиція” означає…',
+    ru: 'В парламенте термин “оппозиция” означает…',
+    ar: 'في البرلمان، يشير مصطلح “المعارضة” إلى…',
+    img: img13,
+    answers: {
+      de: 'alle Abgeordneten, die nicht zu der Regierungspartei/den Regierungsparteien gehören.',
+      en: 'all members who do not belong to the governing party/parties.',
+      ua: 'всіх депутатів, які не належать до партії/партій, що правлять.',
+      ru: 'всех депутатов, которые не принадлежат к правящей партии/партиям.',
+      ar: 'جميع الأعضاء الذين لا ينتمون إلى الحزب/الأحزاب الحاكمة.',
+    },
+  },
+  // {
+  //   id: 14,
+  //   de: '',
+  //   en: '',
+  //   ua: '',
+  //   ru: '',
+  //   ar: '',
+  //   // img: img14,
+  //   answers: {
+  //     de: '',
+  //     en: '',
+  //     ua: '',
+  //     ru: '',
+  //     ar: '',
+  //   },
+  // },
 ];
 
 export default data;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { LanguageSelector } from './LanguageSelector';
 import Card from './Card';
 import data from '../data/data';
 import { useLanguage } from '../providers/LanguageProvider';
@@ -19,7 +18,7 @@ export function CardsContainer() {
           answerDe={question.answers.de}
           question={question[language]}
           answer={question.answers[language]}
-          // image={question.img}
+          image={question.img}
         />
       ))}
     </Container>
