@@ -11,6 +11,8 @@ import img10 from '../assets/images/10.jpg';
 import img11 from '../assets/images/11.jpg';
 import img12 from '../assets/images/12.jpg';
 import img13 from '../assets/images/13.jpg';
+import img14 from '../assets/images/14.jpg';
+import img15 from '../assets/images/15.jpg';
 
 const data = [
   {
@@ -221,14 +223,46 @@ const data = [
       ar: 'جميع الأعضاء الذين لا ينتمون إلى الحزب/الأحزاب الحاكمة.',
     },
   },
+  {
+    id: 14,
+    de: 'Meinungsfreiheit in Deutschland heißt, dass ich ...',
+    en: 'Freedom of speech in Germany means that I …',
+    ua: 'Свобода слова в Німеччині означає, що я …',
+    ru: 'Свобода слова в Германии означает, что я …',
+    ar: 'حرية التعبير في ألمانيا تعني أنني …',
+    img: img14,
+    answers: {
+      de: 'meine Meinung in Leserbriefen äußern kann.',
+      en: 'can express my opinion in letters to the editor.',
+      ua: 'можу висловлювати свою думку в листах до редакції.',
+      ru: 'могу выражать свое мнение в письмах в редакцию.',
+      ar: 'يمكنني التعبير عن رأيي في رسائل إلى المحرر.',
+    },
+  },
+  {
+    id: 15,
+    de: 'Was verbietet das deutsche Grundgesetz?',
+    en: 'What does the German Basic Law prohibit?',
+    ua: 'Що забороняє Основний Закон Німеччини?',
+    ru: 'Что запрещает Основной закон Германии?',
+    ar: 'ماذا يحظر القانون الأساسي الألماني؟',
+    img: img15,
+    answers: {
+      de: 'Zwangsarbeit',
+      en: 'Forced labor',
+      ua: 'Примусова праця',
+      ru: 'Принудительный труд',
+      ar: 'العمل القسري',
+    },
+  },
   // {
-  //   id: 14,
+  //   id: 16,
   //   de: '',
   //   en: '',
   //   ua: '',
   //   ru: '',
   //   ar: '',
-  //   // img: img14,
+  //   // img: img16,
   //   answers: {
   //     de: '',
   //     en: '',

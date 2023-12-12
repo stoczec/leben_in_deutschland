@@ -81,8 +81,6 @@ function App() {
             <AnimatedLeftIcon />
           </Flex>
           <Divider style={{ backgroundColor: 'white' }} />
-          <StyledLabelText>FRAGEN</StyledLabelText>
-          <Divider style={{ backgroundColor: 'white' }} />
           <CardsContainer />
         </Content>
         <Footer style={footerStyle}>
@@ -111,7 +109,7 @@ function App() {
           </FooterLinks>
           ©2023 Created by Dmytro Herashchenko
         </Footer>
-        <FloatButton.BackTop visibilityHeight={0} />
+        <FloatButton.BackTop />
       </Layout>
     </Space>
   );

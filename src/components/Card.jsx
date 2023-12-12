@@ -1,6 +1,7 @@
 import React from 'react';
 import { Collapse, Flex, Image, Typography, Badge } from 'antd';
 import { CaretRightOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { useLanguage } from '../providers/LanguageProvider';
 import styled from 'styled-components';
 
 const CustomExpandIcon = ({ isActive }) =>
@@ -11,7 +12,8 @@ const CustomExpandIcon = ({ isActive }) =>
   );
 
 const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
-  const { Text } = Typography;
+  const { language } = useLanguage();
+
   const itemsNest = [
     {
       key: id,
@@ -43,11 +45,13 @@ const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
           <StyledImage width={150} src={image} alt="Image" />
           <StyledLabelText keyboard>{answerDe}</StyledLabelText>
         </Container>,
-        <Collapse
-          defaultActiveKey="1"
-          items={itemsNest}
-          expandIcon={CustomExpandIcon}
-        />,
+        language !== 'de' && (
+          <Collapse
+            defaultActiveKey="1"
+            items={itemsNest}
+            expandIcon={CustomExpandIcon}
+          />
+        ),
       ],
     },
   ];
@@ -61,6 +65,7 @@ const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
       items={items}
       size="large"
       expandIcon={CustomExpandIcon}
+      ghost="true"
     />
   );
 };
