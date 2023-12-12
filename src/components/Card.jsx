@@ -6,9 +6,9 @@ import styled from 'styled-components';
 
 const CustomExpandIcon = ({ isActive }) =>
   isActive ? (
-    <CaretDownOutlined style={{ fontSize: '20px', color: '#FFFFFF' }} />
+    <CaretDownOutlined style={{ fontSize: '16px', color: '#FFFFFF' }} />
   ) : (
-    <CaretRightOutlined style={{ fontSize: '20px', color: '#FFFFFF' }} />
+    <CaretRightOutlined style={{ fontSize: '16px', color: '#FFFFFF' }} />
   );
 
 const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
@@ -17,39 +17,43 @@ const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
   const itemsNest = [
     {
       key: id,
-      label: <StyledText>{question}</StyledText>,
-      children: <StyledLabelText keyboard>{answer}</StyledLabelText>,
+      label: (
+        <StyledTextHeader>
+          <StyledBadge text={language} size="small" />
+          {question}
+        </StyledTextHeader>
+      ),
+      children: <StyledLabelText>{answer}</StyledLabelText>,
     },
   ];
   const items = [
     {
       key: id,
       label: (
-        <StyledText>
-          <Flex gap={15}>
-            <Badge
-              count={id}
-              style={{
-                backgroundColor: '#52c41a',
-                fontSize: '16px',
-                fontWeight: 'bold',
-              }}
-              overflowCount={999}
-            />{' '}
-            {questionDe}
-          </Flex>
-        </StyledText>
+        <Flex gap={10}>
+          <Badge
+            count={id}
+            style={{
+              backgroundColor: '#52c41a',
+              fontSize: '16px',
+              fontWeight: 'bold',
+            }}
+            overflowCount={999}
+          />{' '}
+          <StyledTextHeaderDe>{questionDe}</StyledTextHeaderDe>
+        </Flex>
       ),
       children: [
-        <Container align="center" gap={15}>
+        <Container vertical align="center" gap={10}>
           <StyledImage width={150} src={image} alt="Image" />
-          <StyledLabelText keyboard>{answerDe}</StyledLabelText>
+          <StyledLabelTextDe>{answerDe}</StyledLabelTextDe>
         </Container>,
         language !== 'de' && (
           <Collapse
             defaultActiveKey="1"
             items={itemsNest}
             expandIcon={CustomExpandIcon}
+            ghost="true"
           />
         ),
       ],
@@ -65,7 +69,7 @@ const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
       items={items}
       size="large"
       expandIcon={CustomExpandIcon}
-      ghost="true"
+      // ghost="true"
     />
   );
 };
@@ -76,12 +80,23 @@ const Container = styled(Flex)`
 `;
 
 const StyledCollapse = styled(Collapse)`
+  background-color: #242323;
+  border-color: #7272713e;
   .ant-collapse-header {
     background-color: #242323;
+    padding: 5px !important;
   }
 
   .ant-collapse-content-box {
-    background-color: #faebd7;
+    background-color: #7272713e;
+    padding: 3px !important;
+    border-radius: 5px;
+  }
+  .ant-collapse-content {
+    background-color: #7272713e;
+  }
+  .ant-collapse-item {
+    border-bottom: 1px solid #7272713e !important ;
   }
 `;
 
@@ -91,15 +106,44 @@ const StyledImage = styled(Image)`
     border-radius: 8px;
   }
 `;
-const StyledText = styled.p`
+const StyledTextHeader = styled.p`
+  color: #f0ffff;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Afacad', sans-serif;
+  position: relative;
+`;
+
+const StyledTextHeaderDe = styled.p`
   color: #f0ffff;
   font-size: 16px;
   font-weight: bold;
   font-family: 'Afacad', sans-serif;
 `;
 
+const StyledLabelTextDe = styled(Typography.Text)`
+  color: #242323;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #f0ffff;
+  padding-inline: 5px;
+  border-radius: 5px;
+`;
 const StyledLabelText = styled(Typography.Text)`
   color: #242323;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
+  background-color: #f0ffff;
+  padding-inline: 5px;
+  border-radius: 5px;
+`;
+
+const StyledBadge = styled(Badge.Ribbon)`
+  /* width: 10%; */
+  position: absolute;
+  top: -20px;
+  /* transform: translateY(-50%); */
+  /* right: -50px; */
+  /* font-size: 20px; */
+  font-weight: bolder;
 `;

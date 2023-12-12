@@ -26,5 +26,5 @@ export function CardsContainer() {
 }
 
 const Container = styled(Flex)`
-  width: 90%;
+  width: 99%;
 `;
