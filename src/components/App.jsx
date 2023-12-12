@@ -51,8 +51,8 @@ const contentStyle = {
 
 const footerStyle = {
   textAlign: 'center',
-  color: '#fff',
-  backgroundColor: '#D2B48C',
+  color: '#d8d8d8',
+  backgroundColor: '#262626',
   padding: '10px 0',
 };
 function App() {
@@ -80,7 +80,7 @@ function App() {
             <LanguageSelector />
             <AnimatedLeftIcon />
           </Flex>
-          <Divider style={{ backgroundColor: 'white' }} />
+          <Divider style={{ backgroundColor: '#d8d8d8' }} />
           <CardsContainer />
         </Content>
         <Footer style={footerStyle}>
@@ -109,7 +109,7 @@ function App() {
           </FooterLinks>
           ©2023 Created by Dmytro Herashchenko
         </Footer>
-        <FloatButton.BackTop />
+        <CustomFloatButton />
       </Layout>
     </Space>
   );
@@ -123,7 +123,6 @@ const CustomTitle = styled.p`
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* text-fill-color: transparent; */
   background-size: 150% auto;
   animation: textShine 5s ease-in-out infinite alternate;
 
@@ -151,12 +150,6 @@ const AnimatedLeftIcon = styled(ArrowLeftOutlined)`
   color: #f00;
 `;
 
-const StyledLabelText = styled(Typography.Text)`
-  color: #ffffff;
-  font-size: 40px;
-  font-weight: bold;
-`;
-
 const FooterLinks = styled.div`
   display: flex;
   justify-content: center;
@@ -165,4 +158,10 @@ const FooterLinks = styled.div`
 
 const CustomImage = styled.img`
   width: 32px;
+`;
+
+const CustomFloatButton = styled(FloatButton.BackTop)`
+  .ant-float-btn-body {
+    background-color: #d8d8d8 !important;
+  }
 `;

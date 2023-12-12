@@ -55,6 +55,10 @@ const StyledBadge = styled(Badge.Ribbon)`
 `;
 
 const StyledSelect = styled(Select)`
+  * {
+    background-color: #d8d8d8 !important;
+  }
+
   .ant-select-selection-item {
     font-size: 15px;
     font-weight: bolder;

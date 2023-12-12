@@ -6,9 +6,9 @@ import styled from 'styled-components';
 
 const CustomExpandIcon = ({ isActive }) =>
   isActive ? (
-    <CaretDownOutlined style={{ fontSize: '16px', color: '#FFFFFF' }} />
+    <CaretDownOutlined style={{ fontSize: '16px', color: '#d8d8d8' }} />
   ) : (
-    <CaretRightOutlined style={{ fontSize: '16px', color: '#FFFFFF' }} />
+    <CaretRightOutlined style={{ fontSize: '16px', color: '#d8d8d8' }} />
   );
 
 const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
@@ -34,7 +34,9 @@ const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
           <Badge
             count={id}
             style={{
+              color: '#d8d8d8',
               backgroundColor: '#52c41a',
+              borderColor: '#d8d8d8',
               fontSize: '16px',
               fontWeight: 'bold',
             }}
@@ -80,6 +82,7 @@ const Container = styled(Flex)`
 `;
 
 const StyledCollapse = styled(Collapse)`
+  width: 100%;
   background-color: #242323;
   border-color: #7272713e;
   .ant-collapse-header {
@@ -93,7 +96,8 @@ const StyledCollapse = styled(Collapse)`
     border-radius: 5px;
   }
   .ant-collapse-content {
-    background-color: #7272713e;
+    background-color: #7272714b;
+    border-top: none;
   }
   .ant-collapse-item {
     border-bottom: 1px solid #7272713e !important ;
@@ -107,7 +111,7 @@ const StyledImage = styled(Image)`
   }
 `;
 const StyledTextHeader = styled.p`
-  color: #f0ffff;
+  color: #d8d8d8;
   font-size: 14px;
   font-weight: bold;
   font-family: 'Afacad', sans-serif;
@@ -115,7 +119,7 @@ const StyledTextHeader = styled.p`
 `;
 
 const StyledTextHeaderDe = styled.p`
-  color: #f0ffff;
+  color: #d8d8d8;
   font-size: 16px;
   font-weight: bold;
   font-family: 'Afacad', sans-serif;
@@ -125,7 +129,7 @@ const StyledLabelTextDe = styled(Typography.Text)`
   color: #242323;
   font-size: 16px;
   font-weight: bold;
-  background-color: #f0ffff;
+  background-color: #d8d8d8;
   padding-inline: 5px;
   border-radius: 5px;
 `;
@@ -133,7 +137,7 @@ const StyledLabelText = styled(Typography.Text)`
   color: #242323;
   font-size: 16px;
   font-weight: bold;
-  background-color: #f0ffff;
+  background-color: #d8d8d8;
   padding-inline: 5px;
   border-radius: 5px;
 `;

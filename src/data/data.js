@@ -13,6 +13,8 @@ import img12 from '../assets/images/12.jpg';
 import img13 from '../assets/images/13.jpg';
 import img14 from '../assets/images/14.jpg';
 import img15 from '../assets/images/15.jpg';
+import img16 from '../assets/images/16.jpg';
+import img17 from '../assets/images/17.jpg';
 
 const data = [
   {
@@ -255,14 +257,46 @@ const data = [
       ar: 'العمل القسري',
     },
   },
+  {
+    id: 16,
+    de: 'Wann ist die Meinungsfreiheit in Deutschland eingeschränkt?',
+    en: 'When is freedom of speech restricted in Germany?',
+    ua: 'Коли обмежується свобода слова в Німеччині?',
+    ru: 'Когда в Германии ограничивается свобода слова?',
+    ar: 'متى تكون حرية التعبير مقيدة في ألمانيا؟',
+    img: img16,
+    answers: {
+      de: 'bei der öffentlichen Verbreitung falscher Behauptungen über einzelne Personen',
+      en: 'when false claims about individuals are spread publicly',
+      ua: 'при публічному поширенні неправдивих тверджень про окремих осіб',
+      ru: 'при публичном распространении ложных утверждений о конкретных лицах',
+      ar: 'عند نشر ادعاءات كاذبة عن أفراد بشكل عام',
+    },
+  },
+  {
+    id: 17,
+    de: 'Die deutschen Gesetze verbieten …',
+    en: 'German laws prohibit …',
+    ua: 'Німецькі закони забороняють …',
+    ru: 'Немецкие законы запрещают …',
+    ar: 'القوانين الألمانية تحظر …',
+    img: img17,
+    answers: {
+      de: 'Ungleichbehandlung der Bürger und Bürgerinnen durch den Staat.',
+      en: 'Unequal treatment of citizens by the state.',
+      ua: 'Нерівне ставлення до громадян з боку держави.',
+      ru: 'Неравное обращение с гражданами со стороны государства.',
+      ar: 'المعاملة غير المتساوية للمواطنين من قبل الدولة.',
+    },
+  },
   // {
-  //   id: 16,
+  //   id: 18,
   //   de: '',
   //   en: '',
   //   ua: '',
   //   ru: '',
   //   ar: '',
-  //   // img: img16,
+  //   // img: img18,
   //   answers: {
   //     de: '',
   //     en: '',
