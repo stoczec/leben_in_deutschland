@@ -47,7 +47,7 @@ const Container = styled(Flex)`
 const StyledBadge = styled(Badge.Ribbon)`
   width: 20%;
   position: absolute;
-  top: 20%;
+  top: 30%;
   transform: translateY(-50%);
   right: 0;
   font-size: 20px;

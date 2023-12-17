@@ -70,15 +70,15 @@ function App() {
         </Header>
         <Content style={contentStyle}>
           <Starfield
-            starCount={2000}
-            starColor={[255, 255, 255]}
+            starCount={500}
+            starColor={[216, 216, 216]}
             speedFactor={0.05}
             backgroundColor="black"
           />
           <Flex gap={10}>
-            <AnimatedRightIcon />
+            {/* <AnimatedRightIcon /> */}
             <LanguageSelector />
-            <AnimatedLeftIcon />
+            {/* <AnimatedLeftIcon /> */}
           </Flex>
           <Divider style={{ backgroundColor: '#d8d8d8' }} />
           <CardsContainer />

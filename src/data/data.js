@@ -15,6 +15,9 @@ import img14 from '../assets/images/14.jpg';
 import img15 from '../assets/images/15.jpg';
 import img16 from '../assets/images/16.jpg';
 import img17 from '../assets/images/17.jpg';
+import img18 from '../assets/images/18.jpg';
+import img19 from '../assets/images/19.jpg';
+import img20 from '../assets/images/20.jpg';
 
 const data = [
   {
@@ -289,22 +292,70 @@ const data = [
       ar: 'المعاملة غير المتساوية للمواطنين من قبل الدولة.',
     },
   },
-  // {
-  //   id: 18,
-  //   de: '',
-  //   en: '',
-  //   ua: '',
-  //   ru: '',
-  //   ar: '',
-  //   // img: img18,
-  //   answers: {
-  //     de: '',
-  //     en: '',
-  //     ua: '',
-  //     ru: '',
-  //     ar: '',
-  //   },
-  // },
+  {
+    id: 18,
+    de: 'Welches Grundrecht ist in Artikel 1 des Grundgesetzes der Bundesrepublik Deutschland garantiert?',
+    en: 'Which fundamental right is guaranteed in Article 1 of the Basic Law of the Federal Republic of Germany?',
+    ua: 'Яке основне право гарантується в першій статі конституції Німеччини?',
+    ru: 'Какое основное право гарантируется в статье 1 Основного закона Федеративной Республики Германия?',
+    ar: 'ما هو الحق الأساسي الذي يكفله المادة 1 من القانون الأساسي لجمهورية ألمانيا الاتحادية؟',
+    img: img18,
+    answers: {
+      de: 'Die Unantastbarkeit der Menschenwürde',
+      en: 'The inviolability of human dignity',
+      ua: 'Недоторканість людської гідності',
+      ru: 'Неприкосновенность человеческого достоинства',
+      ar: 'الحرمة الغير قابلة للمساس لكرامة الإنسان',
+    },
+  },
+  {
+    id: 19,
+    de: 'Was versteht man unter dem Recht der „Freizügigkeit“ in Deutschland?',
+    en: 'What is meant by the right of “freedom of movement” in Germany?',
+    ua: 'Що розуміють під правом на “вільне пересування” в Німеччині?',
+    ru: 'Что понимают под правом на “свободу передвижения” в Германии?',
+    ar: 'ماذا يعني حق “حرية التنقل” في ألمانيا؟',
+    img: img19,
+    answers: {
+      de: 'Man darf sich seinen Wohnort selbst aussuchen.',
+      en: 'One is allowed to choose one’s own place of residence.',
+      ua: 'Кожен може сам вибрати місце свого проживання.',
+      ru: 'Каждый может сам выбрать место своего проживания.',
+      ar: 'يُسمح للشخص باختيار مكان إقامته بنفسه.',
+    },
+  },
+  {
+    id: 20,
+    de: 'Eine Partei in Deutschland verfolgt das Ziel, eine Diktatur zu errichten. Sie ist dann …',
+    en: 'A party in Germany aims to establish a dictatorship. It is then …',
+    ua: 'Партія в Німеччині має на меті встановити диктатуру. Вона тоді …',
+    ru: 'Партия в Германии стремится установить диктатуру. Тогда она …',
+    ar: 'حزب في ألمانيا يهدف إلى إقامة ديكتاتورية. إذاً هو …',
+    img: img20,
+    answers: {
+      de: 'verfassungswidrig',
+      en: 'unconstitutional',
+      ua: 'антиконституційна',
+      ru: 'антиконституционна',
+      ar: 'غير دستوري',
+    },
+  },
+  {
+    id: 21,
+    de: '',
+    en: '',
+    ua: '',
+    ru: '',
+    ar: '',
+    // img: img21,
+    answers: {
+      de: '',
+      en: '',
+      ua: '',
+      ru: '',
+      ar: '',
+    },
+  },
 ];
 
 export default data;

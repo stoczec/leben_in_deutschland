@@ -35,7 +35,7 @@ const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
             count={id}
             style={{
               color: '#d8d8d8',
-              backgroundColor: '#52c41a',
+              backgroundColor: '#3A2D6B',
               borderColor: '#d8d8d8',
               fontSize: '16px',
               fontWeight: 'bold',
