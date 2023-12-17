@@ -340,22 +340,22 @@ const data = [
       ar: 'غير دستوري',
     },
   },
-  {
-    id: 21,
-    de: '',
-    en: '',
-    ua: '',
-    ru: '',
-    ar: '',
-    // img: img21,
-    answers: {
-      de: '',
-      en: '',
-      ua: '',
-      ru: '',
-      ar: '',
-    },
-  },
+  // {
+  //   id: 21,
+  //   de: '',
+  //   en: '',
+  //   ua: '',
+  //   ru: '',
+  //   ar: '',
+  //   // img: img21,
+  //   answers: {
+  //     de: '',
+  //     en: '',
+  //     ua: '',
+  //     ru: '',
+  //     ar: '',
+  //   },
+  // },
 ];
 
 export default data;
