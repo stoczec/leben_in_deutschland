@@ -18,6 +18,9 @@ import img17 from '../assets/images/17.jpg';
 import img18 from '../assets/images/18.jpg';
 import img19 from '../assets/images/19.jpg';
 import img20 from '../assets/images/20.jpg';
+import img21 from '../assets/images/21.jpg';
+import img22 from '../assets/images/22.jpg';
+import img23 from '../assets/images/23.jpg';
 
 const data = [
   {
@@ -29,6 +32,7 @@ const data = [
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأن',
     img: img1,
     answers: {
+      ansKey: 4,
       de: 'hier Meinungsfreiheit gilt',
       en: 'here freedom of speech applies',
       ua: 'тут існує свобода слова',
@@ -45,6 +49,7 @@ const data = [
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأنفي ألمانيا، يمكن للوالدين أن يقرروا حتى السنة الرابعة عشر من عمر طفلهم ما إذا كان سيشارك في المدرسة في…',
     img: img2,
     answers: {
+      ansKey: 2,
       de: 'Religionsunterricht teilnimmt.',
       en: 'participation in religious education.',
       ua: 'участь у релігійному навчанні.',
@@ -61,6 +66,7 @@ const data = [
     ar: 'ألمانيا هي دولة قانون. ماذا يعني ذلك؟',
     img: img3,
     answers: {
+      ansKey: 1,
       de: 'Alle Einwohner und Einwohnerinnen und der Staat müssen sich an die Gesetze halten.',
       en: 'All residents and the state itself must abide by the laws.',
       ua: 'Усі мешканці та сама держава повинні дотримуватися законів.',
@@ -77,6 +83,7 @@ const data = [
     ar: 'ما هو الحق الذي يعتبر من الحقوق الأساسية في ألمانيا؟',
     img: img4,
     answers: {
+      ansKey: 3,
       de: 'Meinungsfreiheit',
       en: 'Freedom of speech',
       ua: 'Свобода слова',
@@ -93,6 +100,7 @@ const data = [
     ar: 'الانتخابات في ألمانيا حرة. ماذا يعني ذلك؟',
     img: img5,
     answers: {
+      ansKey: 3,
       de: 'Der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben.',
       en: 'The voter must not be influenced or forced to vote in a certain way and must not suffer any disadvantages from voting.',
       ua: 'Виборець не повинен бути впливований або змушений голосувати певним чином і не повинен мати жодних недоліків від голосування.',
@@ -109,6 +117,7 @@ const data = [
     ar: 'ما اسم الدستور الألماني؟',
     img: img6,
     answers: {
+      ansKey: 4,
       de: 'Grundgesetz',
       en: 'Basic Law',
       ua: 'Основний Закон',
@@ -125,6 +134,7 @@ const data = [
     ar: 'ما هو الحق الذي يعتبر من الحقوق الأساسية المضمونة بموجب الدستور الألماني؟ الحق في …',
     img: img7,
     answers: {
+      ansKey: 1,
       de: 'Glaubens- und Gewissensfreiheit.',
       en: 'Freedom of belief and conscience.',
       ua: 'Свободу віросповідання та совісті.',
@@ -141,6 +151,7 @@ const data = [
     ar: 'ما الذي لا يُذكر في القانون الأساسي لألمانيا؟',
     img: img8,
     answers: {
+      ansKey: 2,
       de: 'Alle sollen gleich viel Geld haben.',
       en: 'Everyone should have the same amount of money.',
       ua: 'Усі повинні мати однакову кількість грошей.',
@@ -157,6 +168,7 @@ const data = [
     ar: 'ما هو الحق الأساسي في ألمانيا الذي ينطبق فقط على الأجانب؟ الحق الأساسي في…',
     img: img9,
     answers: {
+      ansKey: 3,
       de: 'Asyl',
       en: 'Asylum',
       ua: 'Політичний притулок',
@@ -173,6 +185,7 @@ const data = [
     ar: 'ما الذي يتوافق مع القانون الأساسي الألماني؟',
     img: img10,
     answers: {
+      ansKey: 4,
       de: 'die Geldstrafe',
       en: 'the fine',
       ua: 'штраф',
@@ -189,6 +202,7 @@ const data = [
     ar: 'ما اسم دستور جمهورية ألمانيا الاتحادية؟',
     img: img11,
     answers: {
+      ansKey: 1,
       de: 'Grundgesetz',
       en: 'Basic Law',
       ua: 'Основний Закон',
@@ -205,6 +219,7 @@ const data = [
     ar: 'تريد حزب في البوندستاغ الألماني إلغاء حرية الصحافة. هل هذا ممكن؟',
     img: img12,
     answers: {
+      ansKey: 3,
       de: 'Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden.',
       en: 'No, because press freedom is a fundamental right. It cannot be abolished.',
       ua: 'Ні, оскільки свобода преси є основним правом. Її не можна скасувати.',
@@ -221,6 +236,7 @@ const data = [
     ar: 'في البرلمان، يشير مصطلح “المعارضة” إلى…',
     img: img13,
     answers: {
+      ansKey: 4,
       de: 'alle Abgeordneten, die nicht zu der Regierungspartei/den Regierungsparteien gehören.',
       en: 'all members who do not belong to the governing party/parties.',
       ua: 'всіх депутатів, які не належать до партії/партій, що правлять.',
@@ -237,6 +253,7 @@ const data = [
     ar: 'حرية التعبير في ألمانيا تعني أنني …',
     img: img14,
     answers: {
+      ansKey: 2,
       de: 'meine Meinung in Leserbriefen äußern kann.',
       en: 'can express my opinion in letters to the editor.',
       ua: 'можу висловлювати свою думку в листах до редакції.',
@@ -253,6 +270,7 @@ const data = [
     ar: 'ماذا يحظر القانون الأساسي الألماني؟',
     img: img15,
     answers: {
+      ansKey: 2,
       de: 'Zwangsarbeit',
       en: 'Forced labor',
       ua: 'Примусова праця',
@@ -269,6 +287,7 @@ const data = [
     ar: 'متى تكون حرية التعبير مقيدة في ألمانيا؟',
     img: img16,
     answers: {
+      ansKey: 1,
       de: 'bei der öffentlichen Verbreitung falscher Behauptungen über einzelne Personen',
       en: 'when false claims about individuals are spread publicly',
       ua: 'при публічному поширенні неправдивих тверджень про окремих осіб',
@@ -285,6 +304,7 @@ const data = [
     ar: 'القوانين الألمانية تحظر …',
     img: img17,
     answers: {
+      ansKey: 4,
       de: 'Ungleichbehandlung der Bürger und Bürgerinnen durch den Staat.',
       en: 'Unequal treatment of citizens by the state.',
       ua: 'Нерівне ставлення до громадян з боку держави.',
@@ -301,6 +321,7 @@ const data = [
     ar: 'ما هو الحق الأساسي الذي يكفله المادة 1 من القانون الأساسي لجمهورية ألمانيا الاتحادية؟',
     img: img18,
     answers: {
+      ansKey: 1,
       de: 'Die Unantastbarkeit der Menschenwürde',
       en: 'The inviolability of human dignity',
       ua: 'Недоторканість людської гідності',
@@ -317,6 +338,7 @@ const data = [
     ar: 'ماذا يعني حق “حرية التنقل” في ألمانيا؟',
     img: img19,
     answers: {
+      ansKey: 1,
       de: 'Man darf sich seinen Wohnort selbst aussuchen.',
       en: 'One is allowed to choose one’s own place of residence.',
       ua: 'Кожен може сам вибрати місце свого проживання.',
@@ -333,6 +355,7 @@ const data = [
     ar: 'حزب في ألمانيا يهدف إلى إقامة ديكتاتورية. إذاً هو …',
     img: img20,
     answers: {
+      ansKey: 4,
       de: 'verfassungswidrig',
       en: 'unconstitutional',
       ua: 'антиконституційна',
@@ -340,15 +363,67 @@ const data = [
       ar: 'غير دستوري',
     },
   },
+  {
+    id: 21,
+    de: 'Welches ist das Wappen der Bundesrepublik Deutschland?',
+    en: 'Which is the coat of arms of the Federal Republic of Germany?',
+    ua: 'Який є гербом Федеративної Республіки Німеччина?',
+    ru: 'Какой является гербом Федеративной Республики Германия?',
+    ar: 'ما هو شعار جمهورية ألمانيا الاتحادية؟',
+    img: img21,
+    answers: {
+      ansKey: 1,
+      de: 'erste (1)',
+      en: 'first (1)',
+      ua: 'перший (1)',
+      ru: 'первый (1)',
+      ar: 'الأول (1)',
+    },
+  },
+  {
+    id: 22,
+    de: 'Was für eine Staatsform hat Deutschland?',
+    en: 'What type of government does Germany have?',
+    ua: 'Яка форма правління в Німеччині?',
+    ru: 'Какая форма правления в Германии?',
+    ar: 'ما هو نوع الحكومة في ألمانيا؟',
+    img: img22,
+    answers: {
+      ansKey: 3,
+      de: 'Republik',
+      en: 'Republic',
+      ua: 'Республіка',
+      ru: 'Республика',
+      ar: 'الجمهورية',
+    },
+  },
+  {
+    id: 23,
+    de: 'In Deutschland sind die meisten Erwerbstätigen …',
+    en: 'In Germany, most employed people are …',
+    ua: 'В Німеччині більшість працівників …',
+    ru: 'В Германии большинство работников …',
+    ar: 'في ألمانيا، معظم الأشخاص العاملين هم …',
+    img: img23,
+    answers: {
+      ansKey: 1,
+      de: 'bei einer Firma oder Behörde beschäftigt.',
+      en: 'employed by a company or authority.',
+      ua: 'працюють на підприємстві або в установі.',
+      ru: 'работают в компании или ведомстве.',
+      ar: 'يعملون في شركة أو سلطة.',
+    },
+  },
   // {
-  //   id: 21,
+  //   id: 24,
   //   de: '',
   //   en: '',
   //   ua: '',
   //   ru: '',
   //   ar: '',
-  //   // img: img21,
+  //   // img: img24,
   //   answers: {
+  //     ansKey: 1,
   //     de: '',
   //     en: '',
   //     ua: '',

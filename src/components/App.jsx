@@ -8,6 +8,8 @@ import styled, { keyframes } from 'styled-components';
 import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
 import whatsapp from '../assets/whatsapp.svg';
+import Table from './MyTable';
+import MyTable from './MyTable';
 
 const pulseAnimation = keyframes`
   0% {
@@ -75,10 +77,11 @@ function App() {
             speedFactor={0.05}
             backgroundColor="black"
           />
-          <Flex gap={10}>
+          <Flex gap={10} justify="space-around" style={{ width: '100%' }}>
             {/* <AnimatedRightIcon /> */}
             <LanguageSelector />
             {/* <AnimatedLeftIcon /> */}
+            <MyTable />
           </Flex>
           <Divider style={{ backgroundColor: '#d8d8d8' }} />
           <CardsContainer />
