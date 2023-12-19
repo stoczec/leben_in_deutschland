@@ -1,5 +1,13 @@
 import React from 'react';
-import { FloatButton, Layout, Space, Typography, Flex, Divider } from 'antd';
+import {
+  FloatButton,
+  Layout,
+  Space,
+  Typography,
+  Flex,
+  Divider,
+  Card,
+} from 'antd';
 import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { LanguageSelector } from './LanguageSelector';
 import { CardsContainer } from './CardsContainer';

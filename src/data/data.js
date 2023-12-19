@@ -21,6 +21,10 @@ import img20 from '../assets/images/20.jpg';
 import img21 from '../assets/images/21.jpg';
 import img22 from '../assets/images/22.jpg';
 import img23 from '../assets/images/23.jpg';
+import img24 from '../assets/images/24.jpg';
+import img25 from '../assets/images/25.jpg';
+import img26 from '../assets/images/26.jpg';
+import img27 from '../assets/images/27.jpg';
 
 const data = [
   {
@@ -414,14 +418,82 @@ const data = [
       ar: 'يعملون في شركة أو سلطة.',
     },
   },
+  {
+    id: 24,
+    de: 'Wie viele Bundesländer hat die Bundesrepublik Deutschland?',
+    en: 'How many federal states does the Federal Republic of Germany have?',
+    ua: 'Скільки федеральних земель має Федеративна Республіка Німеччина?',
+    ru: 'Сколько федеральных земель имеет Федеративная Республика Германия?',
+    ar: 'كم عدد الولايات الفيدرالية في جمهورية ألمانيا الاتحادية؟',
+    img: img24,
+    answers: {
+      ansKey: 3,
+      de: '16',
+      en: '16',
+      ua: '16',
+      ru: '16',
+      ar: '16',
+    },
+  },
+  {
+    id: 25,
+    de: 'Was ist kein Bundesland der Bundesrepublik Deutschland?',
+    en: 'What is not a federal state of the Federal Republic of Germany?',
+    ua: 'Що не є федеральною землею Федеративної Республіки Німеччина?',
+    ru: 'Что не является федеральной землей Федеративной Республики Германия?',
+    ar: 'ما الذي ليس ولاية فيدرالية في جمهورية ألمانيا الاتحادية؟',
+    img: img25,
+    answers: {
+      ansKey: 1,
+      de: 'Elsass-Lothringen',
+      en: 'Alsace-Lorraine',
+      ua: 'Ельзас-Лотарингія',
+      ru: 'Эльзас-Лотарингия',
+      ar: 'الألزاس-لورين',
+    },
+  },
+  {
+    id: 26,
+    de: 'Deutschland ist …',
+    en: 'Germany is …',
+    ua: 'Німеччина це …',
+    ru: 'Германия это …',
+    ar: 'ألمانيا هي …',
+    img: img26,
+    answers: {
+      ansKey: 2,
+      de: 'ein demokratischer und sozialer Bundesstaat',
+      en: 'a democratic and social federal state',
+      ua: 'демократична та соціальна федеративна держава',
+      ru: 'демократическое и социальное федеративное государство',
+      ar: 'دولة اتحادية ديمقراطية واجتماعية',
+    },
+  },
+  {
+    id: 27,
+    de: 'Deutschland ist …',
+    en: 'Germany is …',
+    ua: 'Німеччина це …',
+    ru: 'Германия это …',
+    ar: 'ألمانيا هي …',
+    img: img27,
+    answers: {
+      ansKey: 2,
+      de: 'ein Bundesstaat',
+      en: 'a federal state',
+      ua: 'федеративна держава',
+      ru: 'федеративное государство',
+      ar: 'دولة اتحادية',
+    },
+  },
   // {
-  //   id: 24,
+  //   id: 27,
   //   de: '',
   //   en: '',
   //   ua: '',
   //   ru: '',
   //   ar: '',
-  //   // img: img24,
+  //   // img: img27,
   //   answers: {
   //     ansKey: 1,
   //     de: '',
