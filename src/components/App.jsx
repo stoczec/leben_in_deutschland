@@ -77,14 +77,15 @@ function App() {
             speedFactor={0.05}
             backgroundColor="black"
           />
-          <Flex gap={10} justify="space-around" style={{ width: '100%' }}>
+          <Flex gap={10}>
             {/* <AnimatedRightIcon /> */}
             <LanguageSelector />
             {/* <AnimatedLeftIcon /> */}
-            <MyTable />
           </Flex>
           <Divider style={{ backgroundColor: '#d8d8d8' }} />
           <CardsContainer />
+          <Divider style={{ backgroundColor: '#d8d8d8' }} />
+          <MyTable />
         </Content>
         <Footer style={footerStyle}>
           <FooterLinks>
