@@ -32,7 +32,7 @@ const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
       label: (
         <Flex gap={10}>
           <Badge
-            count={id}
+            count={id < 10 ? `00${id}` : id < 100 ? `0${id}` : id}
             style={{
               color: '#d8d8d8',
               backgroundColor: '#3A2D6B',

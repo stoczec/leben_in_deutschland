@@ -25,6 +25,13 @@ import img24 from '../assets/images/24.jpg';
 import img25 from '../assets/images/25.jpg';
 import img26 from '../assets/images/26.jpg';
 import img27 from '../assets/images/27.jpg';
+import img28 from '../assets/images/28.jpg';
+import img29 from '../assets/images/29.jpg';
+import img30 from '../assets/images/30.jpg';
+import img31 from '../assets/images/31.jpg';
+import img32 from '../assets/images/32.jpg';
+import img33 from '../assets/images/33.jpg';
+import img34 from '../assets/images/34.jpg';
 
 const data = [
   {
@@ -486,23 +493,142 @@ const data = [
       ar: 'دولة اتحادية',
     },
   },
-  // {
-  //   id: 27,
-  //   de: '',
-  //   en: '',
-  //   ua: '',
-  //   ru: '',
-  //   ar: '',
-  //   // img: img27,
-  //   answers: {
-  //     ansKey: 1,
-  //     de: '',
-  //     en: '',
-  //     ua: '',
-  //     ru: '',
-  //     ar: '',
-  //   },
-  // },
+  {
+    id: 28,
+    de: 'Wer wählt in Deutschland die Abgeordneten zum Bundestag?',
+    en: 'Who elects the members of the Bundestag in Germany?',
+    ua: 'Хто обирає депутатів до Бундестагу в Німеччині?',
+    ru: 'Кто выбирает депутатов в Бундестаг в Германии?',
+    ar: 'من ينتخب أعضاء البوندستاغ في ألمانيا؟',
+    img: img28,
+    answers: {
+      ansKey: 3,
+      de: 'das wahlberechtigte Volk',
+      en: 'the electorate',
+      ua: 'виборці',
+      ru: 'избирательное население',
+      ar: 'الناخبين',
+    },
+  },
+  {
+    id: 29,
+    de: 'Welches Tier ist das Wappentier der Bundesrepublik Deutschland?',
+    en: 'What is the national animal of the Federal Republic of Germany?',
+    ua: 'Яка тварина є символом Федеративної Республіки Німеччина?',
+    ru: 'Какое животное является символом Федеративной Республики Германия?',
+    ar: 'ما هو الحيوان الوطني لجمهورية ألمانيا الاتحادية؟',
+    img: img29,
+    answers: {
+      ansKey: 2,
+      de: 'Adler',
+      en: 'Eagle',
+      ua: 'Орел',
+      ru: 'Орел',
+      ar: 'النسر',
+    },
+  },
+  {
+    id: 30,
+    de: 'Was ist kein Merkmal unserer Demokratie?',
+    en: 'What is not a characteristic of our democracy?',
+    ua: 'Що не є ознакою нашої демократії?',
+    ru: 'Что не является признаком нашей демократии?',
+    ar: 'ما الذي ليس من سمات ديمقراطيتنا؟',
+    img: img30,
+    answers: {
+      ansKey: 2,
+      de: 'Pressezensur',
+      en: 'Censorship of the press',
+      ua: 'Цензура преси',
+      ru: 'Цензура прессы',
+      ar: 'الرقابة على الصحافة',
+    },
+  },
+  {
+    id: 31,
+    de: 'Die Zusammenarbeit von Parteien zur Bildung einer Regierung nennt man in Deutschland …',
+    en: 'The cooperation of parties to form a government in Germany is called …',
+    ua: 'Співпрацю партій для формування уряду в Німеччині називають …',
+    ru: 'Сотрудничество партий для формирования правительства в Германии называют …',
+    ar: 'يُطلق على تعاون الأحزاب لتشكيل حكومة في ألمانيا …',
+    img: img31,
+    answers: {
+      ansKey: 2,
+      de: 'Koalition',
+      en: 'Coalition',
+      ua: 'Коаліція',
+      ru: 'Коалиция',
+      ar: 'ائتلاف',
+    },
+  },
+  {
+    id: 32,
+    de: 'Was ist keine staatliche Gewalt in Deutschland?',
+    en: 'What is not a state power in Germany?',
+    ua: 'Що не є державною владою в Німеччині?',
+    ru: 'Что не является государственной властью в Германии?',
+    ar: 'ما الذي ليس سلطة دولية في ألمانيا؟',
+    img: img32,
+    answers: {
+      ansKey: 3,
+      de: 'Presse',
+      en: 'Press',
+      ua: 'Преса',
+      ru: 'Пресса',
+      ar: 'الصحافة',
+    },
+  },
+  {
+    id: 33,
+    de: 'Welche Aussage ist richtig? In Deutschland …',
+    en: 'Which statement is correct? In Germany …',
+    ua: 'Яке твердження є правильним? В Німеччині …',
+    ru: 'Какое утверждение верно? В Германии …',
+    ar: 'أي العبارات صحيحة؟ في ألمانيا …',
+    img: img33,
+    answers: {
+      ansKey: 1,
+      de: 'sind Staat und Religionsgemeinschaften voneinander getrennt',
+      en: 'State and religious communities are separated',
+      ua: 'Держава і релігійні спільноти розділені',
+      ru: 'Государство и религиозные общины разделены',
+      ar: 'الدولة والمجتمعات الدينية منفصلة',
+    },
+  },
+  {
+    id: 34,
+    de: 'Was ist Deutschland nicht?',
+    en: 'What is Germany not?',
+    ua: 'Чим Німеччина не є?',
+    ru: 'Чем Германия не является?',
+    ar: 'ما الذي ليست ألمانيا؟',
+    img: img34,
+    answers: {
+      ansKey: 3,
+      de: 'eine Monarchie',
+      en: 'a Monarchy',
+      ua: 'Монархією',
+      ru: 'Монархией',
+      ar: 'ملكية',
+    },
+  },
+  {
+    id: 35,
+    de: '',
+    en: '',
+    ua: '',
+    ru: '',
+    ar: '',
+    // img: img35,
+    answers: {
+      ansKey: 1,
+      de: '',
+      en: '',
+      ua: '',
+      ru: '',
+      ar: '',
+    },
+  },
 ];
 
 export default data;
