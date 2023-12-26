@@ -612,23 +612,23 @@ const data = [
       ar: 'ملكية',
     },
   },
-  {
-    id: 35,
-    de: '',
-    en: '',
-    ua: '',
-    ru: '',
-    ar: '',
-    // img: img35,
-    answers: {
-      ansKey: 1,
-      de: '',
-      en: '',
-      ua: '',
-      ru: '',
-      ar: '',
-    },
-  },
+  // {
+  //   id: 35,
+  //   de: '',
+  //   en: '',
+  //   ua: '',
+  //   ru: '',
+  //   ar: '',
+  //   // img: img35,
+  //   answers: {
+  //     ansKey: 1,
+  //     de: '',
+  //     en: '',
+  //     ua: '',
+  //     ru: '',
+  //     ar: '',
+  //   },
+  // },
 ];
 
 export default data;
