@@ -32,6 +32,9 @@ import img31 from '../assets/images/31.jpg';
 import img32 from '../assets/images/32.jpg';
 import img33 from '../assets/images/33.jpg';
 import img34 from '../assets/images/34.jpg';
+import img35 from '../assets/images/35.jpg';
+import img36 from '../assets/images/36.jpg';
+import img37 from '../assets/images/37.jpg';
 
 const data = [
   {
@@ -612,14 +615,65 @@ const data = [
       ar: 'ملكية',
     },
   },
+  {
+    id: 35,
+    de: 'Womit finanziert der deutsche Staat die Sozialversicherung?',
+    en: 'How does the German state finance social security?',
+    ua: 'Як німецька держава фінансує соціальне страхування?',
+    ru: 'Как германское государство финансирует социальное страхование?',
+    ar: 'كيف تمول الدولة الألمانية التأمين الاجتماعي؟',
+    img: img35,
+    answers: {
+      ansKey: 2,
+      de: 'Sozialabgaben',
+      en: 'Social contributions',
+      ua: 'Соціальні внески',
+      ru: 'Социальные взносы',
+      ar: 'المساهمات الاجتماعية',
+    },
+  },
+  {
+    id: 36,
+    de: 'Welche Maßnahme schafft in Deutschland soziale Sicherheit?',
+    en: 'What measure provides social security in Germany?',
+    ua: 'Який захід забезпечує соціальну безпеку в Німеччині?',
+    ru: 'Какая мера обеспечивает социальную защиту в Германии?',
+    ar: 'ما هي الإجراءات التي توفر الأمان الاجتماعي في ألمانيا؟',
+    img: img36,
+    answers: {
+      ansKey: 1,
+      de: 'die Krankenversicherung',
+      en: 'Health insurance',
+      ua: 'Медичне страхування',
+      ru: 'Медицинская страховка',
+      ar: 'التأمين الصحي',
+    },
+  },
+  {
+    id: 37,
+    de: 'Wie werden die Regierungschefs / Regierungschefinnen der meisten Bundesländer in Deutschland genannt?',
+    en: 'What are the heads of government in most federal states in Germany called?',
+    ua: 'Як називають голови урядів більшості федеральних земель в Німеччині?',
+    ru: 'Как называют глав государств большинства федеральных земель в Германии?',
+    ar: 'ماذا يطلق على رؤساء الحكومة في معظم الولايات الفيدرالية في ألمانيا؟',
+    img: img37,
+    answers: {
+      ansKey: 4,
+      de: 'Ministerpräsident',
+      en: 'Minister President',
+      ua: 'Міністр-президент',
+      ru: 'Министр-президент',
+      ar: 'رئيس الوزراء',
+    },
+  },
   // {
-  //   id: 35,
+  //   id: 38,
   //   de: '',
   //   en: '',
   //   ua: '',
   //   ru: '',
   //   ar: '',
-  //   // img: img35,
+  //   // img: img38,
   //   answers: {
   //     ansKey: 1,
   //     de: '',
