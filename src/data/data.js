@@ -35,6 +35,9 @@ import img34 from '../assets/images/34.jpg';
 import img35 from '../assets/images/35.jpg';
 import img36 from '../assets/images/36.jpg';
 import img37 from '../assets/images/37.jpg';
+import img38 from '../assets/images/38.jpg';
+import img39 from '../assets/images/39.jpg';
+import img40 from '../assets/images/40.jpg';
 
 const data = [
   {
@@ -666,14 +669,65 @@ const data = [
       ar: 'رئيس الوزراء',
     },
   },
+  {
+    id: 38,
+    de: 'Die Bundesrepublik Deutschland ist ein demokratischer und sozialer …',
+    en: 'The Federal Republic of Germany is a democratic and social …',
+    ua: 'Федеративна Республіка Німеччина є демократичною та соціальною …',
+    ru: 'Федеративная Республика Германия - это демократическое и социальное …',
+    ar: 'الجمهورية الاتحادية الألمانية هي ديمقراطية واجتماعية …',
+    img: img38,
+    answers: {
+      ansKey: 2,
+      de: 'Bundesstaat.',
+      en: 'Federal state.',
+      ua: 'Федеративна держава.',
+      ru: 'Федеративное государство.',
+      ar: 'دولة اتحادية.',
+    },
+  },
+  {
+    id: 39,
+    de: 'Was hat jedes deutsche Bundesland?',
+    en: 'What does every German federal state have?',
+    ua: 'Що є у кожній федеральній землі Німеччини?',
+    ru: 'Что есть у каждой федеральной земли Германии?',
+    ar: 'ماذا يملك كل ولاية اتحادية في ألمانيا؟',
+    img: img39,
+    answers: {
+      ansKey: 4,
+      de: 'eine eigene Regierung',
+      en: 'its own government',
+      ua: 'власний уряд',
+      ru: 'свое правительство',
+      ar: 'حكومتها الخاصة',
+    },
+  },
+  {
+    id: 40,
+    de: 'Mit welchen Worten beginnt die deutsche Nationalhymne?',
+    en: 'With what words does the German national anthem begin?',
+    ua: 'З якими словами починається німецький національний гімн?',
+    ru: 'С какими словами начинается немецкий национальный гимн?',
+    ar: 'بأي كلمات يبدأ النشيد الوطني الألماني؟',
+    img: img40,
+    answers: {
+      ansKey: 2,
+      de: 'Einigkeit und Recht und Freiheit …',
+      en: 'Unity and justice and freedom …',
+      ua: 'Єдність і правосуддя і свобода …',
+      ru: 'Единство и справедливость и свобода …',
+      ar: 'الوحدة والعدالة والحرية …',
+    },
+  },
   // {
-  //   id: 38,
+  //   id: 41,
   //   de: '',
   //   en: '',
   //   ua: '',
   //   ru: '',
   //   ar: '',
-  //   // img: img38,
+  //   // img: img41,
   //   answers: {
   //     ansKey: 1,
   //     de: '',
