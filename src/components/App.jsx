@@ -1,15 +1,5 @@
-import React, { useState } from 'react';
-import {
-  FloatButton,
-  Layout,
-  Space,
-  Typography,
-  Flex,
-  Divider,
-  Card,
-  Pagination,
-} from 'antd';
-import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import React from 'react';
+import { FloatButton, Layout, Space, Flex, Divider } from 'antd';
 import { LanguageSelector } from './LanguageSelector';
 import { CardsContainer } from './CardsContainer';
 import Starfield from 'react-starfield';
@@ -17,21 +7,7 @@ import styled, { keyframes } from 'styled-components';
 import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
 import whatsapp from '../assets/whatsapp.svg';
-import Table from './MyTable';
 import MyTable from './MyTable';
-import data from '../data/data';
-
-const pulseAnimation = keyframes`
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(2);
-  }
-  100% {
-    transform: scale(1);
-  }
-`;
 
 const { Header, Footer, Content } = Layout;
 
@@ -68,19 +44,6 @@ const footerStyle = {
   padding: '10px 0',
 };
 function App() {
-  // const pageSizeOptions = [8, 16, 24, 32];
-  // const [currentPage, setCurrentPage] = useState(1); // номер текущей страницы
-  // const [pageSize, setPageSize] = useState(pageSizeOptions[0]); // количество отображаемых товаров на странице или размер страницы
-
-  // const handlePageChange = (page) => {
-  //   // функция, которая меняет номер текущей стариницы
-  //   setCurrentPage(page);
-  // };
-
-  // const handlePageSizeChange = (current, size) => {
-  //   setCurrentPage(1); // сбрасываем номер текущей страницы, при изменении размера страницы
-  //   setPageSize(size); // изменяем размер страницы
-  // };
   return (
     <Space
       direction="vertical"
@@ -101,28 +64,13 @@ function App() {
             backgroundColor="black"
           />
           <Flex gap={10}>
-            {/* <AnimatedRightIcon /> */}
             <LanguageSelector />
-            {/* <AnimatedLeftIcon /> */}
           </Flex>
           <Divider style={{ backgroundColor: '#d8d8d8' }} />
           <CardsContainer />
           <Divider style={{ backgroundColor: '#d8d8d8' }} />
           <MyTable />
         </Content>
-        {/* <ContainerPagination>
-          <Pagination
-            current={currentPage} // текущая страница, передается номер текущей страницы
-            total={data.length} // общее количество элементов, используется для вычисления количества страниц
-            pageSize={pageSize} // количество элементов на одной странице
-            pageSizeOptions={data} // массив вариантов выбора количества элементов на странице
-            showSizeChanger // опция отображения выпадающего списка для выбора количества элементов на странице
-            showQuickJumper // опция отображения поля для быстрого перехода на определенную страницу
-            showTotal={(total) => `Total ${total} items`} // функция для отображения общего количества элементов внизу пагинации
-            onChange={handlePageChange} // Обработчик события при изменении текущей страницы
-            onShowSizeChange={handlePageSizeChange} // Обработчик события при изменении размера страницы
-          />
-        </ContainerPagination> */}
         <Footer style={footerStyle}>
           <FooterLinks>
             <a
@@ -176,20 +124,6 @@ const CustomTitle = styled.p`
   }
 `;
 
-const AnimatedRightIcon = styled(ArrowRightOutlined)`
-  animation: ${pulseAnimation} 1s infinite;
-  font-weight: bolder;
-  font-size: 20px;
-  color: #f00;
-`;
-
-const AnimatedLeftIcon = styled(ArrowLeftOutlined)`
-  animation: ${pulseAnimation} 1s infinite;
-  font-weight: bolder;
-  font-size: 20px;
-  color: #f00;
-`;
-
 const FooterLinks = styled.div`
   display: flex;
   justify-content: center;
@@ -204,10 +138,4 @@ const CustomFloatButton = styled(FloatButton.BackTop)`
   .ant-float-btn-body {
     background-color: #d8d8d8 !important;
   }
-`;
-
-const ContainerPagination = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
 `;

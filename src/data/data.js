@@ -1,43 +1,4 @@
-import img1 from '../assets/images/1.jpg';
-import img2 from '../assets/images/2.jpg';
-import img3 from '../assets/images/3.jpg';
-import img4 from '../assets/images/4.jpg';
-import img5 from '../assets/images/5.jpg';
-import img6 from '../assets/images/6.jpg';
-import img7 from '../assets/images/7.jpg';
-import img8 from '../assets/images/8.jpg';
-import img9 from '../assets/images/9.jpg';
-import img10 from '../assets/images/10.jpg';
-import img11 from '../assets/images/11.jpg';
-import img12 from '../assets/images/12.jpg';
-import img13 from '../assets/images/13.jpg';
-import img14 from '../assets/images/14.jpg';
-import img15 from '../assets/images/15.jpg';
-import img16 from '../assets/images/16.jpg';
-import img17 from '../assets/images/17.jpg';
-import img18 from '../assets/images/18.jpg';
-import img19 from '../assets/images/19.jpg';
-import img20 from '../assets/images/20.jpg';
-import img21 from '../assets/images/21.jpg';
-import img22 from '../assets/images/22.jpg';
-import img23 from '../assets/images/23.jpg';
-import img24 from '../assets/images/24.jpg';
-import img25 from '../assets/images/25.jpg';
-import img26 from '../assets/images/26.jpg';
-import img27 from '../assets/images/27.jpg';
-import img28 from '../assets/images/28.jpg';
-import img29 from '../assets/images/29.jpg';
-import img30 from '../assets/images/30.jpg';
-import img31 from '../assets/images/31.jpg';
-import img32 from '../assets/images/32.jpg';
-import img33 from '../assets/images/33.jpg';
-import img34 from '../assets/images/34.jpg';
-import img35 from '../assets/images/35.jpg';
-import img36 from '../assets/images/36.jpg';
-import img37 from '../assets/images/37.jpg';
-import img38 from '../assets/images/38.jpg';
-import img39 from '../assets/images/39.jpg';
-import img40 from '../assets/images/40.jpg';
+import * as images from '../assets/images/images.js';
 
 const data = [
   {
@@ -47,7 +8,7 @@ const data = [
     ua: 'У Німеччині люди можуть відкрито висловлюватися проти уряду, тому що...',
     ru: 'В Германии люди могут открыто высказываться против правительства, потому что...',
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأن',
-    img: img1,
+    img: images.img1,
     answers: {
       ansKey: 4,
       de: 'hier Meinungsfreiheit gilt',
@@ -64,7 +25,7 @@ const data = [
     ua: 'У Німеччині батьки можуть вирішувати до 14 років своєї дитини, чи буде вона брати участь у школі на…',
     ru: 'В Германии родители могут решать до 14 лет своего ребенка, будет ли он участвовать в школе на…',
     ar: 'في ألمانيا، يُسمح للناس بالتحدث علانية ضد الحكومة لأنفي ألمانيا، يمكن للوالدين أن يقرروا حتى السنة الرابعة عشر من عمر طفلهم ما إذا كان سيشارك في المدرسة في…',
-    img: img2,
+    img: images.img2,
     answers: {
       ansKey: 2,
       de: 'Religionsunterricht teilnimmt.',
@@ -81,7 +42,7 @@ const data = [
     ua: 'Німеччина - це правова держава. Що це означає?',
     ru: 'Германия - это правовое государство. Что это значит?',
     ar: 'ألمانيا هي دولة قانون. ماذا يعني ذلك؟',
-    img: img3,
+    img: images.img3,
     answers: {
       ansKey: 1,
       de: 'Alle Einwohner und Einwohnerinnen und der Staat müssen sich an die Gesetze halten.',
@@ -98,7 +59,7 @@ const data = [
     ua: 'Яке право належить до основних прав в Німеччині?',
     ru: 'Какое право относится к основным правам в Германии?',
     ar: 'ما هو الحق الذي يعتبر من الحقوق الأساسية في ألمانيا؟',
-    img: img4,
+    img: images.img4,
     answers: {
       ansKey: 3,
       de: 'Meinungsfreiheit',
@@ -115,7 +76,7 @@ const data = [
     ua: 'Вибори в Німеччині є вільними. Що це означає?',
     ru: 'Выборы в Германии свободны. Что это значит?',
     ar: 'الانتخابات في ألمانيا حرة. ماذا يعني ذلك؟',
-    img: img5,
+    img: images.img5,
     answers: {
       ansKey: 3,
       de: 'Der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben.',
@@ -132,7 +93,7 @@ const data = [
     ua: 'Як називається німецька конституція?',
     ru: 'Как называется немецкая конституция?',
     ar: 'ما اسم الدستور الألماني؟',
-    img: img6,
+    img: images.img6,
     answers: {
       ansKey: 4,
       de: 'Grundgesetz',
@@ -149,7 +110,7 @@ const data = [
     ua: 'Яке право є одним з основних прав, гарантованих німецькою конституцією? Право на …',
     ru: 'Какое право является одним из основных прав, гарантированных немецкой конституцией? Право на …',
     ar: 'ما هو الحق الذي يعتبر من الحقوق الأساسية المضمونة بموجب الدستور الألماني؟ الحق في …',
-    img: img7,
+    img: images.img7,
     answers: {
       ansKey: 1,
       de: 'Glaubens- und Gewissensfreiheit.',
@@ -166,7 +127,7 @@ const data = [
     ua: 'Що не зазначено в Основному Законі Німеччини?',
     ru: 'Что не указано в Основном законе Германии?',
     ar: 'ما الذي لا يُذكر في القانون الأساسي لألمانيا؟',
-    img: img8,
+    img: images.img8,
     answers: {
       ansKey: 2,
       de: 'Alle sollen gleich viel Geld haben.',
@@ -183,7 +144,7 @@ const data = [
     ua: 'Яке основне право в Німеччині застосовується тільки до іноземців? Основне право на…',
     ru: 'Какое основное право в Германии применяется только к иностранцам? Основное право на…',
     ar: 'ما هو الحق الأساسي في ألمانيا الذي ينطبق فقط على الأجانب؟ الحق الأساسي في…',
-    img: img9,
+    img: images.img9,
     answers: {
       ansKey: 3,
       de: 'Asyl',
@@ -200,7 +161,7 @@ const data = [
     ua: 'Що сумісно з Основним Законом Німеччини?',
     ru: 'Что совместимо с Основным законом Германии?',
     ar: 'ما الذي يتوافق مع القانون الأساسي الألماني؟',
-    img: img10,
+    img: images.img10,
     answers: {
       ansKey: 4,
       de: 'die Geldstrafe',
@@ -217,7 +178,7 @@ const data = [
     ua: 'Як називається конституція Федеративної Республіки Німеччина?',
     ru: 'Как называется конституция Федеративной Республики Германия?',
     ar: 'ما اسم دستور جمهورية ألمانيا الاتحادية؟',
-    img: img11,
+    img: images.img11,
     answers: {
       ansKey: 1,
       de: 'Grundgesetz',
@@ -234,7 +195,7 @@ const data = [
     ua: 'Партія в Німецькому Бундестазі хоче скасувати свободу преси. Чи це можливо?',
     ru: 'Партия в Немецком Бундестаге хочет отменить свободу прессы. Возможно ли это?',
     ar: 'تريد حزب في البوندستاغ الألماني إلغاء حرية الصحافة. هل هذا ممكن؟',
-    img: img12,
+    img: images.img12,
     answers: {
       ansKey: 3,
       de: 'Nein, denn die Pressefreiheit ist ein Grundrecht. Sie kann nicht abgeschafft werden.',
@@ -251,7 +212,7 @@ const data = [
     ua: 'У парламенті термін “опозиція” означає…',
     ru: 'В парламенте термин “оппозиция” означает…',
     ar: 'في البرلمان، يشير مصطلح “المعارضة” إلى…',
-    img: img13,
+    img: images.img13,
     answers: {
       ansKey: 4,
       de: 'alle Abgeordneten, die nicht zu der Regierungspartei/den Regierungsparteien gehören.',
@@ -268,7 +229,7 @@ const data = [
     ua: 'Свобода слова в Німеччині означає, що я …',
     ru: 'Свобода слова в Германии означает, что я …',
     ar: 'حرية التعبير في ألمانيا تعني أنني …',
-    img: img14,
+    img: images.img14,
     answers: {
       ansKey: 2,
       de: 'meine Meinung in Leserbriefen äußern kann.',
@@ -285,7 +246,7 @@ const data = [
     ua: 'Що забороняє Основний Закон Німеччини?',
     ru: 'Что запрещает Основной закон Германии?',
     ar: 'ماذا يحظر القانون الأساسي الألماني؟',
-    img: img15,
+    img: images.img15,
     answers: {
       ansKey: 2,
       de: 'Zwangsarbeit',
@@ -302,7 +263,7 @@ const data = [
     ua: 'Коли обмежується свобода слова в Німеччині?',
     ru: 'Когда в Германии ограничивается свобода слова?',
     ar: 'متى تكون حرية التعبير مقيدة في ألمانيا؟',
-    img: img16,
+    img: images.img16,
     answers: {
       ansKey: 1,
       de: 'bei der öffentlichen Verbreitung falscher Behauptungen über einzelne Personen',
@@ -319,7 +280,7 @@ const data = [
     ua: 'Німецькі закони забороняють …',
     ru: 'Немецкие законы запрещают …',
     ar: 'القوانين الألمانية تحظر …',
-    img: img17,
+    img: images.img17,
     answers: {
       ansKey: 4,
       de: 'Ungleichbehandlung der Bürger und Bürgerinnen durch den Staat.',
@@ -336,7 +297,7 @@ const data = [
     ua: 'Яке основне право гарантується в першій статі конституції Німеччини?',
     ru: 'Какое основное право гарантируется в статье 1 Основного закона Федеративной Республики Германия?',
     ar: 'ما هو الحق الأساسي الذي يكفله المادة 1 من القانون الأساسي لجمهورية ألمانيا الاتحادية؟',
-    img: img18,
+    img: images.img18,
     answers: {
       ansKey: 1,
       de: 'Die Unantastbarkeit der Menschenwürde',
@@ -353,7 +314,7 @@ const data = [
     ua: 'Що розуміють під правом на “вільне пересування” в Німеччині?',
     ru: 'Что понимают под правом на “свободу передвижения” в Германии?',
     ar: 'ماذا يعني حق “حرية التنقل” في ألمانيا؟',
-    img: img19,
+    img: images.img19,
     answers: {
       ansKey: 1,
       de: 'Man darf sich seinen Wohnort selbst aussuchen.',
@@ -370,7 +331,7 @@ const data = [
     ua: 'Партія в Німеччині має на меті встановити диктатуру. Вона тоді …',
     ru: 'Партия в Германии стремится установить диктатуру. Тогда она …',
     ar: 'حزب في ألمانيا يهدف إلى إقامة ديكتاتورية. إذاً هو …',
-    img: img20,
+    img: images.img20,
     answers: {
       ansKey: 4,
       de: 'verfassungswidrig',
@@ -387,7 +348,7 @@ const data = [
     ua: 'Який є гербом Федеративної Республіки Німеччина?',
     ru: 'Какой является гербом Федеративной Республики Германия?',
     ar: 'ما هو شعار جمهورية ألمانيا الاتحادية؟',
-    img: img21,
+    img: images.img21,
     answers: {
       ansKey: 1,
       de: 'erste (1)',
@@ -404,7 +365,7 @@ const data = [
     ua: 'Яка форма правління в Німеччині?',
     ru: 'Какая форма правления в Германии?',
     ar: 'ما هو نوع الحكومة في ألمانيا؟',
-    img: img22,
+    img: images.img22,
     answers: {
       ansKey: 3,
       de: 'Republik',
@@ -421,9 +382,9 @@ const data = [
     ua: 'В Німеччині більшість працівників …',
     ru: 'В Германии большинство работников …',
     ar: 'في ألمانيا، معظم الأشخاص العاملين هم …',
-    img: img23,
+    img: images.img23,
     answers: {
-      ansKey: 1,
+      ansKey: 4,
       de: 'bei einer Firma oder Behörde beschäftigt.',
       en: 'employed by a company or authority.',
       ua: 'працюють на підприємстві або в установі.',
@@ -438,7 +399,7 @@ const data = [
     ua: 'Скільки федеральних земель має Федеративна Республіка Німеччина?',
     ru: 'Сколько федеральных земель имеет Федеративная Республика Германия?',
     ar: 'كم عدد الولايات الفيدرالية في جمهورية ألمانيا الاتحادية؟',
-    img: img24,
+    img: images.img24,
     answers: {
       ansKey: 3,
       de: '16',
@@ -455,7 +416,7 @@ const data = [
     ua: 'Що не є федеральною землею Федеративної Республіки Німеччина?',
     ru: 'Что не является федеральной землей Федеративной Республики Германия?',
     ar: 'ما الذي ليس ولاية فيدرالية في جمهورية ألمانيا الاتحادية؟',
-    img: img25,
+    img: images.img25,
     answers: {
       ansKey: 1,
       de: 'Elsass-Lothringen',
@@ -472,7 +433,7 @@ const data = [
     ua: 'Німеччина це …',
     ru: 'Германия это …',
     ar: 'ألمانيا هي …',
-    img: img26,
+    img: images.img26,
     answers: {
       ansKey: 2,
       de: 'ein demokratischer und sozialer Bundesstaat',
@@ -489,7 +450,7 @@ const data = [
     ua: 'Німеччина це …',
     ru: 'Германия это …',
     ar: 'ألمانيا هي …',
-    img: img27,
+    img: images.img27,
     answers: {
       ansKey: 2,
       de: 'ein Bundesstaat',
@@ -506,7 +467,7 @@ const data = [
     ua: 'Хто обирає депутатів до Бундестагу в Німеччині?',
     ru: 'Кто выбирает депутатов в Бундестаг в Германии?',
     ar: 'من ينتخب أعضاء البوندستاغ في ألمانيا؟',
-    img: img28,
+    img: images.img28,
     answers: {
       ansKey: 3,
       de: 'das wahlberechtigte Volk',
@@ -523,7 +484,7 @@ const data = [
     ua: 'Яка тварина є символом Федеративної Республіки Німеччина?',
     ru: 'Какое животное является символом Федеративной Республики Германия?',
     ar: 'ما هو الحيوان الوطني لجمهورية ألمانيا الاتحادية؟',
-    img: img29,
+    img: images.img29,
     answers: {
       ansKey: 2,
       de: 'Adler',
@@ -540,7 +501,7 @@ const data = [
     ua: 'Що не є ознакою нашої демократії?',
     ru: 'Что не является признаком нашей демократии?',
     ar: 'ما الذي ليس من سمات ديمقراطيتنا؟',
-    img: img30,
+    img: images.img30,
     answers: {
       ansKey: 2,
       de: 'Pressezensur',
@@ -557,7 +518,7 @@ const data = [
     ua: 'Співпрацю партій для формування уряду в Німеччині називають …',
     ru: 'Сотрудничество партий для формирования правительства в Германии называют …',
     ar: 'يُطلق على تعاون الأحزاب لتشكيل حكومة في ألمانيا …',
-    img: img31,
+    img: images.img31,
     answers: {
       ansKey: 2,
       de: 'Koalition',
@@ -574,7 +535,7 @@ const data = [
     ua: 'Що не є державною владою в Німеччині?',
     ru: 'Что не является государственной властью в Германии?',
     ar: 'ما الذي ليس سلطة دولية في ألمانيا؟',
-    img: img32,
+    img: images.img32,
     answers: {
       ansKey: 3,
       de: 'Presse',
@@ -591,7 +552,7 @@ const data = [
     ua: 'Яке твердження є правильним? В Німеччині …',
     ru: 'Какое утверждение верно? В Германии …',
     ar: 'أي العبارات صحيحة؟ في ألمانيا …',
-    img: img33,
+    img: images.img33,
     answers: {
       ansKey: 1,
       de: 'sind Staat und Religionsgemeinschaften voneinander getrennt',
@@ -608,7 +569,7 @@ const data = [
     ua: 'Чим Німеччина не є?',
     ru: 'Чем Германия не является?',
     ar: 'ما الذي ليست ألمانيا؟',
-    img: img34,
+    img: images.img34,
     answers: {
       ansKey: 3,
       de: 'eine Monarchie',
@@ -625,7 +586,7 @@ const data = [
     ua: 'Як німецька держава фінансує соціальне страхування?',
     ru: 'Как германское государство финансирует социальное страхование?',
     ar: 'كيف تمول الدولة الألمانية التأمين الاجتماعي؟',
-    img: img35,
+    img: images.img35,
     answers: {
       ansKey: 2,
       de: 'Sozialabgaben',
@@ -642,7 +603,7 @@ const data = [
     ua: 'Який захід забезпечує соціальну безпеку в Німеччині?',
     ru: 'Какая мера обеспечивает социальную защиту в Германии?',
     ar: 'ما هي الإجراءات التي توفر الأمان الاجتماعي في ألمانيا؟',
-    img: img36,
+    img: images.img36,
     answers: {
       ansKey: 1,
       de: 'die Krankenversicherung',
@@ -659,7 +620,7 @@ const data = [
     ua: 'Як називають голови урядів більшості федеральних земель в Німеччині?',
     ru: 'Как называют глав государств большинства федеральных земель в Германии?',
     ar: 'ماذا يطلق على رؤساء الحكومة في معظم الولايات الفيدرالية في ألمانيا؟',
-    img: img37,
+    img: images.img37,
     answers: {
       ansKey: 4,
       de: 'Ministerpräsident',
@@ -676,7 +637,7 @@ const data = [
     ua: 'Федеративна Республіка Німеччина є демократичною та соціальною …',
     ru: 'Федеративная Республика Германия - это демократическое и социальное …',
     ar: 'الجمهورية الاتحادية الألمانية هي ديمقراطية واجتماعية …',
-    img: img38,
+    img: images.img38,
     answers: {
       ansKey: 2,
       de: 'Bundesstaat.',
@@ -693,7 +654,7 @@ const data = [
     ua: 'Що є у кожній федеральній землі Німеччини?',
     ru: 'Что есть у каждой федеральной земли Германии?',
     ar: 'ماذا يملك كل ولاية اتحادية في ألمانيا؟',
-    img: img39,
+    img: images.img39,
     answers: {
       ansKey: 4,
       de: 'eine eigene Regierung',
@@ -710,7 +671,7 @@ const data = [
     ua: 'З якими словами починається німецький національний гімн?',
     ru: 'С какими словами начинается немецкий национальный гимн?',
     ar: 'بأي كلمات يبدأ النشيد الوطني الألماني؟',
-    img: img40,
+    img: images.img40,
     answers: {
       ansKey: 2,
       de: 'Einigkeit und Recht und Freiheit …',
@@ -720,16 +681,186 @@ const data = [
       ar: 'الوحدة والعدالة والحرية …',
     },
   },
+  {
+    id: 41,
+    de: 'Warum gibt es in einer Demokratie mehr als eine Partei?',
+    en: 'Why is there more than one party in a democracy?',
+    ua: 'Чому в демократії є більше однієї партії?',
+    ru: 'Почему в демократии есть более одной партии?',
+    ar: 'لماذا هناك أكثر من حزب واحد في الديمقراطية؟',
+    img: images.img41,
+    answers: {
+      ansKey: 1,
+      de: 'weil dadurch die unterschiedlichen Meinungen der Bürger und Bürgerinnen vertreten werden',
+      en: 'because it represents the different opinions of the citizens',
+      ua: 'тому що це представляє різні думки громадян',
+      ru: 'потому что это представляет разные мнения граждан',
+      ar: 'لأنه يمثل الآراء المختلفة للمواطنين',
+    },
+  },
+  {
+    id: 42,
+    de: 'Wer beschließt in Deutschland ein neues Gesetz?',
+    en: 'Who decides on a new law in Germany?',
+    ua: 'Хто приймає рішення про новий закон в Німеччині?',
+    ru: 'Кто принимает решение о новом законе в Германии?',
+    ar: 'من يقرر قانونًا جديدًا في ألمانيا؟',
+    img: images.img42,
+    answers: {
+      ansKey: 2,
+      de: 'das Parlament',
+      en: 'the Parliament',
+      ua: 'Парламент',
+      ru: 'Парламент',
+      ar: 'البرلمان',
+    },
+  },
+  {
+    id: 43,
+    de: 'Wann kann in Deutschland eine Partei verboten werden?',
+    en: 'When can a party be banned in Germany?',
+    ua: 'Коли в Німеччині можна заборонити партію?',
+    ru: 'Когда в Германии можно запретить партию?',
+    ar: 'متى يمكن حظر حزب في ألمانيا؟',
+    img: images.img43,
+    answers: {
+      ansKey: 2,
+      de: 'wenn sie gegen die Verfassung kämpft',
+      en: 'when it fights against the constitution',
+      ua: 'коли вона бореться проти конституції',
+      ru: 'когда она борется против конституции',
+      ar: 'عندما يقاتل ضد الدستور',
+    },
+  },
+  {
+    id: 44,
+    de: 'Wen kann man als Bürger / Bürgerin in Deutschland nicht direkt wählen?',
+    en: "Who can't be directly elected by citizens in Germany?",
+    ua: 'Кого не можна прямо обрати громадянами в Німеччині?',
+    ru: 'Кого нельзя прямо выбирать гражданами в Германии?',
+    ar: 'من لا يمكن انتخابه مباشرة من قبل المواطنين في ألمانيا؟',
+    img: images.img44,
+    answers: {
+      ansKey: 2,
+      de: 'den Bundespräsidenten / die Bundespräsidentin',
+      en: 'the Federal President',
+      ua: 'Федерального президента',
+      ru: 'Федерального президента',
+      ar: 'الرئيس الاتحادي',
+    },
+  },
+  {
+    id: 45,
+    de: 'Zu welcher Versicherung gehört die Pflegeversicherung?',
+    en: 'To which insurance does the long-term care insurance belong?',
+    ua: 'До якого страхування належить страхування на довготривале догляд?',
+    ru: 'К какой страховке относится страхование долгосрочного ухода?',
+    ar: 'إلى أي تأمين ينتمي التأمين على الرعاية طويلة الأجل؟',
+    img: images.img45,
+    answers: {
+      ansKey: 1,
+      de: 'Sozialversicherung',
+      en: 'Social Insurance',
+      ua: 'Соціальне страхування',
+      ru: 'Социальное страхование',
+      ar: 'التأمين الاجتماعي',
+    },
+  },
+  {
+    id: 46,
+    de: 'Der deutsche Staat hat viele Aufgaben. Welche Aufgabe gehört dazu?',
+    en: 'The German state has many tasks. Which task is one of them?',
+    ua: 'Німецька держава має багато завдань. Яке завдання є одним з них?',
+    ru: 'У немецкого государства много задач. Какая задача является одной из них?',
+    ar: 'لدى الدولة الألمانية العديد من المهام. أي مهمة من بينها؟',
+    img: images.img46,
+    answers: {
+      ansKey: 1,
+      de: 'Er baut Straßen und Schulen.',
+      en: 'It builds roads and schools.',
+      ua: 'Він будує дороги та школи.',
+      ru: 'Он строит дороги и школы.',
+      ar: 'يقوم ببناء الطرق والمدارس.',
+    },
+  },
+  {
+    id: 47,
+    de: 'Der deutsche Staat hat viele Aufgaben. Welche Aufgabe gehört nicht dazu?',
+    en: 'The German state has many tasks. Which task is not one of them?',
+    ua: 'Німецька держава має багато завдань. Яке завдання не є одним з них?',
+    ru: 'У немецкого государства много задач. Какая задача не является одной из них?',
+    ar: 'لدى الدولة الألمانية العديد من المهام. أي مهمة ليست من بينها؟',
+    img: images.img47,
+    answers: {
+      ansKey: 1,
+      de: 'Er bezahlt für alle Staatsangehörigen Urlaubsreisen.',
+      en: "It pays for all nationals' vacation trips.",
+      ua: 'Він оплачує відпустки для всіх громадян.',
+      ru: 'Он оплачивает отпуска для всех граждан.',
+      ar: 'يدفع لرحلات العطلات لجميع الجنسيات.',
+    },
+  },
+  {
+    id: 48,
+    de: 'Welches Organ gehört nicht zu den Verfassungsorganen Deutschlands?',
+    en: 'Which organ is not one of the constitutional organs of Germany?',
+    ua: 'Який орган не є одним з конституційних органів Німеччини?',
+    ru: 'Какой орган не является одним из конституционных органов Германии?',
+    ar: 'أي جهاز ليس واحدًا من الأجهزة الدستورية في ألمانيا؟',
+    img: images.img48,
+    answers: {
+      ansKey: 3,
+      de: 'die Bürgerversammlung',
+      en: "the citizens' assembly",
+      ua: 'збори громадян',
+      ru: 'собрание граждан',
+      ar: 'الجمعية العامة للمواطنين',
+    },
+  },
+  {
+    id: 49,
+    de: 'Wer bestimmt in Deutschland die Schulpolitik?',
+    en: 'Who determines the school policy in Germany?',
+    ua: 'Хто визначає шкільну політику в Німеччині?',
+    ru: 'Кто определяет школьную политику в Германии?',
+    ar: 'من يحدد سياسة المدرسة في ألمانيا؟',
+    img: images.img49,
+    answers: {
+      ansKey: 2,
+      de: 'die Bundesländer',
+      en: 'the federal states',
+      ua: 'федеральні землі',
+      ru: 'федеральные земли',
+      ar: 'الدول الفيدرالية',
+    },
+  },
+  {
+    id: 50,
+    de: 'Die Wirtschaftsform in Deutschland nennt man …',
+    en: 'The economic system in Germany is called ...',
+    ua: 'Економічну систему в Німеччині називають ...',
+    ru: 'Экономическую систему в Германии называют ...',
+    ar: 'يطلق على النظام الاقتصادي في ألمانيا ...',
+    img: images.img50,
+    answers: {
+      ansKey: 2,
+      de: 'soziale Marktwirtschaft.',
+      en: 'social market economy.',
+      ua: 'соціальна ринкова економіка.',
+      ru: 'социальная рыночная экономика.',
+      ar: 'الاقتصاد السوقي الاجتماعي.',
+    },
+  },
   // {
-  //   id: 41,
+  //   id: 51,
   //   de: '',
   //   en: '',
   //   ua: '',
   //   ru: '',
   //   ar: '',
-  //   // img: img41,
+  //   // img: images.img51,
   //   answers: {
-  //     ansKey: 1,
+  //     ansKey: 3,
   //     de: '',
   //     en: '',
   //     ua: '',
