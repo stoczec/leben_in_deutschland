@@ -48,6 +48,13 @@ import img47 from './47.jpg';
 import img48 from './48.jpg';
 import img49 from './49.jpg';
 import img50 from './50.jpg';
+import img51 from './51.jpg';
+import img52 from './52.jpg';
+import img53 from './53.jpg';
+import img54 from './54.jpg';
+import img55 from './55.jpg';
+import img56 from './56.jpg';
+import img57 from './57.jpg';
 
 export {
   img1,
@@ -100,4 +107,11 @@ export {
   img48,
   img49,
   img50,
+  img51,
+  img52,
+  img53,
+  img54,
+  img55,
+  img56,
+  img57,
 };
