@@ -58,7 +58,7 @@ export function CardsContainer() {
         ))}
       </ContainerCard>
       <ContainerPagination>
-        <Pagination
+        <CustomPagination
           current={currentPage} // текущая страница, передается номер текущей страницы
           total={data.length} // общее количество элементов, используется для вычисления количества страниц
           pageSize={pageSize} // количество элементов на одной странице
@@ -100,4 +100,14 @@ const ContainerPagination = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+`;
+
+const CustomPagination = styled(Pagination)`
+  .ant-pagination-item a {
+    color: #1677ff;
+  }
+  .ant-pagination-item-ellipsis,
+  .ant-pagination-item-link {
+    color: #1677ff !important;
+  }
 `;

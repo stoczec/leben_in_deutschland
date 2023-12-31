@@ -62,6 +62,17 @@ import img61 from './61.jpg';
 import img62 from './62.jpg';
 import img63 from './63.jpg';
 import img64 from './64.jpg';
+import img65 from './65.jpg';
+import img66 from './66.jpg';
+import img67 from './67.jpg';
+import img68 from './68.jpg';
+import img69 from './69.jpg';
+import img70 from './70.jpg';
+import img71 from './71.jpg';
+import img72 from './72.jpg';
+import img73 from './73.jpg';
+import img74 from './74.jpg';
+import img75 from './75.jpg';
 
 export {
   img1,
@@ -128,4 +139,15 @@ export {
   img62,
   img63,
   img64,
+  img65,
+  img66,
+  img67,
+  img68,
+  img69,
+  img70,
+  img71,
+  img72,
+  img73,
+  img74,
+  img75,
 };
