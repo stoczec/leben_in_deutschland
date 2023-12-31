@@ -45,6 +45,7 @@ const CardNew = ({ id, questionDe, answerDe, question, answer, image }) => {
         return '';
     }
   };
+
   return (
     <Card>
       <StyledImage src={image} alt="Image" width={'100%'} />

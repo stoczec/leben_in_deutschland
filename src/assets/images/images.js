@@ -73,6 +73,11 @@ import img72 from './72.jpg';
 import img73 from './73.jpg';
 import img74 from './74.jpg';
 import img75 from './75.jpg';
+import img76 from './76.jpg';
+import img77 from './77.jpg';
+import img78 from './78.jpg';
+import img79 from './79.jpg';
+import img80 from './80.jpg';
 
 export {
   img1,
@@ -150,4 +155,9 @@ export {
   img73,
   img74,
   img75,
+  img76,
+  img77,
+  img78,
+  img79,
+  img80,
 };
