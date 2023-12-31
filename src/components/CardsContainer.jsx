@@ -5,8 +5,23 @@ import { useLanguage } from '../providers/LanguageProvider';
 import styled from 'styled-components';
 import { Flex, Pagination } from 'antd';
 import CardNew from './CardNew';
+import { motion, useScroll } from 'framer-motion';
+import MCardNew from './CardNew';
+
+const textAnimation = {
+  hidden: {
+    y: -100,
+    opacity: 0,
+  },
+  visible: (custom) => ({
+    y: 0,
+    opacity: 1,
+    transition: { delay: custom * 0.2 },
+  }),
+};
 
 export function CardsContainer() {
+  const { scrollYProgress } = useScroll();
   const { language } = useLanguage();
   const pageSizeOptions = [8, 16, 24, 32];
   const initialPage = localStorage.getItem('currentPage') || 1;
@@ -34,10 +49,12 @@ export function CardsContainer() {
     localStorage.setItem('currentPage', currentPage);
   }, [currentPage]);
   return (
-    <Container>
+    <Container initial="hidden" whileInView="visible">
       <ContainerCard>
         {productsToShow.map((question, index) => (
-          <CardNew
+          <MCardNew
+            custom={index + 1}
+            variants={textAnimation}
             key={question.id}
             id={question.id}
             questionDe={question.de}
@@ -78,7 +95,7 @@ export function CardsContainer() {
     </Container>
   );
 }
-const Container = styled.section`
+const Container = styled(motion.section)`
   width: 100%;
   display: flex;
   flex-direction: column;

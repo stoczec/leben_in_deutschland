@@ -9,6 +9,7 @@ import telegram from '../assets/telegram.svg';
 import whatsapp from '../assets/whatsapp.svg';
 import MyTable from './MyTable';
 import data from '../data/data';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const { Header, Footer, Content } = Layout;
 
@@ -44,6 +45,30 @@ const footerStyle = {
   backgroundColor: '#262626',
   padding: '10px 0',
 };
+
+const textAnimation = {
+  hidden: {
+    x: -100,
+    opacity: 0,
+  },
+  visible: (custom) => ({
+    x: 0,
+    opacity: 1,
+    transition: { delay: custom * 0.2 },
+  }),
+};
+
+const textAnimationY = {
+  hidden: {
+    y: 100,
+    opacity: 0,
+  },
+  visible: (custom) => ({
+    y: 0,
+    opacity: 1,
+    transition: { delay: custom * 0.2 },
+  }),
+};
 function App() {
   return (
     <Space
@@ -54,9 +79,11 @@ function App() {
       size={[0, 48]}
     >
       <Layout style={layoutStyle}>
-        <Header style={headerStyle}>
-          <CustomTitle>Leben in Deutschland</CustomTitle>
-        </Header>
+        <MHeader style={headerStyle} initial="hidden" whileInView="visible">
+          <CustomTitle custom={1.5} variants={textAnimationY}>
+            Leben in Deutschland
+          </CustomTitle>
+        </MHeader>
         <Content style={contentStyle}>
           <Starfield
             starCount={500}
@@ -64,13 +91,34 @@ function App() {
             speedFactor={0.05}
             backgroundColor="black"
           />
-          <Flex gap={15} vertical align="center">
+          <MFlex
+            gap={15}
+            vertical
+            align="center"
+            initial="hidden"
+            whileInView="visible"
+          >
             <LanguageSelector />
-            <FragenParagraph>
-              Hinzugefügt <span style={{ color: 'green' }}>{data.length}</span>{' '}
-              von <span style={{ color: 'red' }}>310</span> Fragen.
+            <FragenParagraph custom={2} variants={textAnimation}>
+              Hinzugefügt{' '}
+              <motion.span
+                style={{ color: 'green' }}
+                custom={3}
+                variants={textAnimation}
+              >
+                {data.length}
+              </motion.span>{' '}
+              von{' '}
+              <motion.span
+                style={{ color: 'red' }}
+                custom={4}
+                variants={textAnimation}
+              >
+                310
+              </motion.span>{' '}
+              Fragen.
             </FragenParagraph>
-          </Flex>
+          </MFlex>
           <Divider style={{ backgroundColor: '#d8d8d8' }} />
           <CardsContainer />
           <Divider style={{ backgroundColor: '#d8d8d8' }} />
@@ -109,7 +157,10 @@ function App() {
 }
 export default App;
 
-const CustomTitle = styled.p`
+const MHeader = motion(Header);
+const MFlex = motion(Flex);
+
+const CustomTitle = styled(motion.p)`
   font-size: 30px;
   font-weight: bolder;
   background: linear-gradient(45deg, #000000, #ff0000, #ffff00, #000000);
@@ -145,7 +196,7 @@ const CustomFloatButton = styled(FloatButton.BackTop)`
   }
 `;
 
-const FragenParagraph = styled.p`
+const FragenParagraph = styled(motion.p)`
   font-size: 24px;
   font-weight: bold;
 `;

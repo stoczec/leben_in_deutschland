@@ -1,69 +1,72 @@
 import { Image } from 'antd';
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
+import { motion } from 'framer-motion';
 
-const CardNew = ({ id, questionDe, answerDe, question, answer, image }) => {
-  const { language } = useLanguage();
-  const [isBlur, setIsBlur] = useState(true);
+const CardNew = forwardRef(
+  ({ id, questionDe, answerDe, question, answer, image }, ref) => {
+    const { language } = useLanguage();
+    const [isBlur, setIsBlur] = useState(true);
 
-  const handleToggleBlur = () => {
-    setIsBlur(!isBlur);
-  };
+    const handleToggleBlur = () => {
+      setIsBlur(!isBlur);
+    };
 
-  const frageTOggle = () => {
-    switch (language) {
-      case 'de':
-        return 'Frage';
-      case 'en':
-        return 'Frage / Question';
-      case 'ru':
-        return 'Frage / Вопрос';
-      case 'ua':
-        return 'Frage / Питання';
-      case 'ar':
-        return 'Frage / سؤال';
+    const frageTOggle = () => {
+      switch (language) {
+        case 'de':
+          return 'Frage';
+        case 'en':
+          return 'Frage / Question';
+        case 'ru':
+          return 'Frage / Вопрос';
+        case 'ua':
+          return 'Frage / Питання';
+        case 'ar':
+          return 'Frage / سؤال';
 
-      default:
-        return '';
-    }
-  };
-  const antwortTOggle = () => {
-    switch (language) {
-      case 'de':
-        return 'Antwort';
-      case 'en':
-        return 'Antwort / Answer';
-      case 'ru':
-        return 'Antwort / Ответ';
-      case 'ua':
-        return 'Antwort / Відповідь';
-      case 'ar':
-        return 'Antwort / إجابة';
+        default:
+          return '';
+      }
+    };
+    const antwortTOggle = () => {
+      switch (language) {
+        case 'de':
+          return 'Antwort';
+        case 'en':
+          return 'Antwort / Answer';
+        case 'ru':
+          return 'Antwort / Ответ';
+        case 'ua':
+          return 'Antwort / Відповідь';
+        case 'ar':
+          return 'Antwort / إجابة';
 
-      default:
-        return '';
-    }
-  };
+        default:
+          return '';
+      }
+    };
 
-  return (
-    <Card>
-      <StyledImage src={image} alt="Image" width={'100%'} />
-      <TitleQuestion>{frageTOggle()}</TitleQuestion>
-      <QuestionDe>{questionDe}</QuestionDe>
-      {language !== 'de' && <Question>{question}</Question>}
-      <TitleAnswer>{antwortTOggle()}</TitleAnswer>
-      <AnswerDe isBlur={isBlur} onClick={handleToggleBlur}>
-        {answerDe}
-      </AnswerDe>
-      {language !== 'de' && (
-        <Answer isBlur={isBlur} onClick={handleToggleBlur}>
-          {answer}
-        </Answer>
-      )}
-    </Card>
-  );
-};
+    return (
+      <Card ref={ref}>
+        <StyledImage src={image} alt="Image" width={'100%'} />
+        <TitleQuestion>{frageTOggle()}</TitleQuestion>
+        <QuestionDe>{questionDe}</QuestionDe>
+        {language !== 'de' && <Question>{question}</Question>}
+        <TitleAnswer>{antwortTOggle()}</TitleAnswer>
+        <AnswerDe isBlur={isBlur} onClick={handleToggleBlur}>
+          {answerDe}
+        </AnswerDe>
+        {language !== 'de' && (
+          <Answer isBlur={isBlur} onClick={handleToggleBlur}>
+            {answer}
+          </Answer>
+        )}
+      </Card>
+    );
+  }
+);
 
 // SCC ========== STYLED COMPONENTS ========== //
 const Card = styled.article`
@@ -144,4 +147,5 @@ const Answer = styled.p`
   `}
 `;
 
-export default CardNew;
+const MCardNew = motion(CardNew);
+export default MCardNew;
