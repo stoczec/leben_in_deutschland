@@ -8,6 +8,7 @@ import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
 import whatsapp from '../assets/whatsapp.svg';
 import MyTable from './MyTable';
+import data from '../data/data';
 
 const { Header, Footer, Content } = Layout;
 
@@ -63,8 +64,12 @@ function App() {
             speedFactor={0.05}
             backgroundColor="black"
           />
-          <Flex gap={10}>
+          <Flex gap={15} vertical align="center">
             <LanguageSelector />
+            <FragenParagraph>
+              Hinzugefügt <span style={{ color: 'green' }}>{data.length}</span>{' '}
+              von <span style={{ color: 'red' }}>310</span> Fragen.
+            </FragenParagraph>
           </Flex>
           <Divider style={{ backgroundColor: '#d8d8d8' }} />
           <CardsContainer />
@@ -138,4 +143,9 @@ const CustomFloatButton = styled(FloatButton.BackTop)`
   .ant-float-btn-body {
     background-color: #d8d8d8 !important;
   }
+`;
+
+const FragenParagraph = styled.p`
+  font-size: 24px;
+  font-weight: bold;
 `;

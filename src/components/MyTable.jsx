@@ -1,7 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
 import data from '../data/data';
-import { styled } from 'styled-components';
 
 const ansCounts = [0, 0, 0, 0];
 data.forEach((item) => ansCounts[item.answers.ansKey - 1]++);
