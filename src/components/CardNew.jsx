@@ -1,4 +1,4 @@
-import { Image } from 'antd';
+import { Badge, Image } from 'antd';
 import React, { forwardRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
@@ -49,44 +49,58 @@ const CardNew = forwardRef(
     };
 
     return (
-      <Card ref={ref}>
-        <StyledImage src={image} alt="Image" width={'100%'} />
-        <TitleQuestion>{frageTOggle()}</TitleQuestion>
-        <QuestionDe>{questionDe}</QuestionDe>
-        {language !== 'de' && <Question>{question}</Question>}
-        <TitleAnswer>{antwortTOggle()}</TitleAnswer>
-        <AnswerDe isBlur={isBlur} onClick={handleToggleBlur}>
-          {answerDe}
-        </AnswerDe>
-        {language !== 'de' && (
-          <Answer isBlur={isBlur} onClick={handleToggleBlur}>
-            {answer}
-          </Answer>
-        )}
-      </Card>
+      <CustomBadge
+        text={id < 10 ? `00${id}` : id < 100 ? `0${id}` : id}
+        color="#d8d8d8"
+        style={{ fontSize: '16px', color: '#d8d8d8', fontWeight: 'bold' }}
+        placement="start"
+      >
+        <Card ref={ref}>
+          <StyledImage src={image} alt="Image" width={'100%'} />
+          <TitleQuestion>{frageTOggle()}</TitleQuestion>
+          <QuestionDe>{questionDe}</QuestionDe>
+          {language !== 'de' && <Question>{question}</Question>}
+          <TitleAnswer>{antwortTOggle()}</TitleAnswer>
+          <AnswerDe isBlur={isBlur} onClick={handleToggleBlur}>
+            {answerDe}
+          </AnswerDe>
+          {language !== 'de' && (
+            <Answer isBlur={isBlur} onClick={handleToggleBlur}>
+              {answer}
+            </Answer>
+          )}
+        </Card>
+      </CustomBadge>
     );
   }
 );
 
 // SCC ========== STYLED COMPONENTS ========== //
+
+const CustomBadge = styled(Badge.Ribbon)`
+  .ant-ribbon-text {
+    color: #262626;
+  }
+`;
+
 const Card = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   gap: 5px;
-  border: 1px white solid;
-  border-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border: 3px #d8d8d8 solid;
+  border-radius: 10px;
+  border-bottom-right-radius: 10px;
   padding-bottom: 20px;
 `;
 
 const StyledImage = styled(Image)`
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
   &:hover.ant-image-mask {
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
   }
 `;
 

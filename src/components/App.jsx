@@ -44,6 +44,10 @@ const footerStyle = {
   color: '#d8d8d8',
   backgroundColor: '#262626',
   padding: '10px 0',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
+  padding: '20px 0',
 };
 
 const textAnimation = {
@@ -125,28 +129,34 @@ function App() {
           <MyTable />
         </Content>
         <Footer style={footerStyle}>
-          <FooterLinks>
-            <a
+          <FooterLinks initial="hidden" whileInView="visible">
+            <motion.a
               href="https://t.me/DmytroHerashchenko"
               target="_blank"
               rel="noopener noreferrer"
+              custom={1}
+              variants={textAnimationY}
             >
               <CustomImage src={telegram} alt="telegram" />
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href="https://www.linkedin.com/in/herashchenko-dmytro/"
               target="_blank"
               rel="noopener noreferrer"
+              custom={2}
+              variants={textAnimationY}
             >
               <CustomImage src={linkedin} alt="linkedin" />
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href="https://wa.me/+4915120495620"
               target="_blank"
               rel="noopener noreferrer"
+              custom={3}
+              variants={textAnimationY}
             >
               <CustomImage src={whatsapp} alt="whatsapp" />
-            </a>
+            </motion.a>
           </FooterLinks>
           ©2023 Created by Dmytro Herashchenko
         </Footer>
@@ -180,7 +190,7 @@ const CustomTitle = styled(motion.p)`
   }
 `;
 
-const FooterLinks = styled.div`
+const FooterLinks = styled(motion.div)`
   display: flex;
   justify-content: center;
   gap: 20px;
