@@ -49,12 +49,12 @@ export function CardsContainer() {
     localStorage.setItem('currentPage', currentPage);
   }, [currentPage]);
   return (
-    <Container initial="hidden" whileInView="visible">
+    <Container>
       <ContainerCard>
         {productsToShow.map((question, index) => (
-          <MCardNew
-            custom={index + 1}
-            variants={textAnimation}
+          <CardNew
+            // custom={index + 1}
+            // variants={textAnimation}
             key={question.id}
             id={question.id}
             questionDe={question.de}
@@ -95,7 +95,7 @@ export function CardsContainer() {
     </Container>
   );
 }
-const Container = styled(motion.section)`
+const Container = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;

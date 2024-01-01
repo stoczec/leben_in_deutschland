@@ -98,6 +98,7 @@ import img97 from './97.jpg';
 import img98 from './98.jpg';
 import img99 from './99.jpg';
 import img100 from './100.jpg';
+import img101 from './101.jpg';
 
 export {
   img1,
@@ -200,4 +201,5 @@ export {
   img98,
   img99,
   img100,
+  img101,
 };
