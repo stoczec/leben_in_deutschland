@@ -148,6 +148,10 @@ import img147 from './147.jpg';
 import img148 from './148.jpg';
 import img149 from './149.jpg';
 import img150 from './150.jpg';
+import img151 from './151.jpg';
+import img152 from './152.jpg';
+import img153 from './153.jpg';
+import img154 from './154.jpg';
 
 export {
   img1,
@@ -300,4 +304,8 @@ export {
   img148,
   img149,
   img150,
+  img151,
+  img152,
+  img153,
+  img154,
 };
