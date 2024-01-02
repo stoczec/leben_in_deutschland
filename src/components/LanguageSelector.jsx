@@ -22,7 +22,7 @@ export function LanguageSelector() {
   }, [changeLanguage]);
 
   return (
-    <Container align="center" gap={10}>
+    <Container align="center" gap={10} vertical>
       <StyledBadge text={language}>
         <StyledSelect
           value="Wählen Sie Ihre Muttersprache"
@@ -36,6 +36,10 @@ export function LanguageSelector() {
           <Option value="ar">العربية</Option>
         </StyledSelect>
       </StyledBadge>
+      <p style={{ fontSize: '10px' }}>
+        Wählen Sie Deutsch, wenn Sie Frage und Antwort nur auf Deutsch sehen
+        möchten.{' '}
+      </p>
     </Container>
   );
 }

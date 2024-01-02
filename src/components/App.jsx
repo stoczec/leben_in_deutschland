@@ -10,6 +10,7 @@ import whatsapp from '../assets/whatsapp.svg';
 import MyTable from './MyTable';
 import data from '../data/data';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { CaretUpOutlined } from '@ant-design/icons';
 
 const { Header, Footer, Content } = Layout;
 
@@ -43,7 +44,6 @@ const footerStyle = {
   textAlign: 'center',
   color: '#d8d8d8',
   backgroundColor: '#262626',
-  padding: '10px 0',
   display: 'flex',
   flexDirection: 'column',
   gap: '10px',
@@ -160,7 +160,8 @@ function App() {
           </FooterLinks>
           ©2023 Created by Dmytro Herashchenko
         </Footer>
-        <CustomFloatButton />
+
+        <CustomFloatButton icon={<CaretUpOutlined />} />
       </Layout>
     </Space>
   );
@@ -209,4 +210,5 @@ const CustomFloatButton = styled(FloatButton.BackTop)`
 const FragenParagraph = styled(motion.p)`
   font-size: 24px;
   font-weight: bold;
+  margin-top: 25px;
 `;
