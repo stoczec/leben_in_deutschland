@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import data from '../data/data';
+import styled from 'styled-components';
 
 const ansCounts = [0, 0, 0, 0];
 data.forEach((item) => ansCounts[item.answers.ansKey - 1]++);
@@ -17,22 +18,22 @@ const columns = [
     key: 'total',
   },
   {
-    title: '1 Option',
+    title: '1. Option',
     dataIndex: 'ans1',
     key: 'ans1',
   },
   {
-    title: '2 Option',
+    title: '2. Option',
     dataIndex: 'ans2',
     key: 'ans2',
   },
   {
-    title: '3 Option',
+    title: '3. Option',
     dataIndex: 'ans3',
     key: 'ans3',
   },
   {
-    title: '4 Option',
+    title: '4. Option',
     dataIndex: 'ans4',
     key: 'ans4',
   },
@@ -59,7 +60,7 @@ const tableData = [
 
 const MyTable = () => {
   return (
-    <Table
+    <CustomTable
       columns={columns}
       dataSource={tableData}
       bordered
@@ -68,5 +69,11 @@ const MyTable = () => {
     />
   );
 };
+
+const CustomTable = styled(Table)`
+  .ant-table-cell {
+    text-align: center;
+  }
+`;
 
 export default MyTable;

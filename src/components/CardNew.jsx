@@ -84,6 +84,7 @@ const CustomBadge = styled(Badge.Ribbon)`
 `;
 
 const Card = styled.article`
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
