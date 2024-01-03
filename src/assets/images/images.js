@@ -188,6 +188,11 @@ import img187 from './187.jpg';
 import img188 from './188.jpg';
 import img189 from './189.jpg';
 import img190 from './190.jpg';
+import img191 from './191.jpg';
+import img192 from './192.jpg';
+import img193 from './193.jpg';
+import img194 from './194.jpg';
+import img195 from './195.jpg';
 
 export {
   img1,
@@ -380,4 +385,9 @@ export {
   img188,
   img189,
   img190,
+  img191,
+  img192,
+  img193,
+  img194,
+  img195,
 };
