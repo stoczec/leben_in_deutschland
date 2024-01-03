@@ -163,6 +163,11 @@ import img162 from './162.jpg';
 import img163 from './163.jpg';
 import img164 from './164.jpg';
 import img165 from './165.jpg';
+import img166 from './166.jpg';
+import img167 from './167.jpg';
+import img168 from './168.jpg';
+import img169 from './169.jpg';
+import img170 from './170.jpg';
 
 export {
   img1,
@@ -330,4 +335,9 @@ export {
   img163,
   img164,
   img165,
+  img166,
+  img167,
+  img168,
+  img169,
+  img170,
 };
