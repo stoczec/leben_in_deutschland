@@ -152,6 +152,17 @@ import img151 from './151.jpg';
 import img152 from './152.jpg';
 import img153 from './153.jpg';
 import img154 from './154.jpg';
+import img155 from './155.jpg';
+import img156 from './156.jpg';
+import img157 from './157.jpg';
+import img158 from './158.jpg';
+import img159 from './159.jpg';
+import img160 from './160.jpg';
+import img161 from './161.jpg';
+import img162 from './162.jpg';
+import img163 from './163.jpg';
+import img164 from './164.jpg';
+import img165 from './165.jpg';
 
 export {
   img1,
@@ -308,4 +319,15 @@ export {
   img152,
   img153,
   img154,
+  img155,
+  img156,
+  img157,
+  img158,
+  img159,
+  img160,
+  img161,
+  img162,
+  img163,
+  img164,
+  img165,
 };
