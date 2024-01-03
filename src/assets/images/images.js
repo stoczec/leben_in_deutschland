@@ -180,6 +180,14 @@ import img179 from './179.jpg';
 import img180 from './180.jpg';
 import img181 from './181.jpg';
 import img182 from './182.jpg';
+import img183 from './183.jpg';
+import img184 from './184.jpg';
+import img185 from './185.jpg';
+import img186 from './186.jpg';
+import img187 from './187.jpg';
+import img188 from './188.jpg';
+import img189 from './189.jpg';
+import img190 from './190.jpg';
 
 export {
   img1,
@@ -364,4 +372,12 @@ export {
   img180,
   img181,
   img182,
+  img183,
+  img184,
+  img185,
+  img186,
+  img187,
+  img188,
+  img189,
+  img190,
 };
