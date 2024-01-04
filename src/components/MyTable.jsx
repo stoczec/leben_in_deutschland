@@ -71,7 +71,8 @@ const MyTable = () => {
 };
 
 const CustomTable = styled(Table)`
-  .ant-table-cell {
+  .ant-table-cell,
+  .ant-table-thead > tr > th {
     text-align: center;
   }
 `;

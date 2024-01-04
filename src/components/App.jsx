@@ -158,7 +158,7 @@ function App() {
               <CustomImage src={whatsapp} alt="whatsapp" />
             </motion.a>
           </FooterLinks>
-          ©2023 Created by Dmytro Herashchenko
+          ©2023 Erstellt von Dmytro Herashchenko
         </Footer>
 
         <CustomFloatButton icon={<CaretUpOutlined />} />
