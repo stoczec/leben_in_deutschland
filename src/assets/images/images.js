@@ -198,6 +198,11 @@ import img197 from './197.jpg';
 import img198 from './198.jpg';
 import img199 from './199.jpg';
 import img200 from './200.jpg';
+import img201 from './201.jpg';
+import img202 from './202.jpg';
+import img203 from './203.jpg';
+import img204 from './204.jpg';
+import img205 from './205.jpg';
 
 export {
   img1,
@@ -400,4 +405,9 @@ export {
   img198,
   img199,
   img200,
+  img201,
+  img202,
+  img203,
+  img204,
+  img205,
 };

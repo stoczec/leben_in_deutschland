@@ -97,8 +97,8 @@ const Card = styled.article`
 `;
 
 const StyledImage = styled(Image)`
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
   &:hover.ant-image-mask {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
