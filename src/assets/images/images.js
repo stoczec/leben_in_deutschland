@@ -208,6 +208,18 @@ import img207 from './207.jpg';
 import img208 from './208.jpg';
 import img209 from './209.jpg';
 import img210 from './210.jpg';
+import img211 from './211.jpg';
+import img212 from './212.jpg';
+import img213 from './213.jpg';
+import img214 from './214.jpg';
+import img215 from './215.jpg';
+import img216 from './216.jpg';
+import img217 from './217.jpg';
+import img218 from './218.jpg';
+import img219 from './219.jpg';
+import img220 from './220.jpg';
+import img221 from './221.jpg';
+import img222 from './222.jpg';
 
 export {
   img1,
@@ -420,4 +432,16 @@ export {
   img208,
   img209,
   img210,
+  img211,
+  img212,
+  img213,
+  img214,
+  img215,
+  img216,
+  img217,
+  img218,
+  img219,
+  img220,
+  img221,
+  img222,
 };
