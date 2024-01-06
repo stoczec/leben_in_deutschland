@@ -64,7 +64,7 @@ const textAnimation = {
 
 const textAnimationY = {
   hidden: {
-    y: -100,
+    y: -50,
     opacity: 0,
   },
   visible: (custom) => ({
