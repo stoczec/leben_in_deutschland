@@ -248,6 +248,16 @@ import img247 from './247.jpg';
 import img248 from './248.jpg';
 import img249 from './249.jpg';
 import img250 from './250.jpg';
+import img251 from './251.jpg';
+import img252 from './252.jpg';
+import img253 from './253.jpg';
+import img254 from './254.jpg';
+import img255 from './255.jpg';
+import img256 from './256.jpg';
+import img257 from './257.jpg';
+import img258 from './258.jpg';
+import img259 from './259.jpg';
+import img260 from './260.jpg';
 
 export {
   img1,
@@ -500,4 +510,14 @@ export {
   img248,
   img249,
   img250,
+  img251,
+  img252,
+  img253,
+  img254,
+  img255,
+  img256,
+  img257,
+  img258,
+  img259,
+  img260,
 };
