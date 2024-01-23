@@ -87,6 +87,7 @@ function App() {
   const [question, setQuestion] = useState(0);
 
   const handleChange = (value) => {
+    value === null ? (value = 0) : value;
     setQuestion(value);
   };
 
