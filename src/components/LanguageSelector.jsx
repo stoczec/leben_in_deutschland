@@ -105,6 +105,7 @@ export function LanguageSelector() {
 
 const Container = styled(Flex)`
   position: relative;
+  margin-top: 20px;
 `;
 
 const StyledBadge = styled(Badge.Ribbon)`

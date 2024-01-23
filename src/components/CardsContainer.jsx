@@ -7,6 +7,7 @@ import { Flex, Pagination } from 'antd';
 import CardNew from './CardNew';
 import { motion, useScroll } from 'framer-motion';
 import MCardNew from './CardNew';
+import dataNew from '../data/dataNew';
 
 const textAnimation = {
   hidden: {
@@ -20,7 +21,7 @@ const textAnimation = {
   }),
 };
 
-export function CardsContainer() {
+export function CardsContainer({ questionNr }) {
   const { scrollYProgress } = useScroll();
   const { language } = useLanguage();
   const pageSizeOptions = [8, 16, 24, 32];
@@ -42,56 +43,108 @@ export function CardsContainer() {
   const startIndex = (currentPage - 1) * pageSize; // стартовый индекс элемента, с которого должны отображаться элементы на текущей странице.
   const endIndex = startIndex + pageSize; // последний индекс элемента, до которого должны отображаться элементы на текущей странице.
 
-  const productsToShow = data.slice(startIndex, endIndex); // с помощью стартового и последнего элемента, формируем массив элементов
-
+  const productsToShow = dataNew.slice(startIndex, endIndex); // с помощью стартового и последнего элемента, формируем массив элементов
+  const question = dataNew.find((q) => q.id === questionNr);
   // Update localStorage whenever currentPage changes
   useEffect(() => {
     localStorage.setItem('currentPage', currentPage);
   }, [currentPage]);
   return (
     <Container>
+      {questionNr ? (
+        ''
+      ) : (
+        <ContainerPagination>
+          <CustomPagination
+            current={currentPage} // текущая страница, передается номер текущей страницы
+            total={data.length} // общее количество элементов, используется для вычисления количества страниц
+            pageSize={pageSize} // количество элементов на одной странице
+            // pageSizeOptions={data} // массив вариантов выбора количества элементов на странице
+            showSizeChanger // опция отображения выпадающего списка для выбора количества элементов на странице
+            // showQuickJumper // опция отображения поля для быстрого перехода на определенную страницу
+            showTotal={(total) => `Total ${total} items`} // функция для отображения общего количества элементов внизу пагинации
+            onChange={handlePageChange} // Обработчик события при изменении текущей страницы
+            onShowSizeChange={handlePageSizeChange} // Обработчик события при изменении размера страницы
+            style={{
+              fontWeight: 'bold',
+              color: 'white',
+            }}
+            size="small"
+          />
+        </ContainerPagination>
+      )}
       <ContainerCard>
-        {productsToShow.map((question, index) => (
-          <CardNew
-            // custom={index + 1}
-            // variants={textAnimation}
+        {questionNr === 0 ? (
+          productsToShow.map((question, index) => (
+            // <CardNew
+            //   // custom={index + 1}
+            //   // variants={textAnimation}
+            //   key={question.id}
+            //   id={question.id}
+            //   questionDe={question.de}
+            //   answerDe={question.answers.de}
+            //   question={question[language]}
+            //   answer={question.answers[language]}
+            //   image={question.img}
+            // />
+            <Card
+              key={question.id}
+              id={question.id}
+              questionDe={question.de}
+              answerFirstDe={question.answers[1].de}
+              answerSecondDe={question.answers[2].de}
+              answerThirdDe={question.answers[3].de}
+              answerFourthDe={question.answers[4].de}
+              question={question[language]}
+              answerFirst={question.answers[1][language]}
+              answerSecond={question.answers[2][language]}
+              answerThird={question.answers[3][language]}
+              answerFourth={question.answers[4][language]}
+              ansKey={question.answers.ansKey}
+              image={question.img}
+            />
+          ))
+        ) : (
+          <Card
             key={question.id}
             id={question.id}
             questionDe={question.de}
-            answerDe={question.answers.de}
+            answerFirstDe={question.answers[1].de}
+            answerSecondDe={question.answers[2].de}
+            answerThirdDe={question.answers[3].de}
+            answerFourthDe={question.answers[4].de}
             question={question[language]}
-            answer={question.answers[language]}
+            answerFirst={question.answers[1][language]}
+            answerSecond={question.answers[2][language]}
+            answerThird={question.answers[3][language]}
+            answerFourth={question.answers[4][language]}
+            ansKey={question.answers.ansKey}
             image={question.img}
           />
-          // <Card
-          //   key={question.id}
-          //   id={question.id}
-          //   questionDe={question.de}
-          //   answerDe={question.answers.de}
-          //   question={question[language]}
-          //   answer={question.answers[language]}
-          //   image={question.img}
-          // />
-        ))}
+        )}
       </ContainerCard>
-      <ContainerPagination>
-        <CustomPagination
-          current={currentPage} // текущая страница, передается номер текущей страницы
-          total={data.length} // общее количество элементов, используется для вычисления количества страниц
-          pageSize={pageSize} // количество элементов на одной странице
-          // pageSizeOptions={data} // массив вариантов выбора количества элементов на странице
-          showSizeChanger // опция отображения выпадающего списка для выбора количества элементов на странице
-          showQuickJumper // опция отображения поля для быстрого перехода на определенную страницу
-          showTotal={(total) => `Total ${total} items`} // функция для отображения общего количества элементов внизу пагинации
-          onChange={handlePageChange} // Обработчик события при изменении текущей страницы
-          onShowSizeChange={handlePageSizeChange} // Обработчик события при изменении размера страницы
-          style={{
-            fontWeight: 'bold',
-            color: 'white',
-          }}
-          size="small"
-        />
-      </ContainerPagination>
+      {questionNr ? (
+        ''
+      ) : (
+        <ContainerPagination>
+          <CustomPagination
+            current={currentPage} // текущая страница, передается номер текущей страницы
+            total={data.length} // общее количество элементов, используется для вычисления количества страниц
+            pageSize={pageSize} // количество элементов на одной странице
+            // pageSizeOptions={data} // массив вариантов выбора количества элементов на странице
+            showSizeChanger // опция отображения выпадающего списка для выбора количества элементов на странице
+            // showQuickJumper // опция отображения поля для быстрого перехода на определенную страницу
+            showTotal={(total) => `Total ${total} items`} // функция для отображения общего количества элементов внизу пагинации
+            onChange={handlePageChange} // Обработчик события при изменении текущей страницы
+            onShowSizeChange={handlePageSizeChange} // Обработчик события при изменении размера страницы
+            style={{
+              fontWeight: 'bold',
+              color: 'white',
+            }}
+            size="small"
+          />
+        </ContainerPagination>
+      )}
     </Container>
   );
 }

@@ -1,153 +1,249 @@
-import React from 'react';
-import { Collapse, Flex, Image, Typography, Badge } from 'antd';
-import { CaretRightOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { Badge, Image, Radio, Divider } from 'antd';
+import React, { forwardRef, useState } from 'react';
+import { styled } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
-import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-const CustomExpandIcon = ({ isActive }) =>
-  isActive ? (
-    <CaretDownOutlined style={{ fontSize: '16px', color: '#d8d8d8' }} />
-  ) : (
-    <CaretRightOutlined style={{ fontSize: '16px', color: '#d8d8d8' }} />
-  );
-
-const Card = ({ id, questionDe, answerDe, question, answer, image }) => {
-  const { language } = useLanguage();
-
-  const itemsNest = [
+const CardNew = forwardRef(
+  (
     {
-      key: id,
-      label: (
-        <StyledTextHeader>
-          <StyledBadge text={language} size="small" />
-          {question}
-        </StyledTextHeader>
-      ),
-      children: <StyledLabelText>{answer}</StyledLabelText>,
+      id,
+      questionDe,
+      answerFirstDe,
+      answerSecondDe,
+      answerThirdDe,
+      answerFourthDe,
+      question,
+      answerFirst,
+      answerSecond,
+      answerThird,
+      answerFourth,
+      ansKey,
+      image,
     },
-  ];
-  const items = [
-    {
-      key: id,
-      label: (
-        <Flex gap={10}>
-          <Badge
-            count={id < 10 ? `00${id}` : id < 100 ? `0${id}` : id}
+    ref
+  ) => {
+    const { language } = useLanguage();
+    const [value, setValue] = useState(0);
+
+    const onChange = (e) => {
+      setValue(e.target.value);
+    };
+
+    const frageTOggle = () => {
+      switch (language) {
+        case 'de':
+          return 'Frage';
+        case 'en':
+          return 'Frage / Question';
+        case 'ru':
+          return 'Frage / Вопрос';
+        case 'ua':
+          return 'Frage / Питання';
+        case 'ar':
+          return 'Frage / سؤال';
+
+        default:
+          return '';
+      }
+    };
+    const antwortTOggle = () => {
+      switch (language) {
+        case 'de':
+          return 'Antwort';
+        case 'en':
+          return 'Antwort / Answer';
+        case 'ru':
+          return 'Antwort / Ответ';
+        case 'ua':
+          return 'Antwort / Відповідь';
+        case 'ar':
+          return 'Antwort / إجابة';
+
+        default:
+          return '';
+      }
+    };
+
+    return (
+      <CustomBadge
+        text={id < 10 ? `00${id}` : id < 100 ? `0${id}` : id}
+        color="#d8d8d8"
+        style={{ fontSize: '16px', color: '#d8d8d8', fontWeight: 'bold' }}
+        placement="start"
+      >
+        <Card ref={ref}>
+          <StyledImage src={image} alt="Image" width={'100%'} />
+          <TitleQuestion>{frageTOggle()}</TitleQuestion>
+          <QuestionDe>{questionDe}</QuestionDe>
+          {language !== 'de' && <Question>{question}</Question>}
+          <Divider
             style={{
-              color: '#d8d8d8',
-              backgroundColor: '#3A2D6B',
-              borderColor: '#d8d8d8',
-              fontSize: '16px',
-              fontWeight: 'bold',
+              backgroundColor: '#d8d8d8',
+              margin: '0',
+              fontSize: '30px',
             }}
-            overflowCount={999}
-          />{' '}
-          <StyledTextHeaderDe>{questionDe}</StyledTextHeaderDe>
-        </Flex>
-      ),
-      children: [
-        <Container vertical align="center" gap={10}>
-          <StyledImage width={150} src={image} alt="Image" />
-          <StyledLabelTextDe>{answerDe}</StyledLabelTextDe>
-        </Container>,
-        language !== 'de' && (
-          <Collapse
-            defaultActiveKey="1"
-            items={itemsNest}
-            expandIcon={CustomExpandIcon}
-            ghost="true"
           />
-        ),
-      ],
-    },
-  ];
-  const onChange = (key) => {
-    // console.log(key);
-  };
+          <TitleAnswer>{antwortTOggle()}</TitleAnswer>
 
-  return (
-    <StyledCollapse
-      onChange={onChange}
-      items={items}
-      size="large"
-      expandIcon={CustomExpandIcon}
-      // ghost="true"
-    />
-  );
-};
-export default Card;
+          <Radio.Group
+            onChange={onChange}
+            value={value}
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '8px',
+              // justifyContent: 'flex-start',
+            }}
+          >
+            <CustomRadio value={1}>
+              <AnswerDe value={1} hasValue={value} ansKey={ansKey}>
+                {answerFirstDe}
+              </AnswerDe>
+              {language !== 'de' && (
+                <Answer value={1} hasValue={value} ansKey={ansKey}>
+                  {answerFirst}
+                </Answer>
+              )}
+            </CustomRadio>
+            <CustomRadio value={2}>
+              <AnswerDe value={2} hasValue={value} ansKey={ansKey}>
+                {answerSecondDe}
+              </AnswerDe>
+              {language !== 'de' && (
+                <Answer value={2} hasValue={value} ansKey={ansKey}>
+                  {answerSecond}
+                </Answer>
+              )}
+            </CustomRadio>
+            <CustomRadio value={3}>
+              <AnswerDe value={3} hasValue={value} ansKey={ansKey}>
+                {answerThirdDe}
+              </AnswerDe>
+              {language !== 'de' && (
+                <Answer value={3} hasValue={value} ansKey={ansKey}>
+                  {answerThird}
+                </Answer>
+              )}
+            </CustomRadio>
+            <CustomRadio value={4}>
+              <AnswerDe value={4} hasValue={value} ansKey={ansKey}>
+                {answerFourthDe}
+              </AnswerDe>
+              {language !== 'de' && (
+                <Answer value={4} hasValue={value} ansKey={ansKey}>
+                  {answerFourth}
+                </Answer>
+              )}
+            </CustomRadio>
+          </Radio.Group>
+        </Card>
+      </CustomBadge>
+    );
+  }
+);
 
-const Container = styled(Flex)`
-  padding: 10px;
+// SCC ========== STYLED COMPONENTS ========== //
+
+const CustomBadge = styled(Badge.Ribbon)`
+  .ant-ribbon-text {
+    color: #262626;
+  }
 `;
 
-const StyledCollapse = styled(Collapse)`
-  width: 100%;
-  background-color: #242323;
-  border-color: #7272713e;
-  .ant-collapse-header {
-    background-color: #242323;
-    padding: 5px !important;
-  }
-
-  .ant-collapse-content-box {
-    background-color: #7272713e;
-    padding: 3px !important;
-    border-radius: 5px;
-  }
-  .ant-collapse-content {
-    background-color: #7272714b;
-    border-top: none;
-  }
-  .ant-collapse-item {
-    border-bottom: 1px solid #7272713e !important ;
-  }
+const Card = styled.article`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  border: 3px #d8d8d8 solid;
+  border-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding-bottom: 20px;
 `;
 
 const StyledImage = styled(Image)`
-  border-radius: 8px;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
   &:hover.ant-image-mask {
-    border-radius: 8px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
   }
 `;
-const StyledTextHeader = styled.p`
-  color: #d8d8d8;
-  font-size: 14px;
-  font-weight: bold;
-  font-family: 'Afacad', sans-serif;
-  position: relative;
+
+const TitleQuestion = styled.p`
+  font-size: 18px;
+  color: #e61a1a;
 `;
 
-const StyledTextHeaderDe = styled.p`
-  color: #d8d8d8;
-  font-size: 16px;
-  font-weight: bold;
-  font-family: 'Afacad', sans-serif;
+const TitleAnswer = styled.p`
+  font-size: 18px;
+  color: #1bc51c;
 `;
 
-const StyledLabelTextDe = styled(Typography.Text)`
-  color: #242323;
-  font-size: 16px;
+const QuestionDe = styled.p`
+  width: 100%;
+
+  background-color: #87b8ec;
+  color: black;
+  padding: 5px;
   font-weight: bold;
-  background-color: #d8d8d8;
-  padding-inline: 5px;
-  border-radius: 5px;
-`;
-const StyledLabelText = styled(Typography.Text)`
-  color: #242323;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #d8d8d8;
-  padding-inline: 5px;
-  border-radius: 5px;
 `;
 
-const StyledBadge = styled(Badge.Ribbon)`
-  /* width: 10%; */
-  position: absolute;
-  top: -20px;
-  /* transform: translateY(-50%); */
-  /* right: -50px; */
-  /* font-size: 20px; */
-  font-weight: bolder;
+const Question = styled.p`
+  width: 100%;
+
+  background-color: #94831f;
+  color: black;
+  padding: 5px;
 `;
+
+const AnswerDe = styled.p`
+  width: 100%;
+
+  background-color: ${({ value, hasValue, ansKey }) =>
+    hasValue === 0 || value !== hasValue
+      ? '#87b8ec'
+      : (hasValue === ansKey) & (value === hasValue)
+      ? '#1bc51c'
+      : '#e61a1a'};
+
+  color: black;
+  padding: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 3px #d8d8d8 solid;
+`;
+
+const Answer = styled.p`
+  width: 100%;
+
+  background-color: ${({ value, hasValue, ansKey }) =>
+    hasValue === 0 || value !== hasValue
+      ? '#94831f'
+      : (hasValue === ansKey) & (value === hasValue)
+      ? '#1bc51c'
+      : '#e61a1a'};
+
+  color: black;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 0 0 10px 10px;
+`;
+
+const CustomRadio = styled(Radio)`
+  width: 100%;
+  padding-left: 8px;
+
+  span:has(p) {
+    width: 100%;
+  }
+`;
+
+const MCardNew = motion(CardNew);
+export default MCardNew;
