@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitOverride": true,
+        "noFallthroughCasesInSwitch": true,
+        "lib": ["ES2022", "DOM"],
+        "types": ["@playwright/test", "node"],
+        "isolatedModules": true,
+        "allowJs": true
+    },
+    "include": ["**/*.ts"]
+}
