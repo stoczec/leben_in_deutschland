@@ -9,7 +9,6 @@ export default defineConfig({
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
           'antd-vendor': ['antd', '@ant-design/icons'],
-          'motion-vendor': ['framer-motion'],
         },
       },
     },
