@@ -100,7 +100,7 @@ const CardNew = forwardRef(
             }}
           >
             <CustomRadio value={1}>
-              <AnswerDe value={1} hasValue={value} ansKey={ansKey}>
+              <AnswerDe data-testid="answer-de-1" value={1} hasValue={value} ansKey={ansKey}>
                 {answerFirstDe}
               </AnswerDe>
               {language !== 'de' && (
@@ -110,7 +110,7 @@ const CardNew = forwardRef(
               )}
             </CustomRadio>
             <CustomRadio value={2}>
-              <AnswerDe value={2} hasValue={value} ansKey={ansKey}>
+              <AnswerDe data-testid="answer-de-2" value={2} hasValue={value} ansKey={ansKey}>
                 {answerSecondDe}
               </AnswerDe>
               {language !== 'de' && (
@@ -120,7 +120,7 @@ const CardNew = forwardRef(
               )}
             </CustomRadio>
             <CustomRadio value={3}>
-              <AnswerDe value={3} hasValue={value} ansKey={ansKey}>
+              <AnswerDe data-testid="answer-de-3" value={3} hasValue={value} ansKey={ansKey}>
                 {answerThirdDe}
               </AnswerDe>
               {language !== 'de' && (
@@ -130,7 +130,7 @@ const CardNew = forwardRef(
               )}
             </CustomRadio>
             <CustomRadio value={4}>
-              <AnswerDe value={4} hasValue={value} ansKey={ansKey}>
+              <AnswerDe data-testid="answer-de-4" value={4} hasValue={value} ansKey={ansKey}>
                 {answerFourthDe}
               </AnswerDe>
               {language !== 'de' && (
