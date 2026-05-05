@@ -2,7 +2,6 @@ import { Badge, Image, Radio, Divider } from 'antd';
 import { forwardRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
-import { motion } from 'framer-motion';
 import { theme } from '../assets/styles/theme';
 
 const CardNew = forwardRef(
@@ -263,5 +262,5 @@ const CustomRadio = styled(Radio)`
   }
 `;
 
-const MCardNew = motion(CardNew);
-export default MCardNew;
+CardNew.displayName = 'Card';
+export default CardNew;

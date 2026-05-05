@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
 import { Badge, Flex, Select } from 'antd';
 import { useLanguage } from '../providers/LanguageProvider';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import styled, { keyframes } from 'styled-components';
 
 const { Option } = Select;
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
 
 export function LanguageSelector() {
   const { language, changeLanguage } = useLanguage();
@@ -12,19 +16,6 @@ export function LanguageSelector() {
   const handleChange = (value) => {
     localStorage.setItem('language', value);
     changeLanguage(value);
-  };
-
-  const textAnimation = {
-    hidden: {
-      // y: 100,
-      opacity: 0,
-      delay: 1,
-    },
-    visible: (custom) => ({
-      // y: 0,
-      opacity: 1,
-      transition: { delay: custom * 0.01 },
-    }),
   };
 
   useEffect(() => {
@@ -49,55 +40,9 @@ export function LanguageSelector() {
           <Option value="ar">العربية</Option>
         </StyledSelect>
       </StyledBadge>
-      <motion.p
-        style={{ fontSize: '10px' }}
-        initial="hidden"
-        whileInView="visible"
-      >
-        <motion.span custom={1} variants={textAnimation}>
-          Wählen
-        </motion.span>{' '}
-        <motion.span custom={2} variants={textAnimation}>
-          Sie
-        </motion.span>{' '}
-        <motion.span custom={3} variants={textAnimation}>
-          Deutsch
-        </motion.span>
-        <motion.span custom={4} variants={textAnimation}>
-          ,
-        </motion.span>{' '}
-        <motion.span custom={5} variants={textAnimation}>
-          wenn
-        </motion.span>{' '}
-        <motion.span custom={6} variants={textAnimation}>
-          Sie
-        </motion.span>{' '}
-        <motion.span custom={7} variants={textAnimation}>
-          Frage
-        </motion.span>{' '}
-        <motion.span custom={8} variants={textAnimation}>
-          und
-        </motion.span>{' '}
-        <motion.span custom={9} variants={textAnimation}>
-          Antwort
-        </motion.span>{' '}
-        <motion.span custom={10} variants={textAnimation}>
-          nur
-        </motion.span>{' '}
-        <motion.span custom={11} variants={textAnimation}>
-          auf
-        </motion.span>{' '}
-        <motion.span custom={12} variants={textAnimation}>
-          Deutsch
-        </motion.span>{' '}
-        <motion.span custom={13} variants={textAnimation}>
-          sehen
-        </motion.span>{' '}
-        <motion.span custom={14} variants={textAnimation}>
-          möchten
-        </motion.span>
-        .{' '}
-      </motion.p>
+      <Hint>
+        Wählen Sie Deutsch, wenn Sie Frage und Antwort nur auf Deutsch sehen möchten.
+      </Hint>
     </Container>
   );
 }
@@ -132,4 +77,10 @@ const StyledSelect = styled(Select)`
     font-size: 15px;
     font-weight: bolder;
   }
+`;
+
+const Hint = styled.p`
+  font-size: 10px;
+  opacity: 0;
+  animation: ${fadeIn} 0.5s ease 0.3s forwards;
 `;

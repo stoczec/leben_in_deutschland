@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import {
   ConfigProvider,
   FloatButton,
@@ -12,14 +12,13 @@ import {
 } from 'antd';
 import { LanguageSelector } from './LanguageSelector';
 import { CardsContainer } from './CardsContainer';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const Starfield = lazy(() => import('react-starfield'));
 import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
 import whatsapp from '../assets/whatsapp.svg';
 import dataNew from '../data/dataNew';
-import { motion } from 'framer-motion';
 import { CaretUpOutlined } from '@ant-design/icons';
 import { useLanguage } from '../providers/LanguageProvider';
 import { theme } from '../assets/styles/theme';
@@ -35,21 +34,35 @@ const navLabels = {
   ar: { prev: 'السؤال السابق', next: 'السؤال التالي' },
 };
 
-const textAnimationY = {
-  hidden: {
-    y: -50,
-    opacity: 0,
-  },
-  visible: (custom) => ({
-    y: 0,
-    opacity: 1,
-    transition: { delay: custom * 0.2 },
-  }),
-};
+const slideDownFadeIn = keyframes`
+  from { opacity: 0; transform: translateY(-50px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+function useInViewOnce(options) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || inView) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setInView(true);
+        observer.disconnect();
+      }
+    }, options);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [inView, options]);
+  return [ref, inView];
+}
+const FOOTER_OBSERVER_OPTS = { threshold: 0.15 };
+
 function App() {
   const [question, setQuestion] = useState(0);
   const { language } = useLanguage();
   const direction = language === 'ar' ? 'rtl' : 'ltr';
+  const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
 
   useEffect(() => {
     document.documentElement.dir = direction;
@@ -87,10 +100,8 @@ function App() {
         size={[0, 48]}
       >
         <StyledLayout>
-        <StyledHeader initial="hidden" whileInView="visible">
-          <CustomTitle custom={1.5} variants={textAnimationY}>
-            Leben in Deutschland
-          </CustomTitle>
+        <StyledHeader>
+          <CustomTitle>Leben in Deutschland</CustomTitle>
         </StyledHeader>
         <StyledContent>
           <Suspense fallback={null}>
@@ -101,15 +112,9 @@ function App() {
               backgroundColor="black"
             />
           </Suspense>
-          <MFlex
-            gap={15}
-            vertical
-            align="center"
-            initial="hidden"
-            whileInView="visible"
-          >
+          <Flex gap={15} vertical align="center">
             <LanguageSelector />
-          </MFlex>
+          </Flex>
           <StyledDivider />
           <SelectContainer>
             <FilterSection>
@@ -194,34 +199,28 @@ function App() {
             Schreiben Sie mir, wenn Sie einen Fehler gefunden haben oder
             irgendwelche Meinungen oder Vorschläge haben.
           </Text>
-          <FooterLinks initial="hidden" whileInView="visible">
-            <motion.a
+          <FooterLinks ref={footerRef} className={footerInView ? 'in-view' : ''}>
+            <a
               href="https://t.me/DmytroHerashchenko"
               target="_blank"
               rel="noopener noreferrer"
-              custom={1}
-              variants={textAnimationY}
             >
               <CustomImage src={telegram} alt="telegram" />
-            </motion.a>
-            <motion.a
+            </a>
+            <a
               href="https://www.linkedin.com/in/herashchenko-dmytro/"
               target="_blank"
               rel="noopener noreferrer"
-              custom={2}
-              variants={textAnimationY}
             >
               <CustomImage src={linkedin} alt="linkedin" />
-            </motion.a>
-            <motion.a
+            </a>
+            <a
               href="https://wa.me/+4915120495620"
               target="_blank"
               rel="noopener noreferrer"
-              custom={3}
-              variants={textAnimationY}
             >
               <CustomImage src={whatsapp} alt="whatsapp" />
-            </motion.a>
+            </a>
           </FooterLinks>
           ©2023–2026 Erstellt von Dmytro Herashchenko
         </StyledFooter>
@@ -240,7 +239,7 @@ const StyledLayout = styled(Layout)`
   min-height: 100vh;
 `;
 
-const StyledHeader = styled(motion(Header))`
+const StyledHeader = styled(Header)`
   color: ${theme.colors.text_primary};
   background-color: ${theme.colors.bg_chrome};
   padding: ${theme.spacing.sm};
@@ -273,20 +272,29 @@ const StyledDivider = styled(Divider)`
   background-color: ${theme.colors.border_strong};
 `;
 
-const MFlex = motion(Flex);
-
-const CustomTitle = styled(motion.p)`
+const CustomTitle = styled.p`
   font-size: clamp(20px, 6vw, 30px);
   font-weight: 700;
   text-align: center;
   color: ${theme.colors.text_primary};
   letter-spacing: 0.02em;
+  animation: ${slideDownFadeIn} 0.6s ease 0.3s both;
 `;
 
-const FooterLinks = styled(motion.div)`
+const FooterLinks = styled.div`
   display: flex;
   justify-content: center;
   gap: ${theme.spacing.lg};
+
+  & > a {
+    opacity: 0;
+  }
+  &.in-view > a {
+    animation: ${slideDownFadeIn} 0.5s ease both;
+  }
+  &.in-view > a:nth-child(1) { animation-delay: 0.05s; }
+  &.in-view > a:nth-child(2) { animation-delay: 0.2s; }
+  &.in-view > a:nth-child(3) { animation-delay: 0.35s; }
 `;
 
 const CustomImage = styled.img`
