@@ -121,14 +121,15 @@ function App() {
               <FilterContainer>
                 <Paragraph>Wählen Sie eine Aufgabennummer</Paragraph>
                 <Select
-                  value="Nummer"
+                  value={question || undefined}
+                  placeholder="Nr."
                   onChange={handleChange}
                   size="small"
                   style={{ width: '100px' }}
                 >
-                  {dataNew.map((question) => (
-                    <Option key={question.id} value={question.id}>
-                      {question.id}
+                  {dataNew.map((q) => (
+                    <Option key={q.id} value={q.id}>
+                      {q.id}
                     </Option>
                   ))}
                 </Select>
@@ -139,7 +140,8 @@ function App() {
                   size="small"
                   min={1}
                   max={310}
-                  defaultValue={155}
+                  value={question || undefined}
+                  placeholder="Nr."
                   onChange={handleChange}
                   style={{ width: '100px' }}
                 />
