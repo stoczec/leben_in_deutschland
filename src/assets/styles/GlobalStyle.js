@@ -43,6 +43,12 @@ body {
     font-weight: inherit;
     font-size: inherit;
   }
+
+  :focus-visible {
+    outline: 2px solid ${theme.colors.state_focus_ring};
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 `;
 
 export default GlobalStyle;

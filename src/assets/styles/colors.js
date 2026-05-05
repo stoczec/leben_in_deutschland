@@ -24,4 +24,5 @@ export const colors = {
   state_danger: '#e61a1a',
   state_question_title: '#e61a1a',
   state_answer_title: '#1bc51c',
+  state_focus_ring: '#87b8ec',
 };

@@ -217,6 +217,11 @@ const AnswerDe = styled.p`
   font-weight: bold;
   border-radius: 10px 10px 0 0;
   border-bottom: 3px ${theme.colors.border_strong} solid;
+  transition: filter 0.15s ease;
+
+  &:hover {
+    filter: brightness(1.08);
+  }
 `;
 
 const Answer = styled.p`
@@ -236,6 +241,11 @@ const Answer = styled.p`
   line-height: 1.35;
   cursor: pointer;
   border-radius: 0 0 10px 10px;
+  transition: filter 0.15s ease;
+
+  &:hover {
+    filter: brightness(1.12);
+  }
 `;
 
 const CustomRadio = styled(Radio)`
