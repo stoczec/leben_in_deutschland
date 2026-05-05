@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Card from './Card';
 import data from '../data/data';
 import { useLanguage } from '../providers/LanguageProvider';
@@ -20,6 +20,7 @@ export function CardsContainer({ questionNr }) {
   const initialPage = localStorage.getItem('currentPage') || 1;
   const [currentPage, setCurrentPage] = useState(Number(initialPage));
   const [pageSize, setPageSize] = useState(pageSizeOptions[0]);
+  const isInitialMount = useRef(true);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -38,6 +39,11 @@ export function CardsContainer({ questionNr }) {
 
   useEffect(() => {
     localStorage.setItem('currentPage', currentPage);
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
   const showTotal = totalLabels[language] || totalLabels.de;
