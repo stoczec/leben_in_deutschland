@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import {
   ConfigProvider,
   FloatButton,
@@ -12,8 +12,9 @@ import {
 } from 'antd';
 import { LanguageSelector } from './LanguageSelector';
 import { CardsContainer } from './CardsContainer';
-import Starfield from 'react-starfield';
 import styled from 'styled-components';
+
+const Starfield = lazy(() => import('react-starfield'));
 import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
 import whatsapp from '../assets/whatsapp.svg';
@@ -84,12 +85,14 @@ function App() {
           </CustomTitle>
         </StyledHeader>
         <StyledContent>
-          <Starfield
-            starCount={150}
-            starColor={[216, 216, 216]}
-            speedFactor={0.05}
-            backgroundColor="black"
-          />
+          <Suspense fallback={null}>
+            <Starfield
+              starCount={150}
+              starColor={[216, 216, 216]}
+              speedFactor={0.05}
+              backgroundColor="black"
+            />
+          </Suspense>
           <MFlex
             gap={15}
             vertical
