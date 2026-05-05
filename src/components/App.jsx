@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
+  ConfigProvider,
   FloatButton,
   Layout,
   Space,
@@ -12,65 +13,18 @@ import {
 import { LanguageSelector } from './LanguageSelector';
 import { CardsContainer } from './CardsContainer';
 import Starfield from 'react-starfield';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
 import whatsapp from '../assets/whatsapp.svg';
-import MyTable from './MyTable';
-import data from '../data/data';
 import dataNew from '../data/dataNew';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { CaretUpOutlined } from '@ant-design/icons';
+import { useLanguage } from '../providers/LanguageProvider';
+import { theme } from '../assets/styles/theme';
 
 const { Header, Footer, Content } = Layout;
-
-const layoutStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '100vh',
-};
-
-const headerStyle = {
-  color: '#fff',
-  backgroundColor: '#262626',
-  padding: '10px ',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-const contentStyle = {
-  textAlign: 'center',
-  // lineHeight: '120px',
-  color: '#fff',
-  backgroundColor: '#242323',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: '20px',
-};
-
-const footerStyle = {
-  textAlign: 'center',
-  color: '#d8d8d8',
-  backgroundColor: '#262626',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '10px',
-  padding: '20px 0',
-};
-
-const textAnimation = {
-  hidden: {
-    x: -100,
-    opacity: 0,
-  },
-  visible: (custom) => ({
-    x: 0,
-    opacity: 1,
-    transition: { delay: custom * 0.2 },
-  }),
-};
+const { Option } = Select;
 
 const textAnimationY = {
   hidden: {
@@ -85,6 +39,13 @@ const textAnimationY = {
 };
 function App() {
   const [question, setQuestion] = useState(0);
+  const { language } = useLanguage();
+  const direction = language === 'ar' ? 'rtl' : 'ltr';
+
+  useEffect(() => {
+    document.documentElement.dir = direction;
+    document.documentElement.lang = language;
+  }, [direction, language]);
 
   const handleChange = (value) => {
     value === null ? (value = 0) : value;
@@ -108,22 +69,23 @@ function App() {
     setQuestion(randomNumber);
   };
   return (
-    <Space
-      direction="vertical"
-      style={{
-        width: '100%',
-      }}
-      size={[0, 48]}
-    >
-      <Layout style={layoutStyle}>
-        <MHeader style={headerStyle} initial="hidden" whileInView="visible">
+    <ConfigProvider direction={direction}>
+      <Space
+        direction="vertical"
+        style={{
+          width: '100%',
+        }}
+        size={[0, 48]}
+      >
+        <StyledLayout>
+        <StyledHeader initial="hidden" whileInView="visible">
           <CustomTitle custom={1.5} variants={textAnimationY}>
             Leben in Deutschland
           </CustomTitle>
-        </MHeader>
-        <Content style={contentStyle}>
+        </StyledHeader>
+        <StyledContent>
           <Starfield
-            starCount={500}
+            starCount={150}
             starColor={[216, 216, 216]}
             speedFactor={0.05}
             backgroundColor="black"
@@ -136,27 +98,8 @@ function App() {
             whileInView="visible"
           >
             <LanguageSelector />
-            {/* <FragenParagraph custom={2} variants={textAnimation}>
-              Hinzugefügt{' '}
-              <motion.span
-                style={{ color: 'green' }}
-                custom={3}
-                variants={textAnimation}
-              >
-                {data.length}
-              </motion.span>{' '}
-              von{' '}
-              <motion.span
-                style={{ color: 'red' }}
-                custom={4}
-                variants={textAnimation}
-              >
-                310
-              </motion.span>{' '}
-              Fragen.
-            </FragenParagraph> */}
           </MFlex>
-          <Divider style={{ backgroundColor: '#d8d8d8' }} />
+          <StyledDivider />
           <SelectContainer>
             <FilterSection>
               <FilterContainer>
@@ -201,7 +144,6 @@ function App() {
               <FilterContainer>
                 <Paragraph>Alle Aufgabennummer anzeigen</Paragraph>
                 <Button
-                  type="primary"
                   onClick={handleReset}
                   size="small"
                   disabled={!question}
@@ -212,7 +154,7 @@ function App() {
               </FilterContainer>
             </FilterSection>
           </SelectContainer>
-          <Divider style={{ backgroundColor: '#d8d8d8' }} />
+          <StyledDivider />
           <CardsContainer questionNr={question} />
           {question ? (
             <ButtonsContainer>
@@ -234,10 +176,9 @@ function App() {
           ) : (
             ''
           )}
-          <Divider style={{ backgroundColor: '#d8d8d8' }} />
-          {/* <MyTable /> */}
-        </Content>
-        <Footer style={footerStyle}>
+          <StyledDivider />
+        </StyledContent>
+        <StyledFooter>
           <Text>
             Schreiben Sie mir, wenn Sie einen Fehler gefunden haben oder
             irgendwelche Meinungen oder Vorschläge haben.
@@ -271,43 +212,70 @@ function App() {
               <CustomImage src={whatsapp} alt="whatsapp" />
             </motion.a>
           </FooterLinks>
-          ©2023 Erstellt von Dmytro Herashchenko
-        </Footer>
+          ©2023–2026 Erstellt von Dmytro Herashchenko
+        </StyledFooter>
 
-        <CustomFloatButton icon={<CaretUpOutlined />} />
-      </Layout>
-    </Space>
+          <CustomFloatButton icon={<CaretUpOutlined />} />
+        </StyledLayout>
+      </Space>
+    </ConfigProvider>
   );
 }
 export default App;
 
-const MHeader = motion(Header);
+const StyledLayout = styled(Layout)`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const StyledHeader = styled(motion(Header))`
+  color: ${theme.colors.text_primary};
+  background-color: ${theme.colors.bg_chrome};
+  padding: ${theme.spacing.sm};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledContent = styled(Content)`
+  text-align: center;
+  color: ${theme.colors.text_primary};
+  background-color: ${theme.colors.bg_page};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: ${theme.spacing.lg};
+`;
+
+const StyledFooter = styled(Footer)`
+  text-align: center;
+  color: ${theme.colors.text_secondary};
+  background-color: ${theme.colors.bg_chrome};
+  display: flex;
+  flex-direction: column;
+  gap: ${theme.spacing.sm};
+  padding: ${theme.spacing.lg} 0;
+`;
+
+const StyledDivider = styled(Divider)`
+  background-color: ${theme.colors.border_strong};
+`;
+
 const MFlex = motion(Flex);
 
 const CustomTitle = styled(motion.p)`
-  font-size: 30px;
-  font-weight: bolder;
-  background: linear-gradient(45deg, #000000, #ff0000, #ffff00, #000000);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 150% auto;
-  animation: textShine 5s ease-in-out infinite alternate;
-
-  @keyframes textShine {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
-  }
+  font-size: clamp(20px, 6vw, 30px);
+  font-weight: 700;
+  text-align: center;
+  color: ${theme.colors.text_primary};
+  letter-spacing: 0.02em;
 `;
 
 const FooterLinks = styled(motion.div)`
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: ${theme.spacing.lg};
 `;
 
 const CustomImage = styled.img`
@@ -316,23 +284,24 @@ const CustomImage = styled.img`
 
 const CustomFloatButton = styled(FloatButton.BackTop)`
   .ant-float-btn-body {
-    background-color: #d8d8d8 !important;
+    background-color: ${theme.colors.bg_select_light} !important;
   }
 `;
 
 const Paragraph = styled.p`
-  width: 100px;
-  font-size: 9px;
+  max-width: 150px;
+  font-size: 13px;
   font-weight: bold;
+  text-align: center;
+  line-height: 1.3;
 `;
 
 const SelectContainer = styled.div`
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 10px;
+  gap: ${theme.spacing.lg};
+  margin-bottom: ${theme.spacing.sm};
 
   @media (max-width: 500px) {
     flex-direction: column;
@@ -341,8 +310,8 @@ const SelectContainer = styled.div`
 
 const ButtonsContainer = styled.div`
   display: flex;
-  gap: 20px;
-  margin-top: 20px;
+  gap: ${theme.spacing.lg};
+  margin-top: ${theme.spacing.lg};
 `;
 
 const FilterContainer = styled.div`
@@ -350,31 +319,21 @@ const FilterContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: ${theme.spacing.xxs};
 `;
 
 const FilterSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: ${theme.spacing.lg};
 `;
 
 const Text = styled.p`
-  font-weight: bolder;
-  background: linear-gradient(45deg, #000000, #ff0000, #ffff00, #000000);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 150% auto;
-  animation: textShine 5s ease-in-out infinite alternate;
-
-  @keyframes textShine {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
-  }
+  font-weight: 600;
+  color: ${theme.colors.text_secondary};
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto;
 `;

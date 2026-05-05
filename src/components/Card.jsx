@@ -1,8 +1,9 @@
 import { Badge, Image, Radio, Divider } from 'antd';
-import React, { forwardRef, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
 import { motion } from 'framer-motion';
+import { theme } from '../assets/styles/theme';
 
 const CardNew = forwardRef(
   (
@@ -149,7 +150,7 @@ const CardNew = forwardRef(
 
 const CustomBadge = styled(Badge.Ribbon)`
   .ant-ribbon-text {
-    color: #262626;
+    color: ${theme.colors.bg_chrome};
   }
 `;
 
@@ -159,11 +160,11 @@ const Card = styled.article`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 5px;
-  border: 3px #d8d8d8 solid;
+  gap: ${theme.spacing.xxs};
+  border: 1px solid ${theme.colors.border_subtle};
   border-radius: 10px;
-  border-bottom-right-radius: 10px;
-  padding-bottom: 20px;
+  padding-bottom: ${theme.spacing.lg};
+  background-color: ${theme.colors.bg_surface};
 `;
 
 const StyledImage = styled(Image)`
@@ -177,61 +178,62 @@ const StyledImage = styled(Image)`
 
 const TitleQuestion = styled.p`
   font-size: 18px;
-  color: #e61a1a;
+  color: ${theme.colors.state_question_title};
 `;
 
 const TitleAnswer = styled.p`
   font-size: 18px;
-  color: #1bc51c;
+  color: ${theme.colors.state_answer_title};
 `;
 
 const QuestionDe = styled.p`
   width: 100%;
-
-  background-color: #87b8ec;
-  color: black;
-  padding: 5px;
+  background-color: ${theme.colors.bg_question_de};
+  color: ${theme.colors.text_on_blue};
+  padding: ${theme.spacing.xxs} 5px;
   font-weight: bold;
 `;
 
 const Question = styled.p`
   width: 100%;
-
-  background-color: #94831f;
-  color: black;
-  padding: 5px;
+  background-color: ${theme.colors.bg_translation_muted};
+  color: ${theme.colors.text_muted};
+  padding: ${theme.spacing.xxs} 5px;
+  font-size: 14px;
+  line-height: 1.35;
 `;
 
 const AnswerDe = styled.p`
   width: 100%;
-
   background-color: ${({ value, hasValue, ansKey }) =>
     hasValue === 0 || value !== hasValue
-      ? '#87b8ec'
+      ? theme.colors.bg_question_de
       : (hasValue === ansKey) & (value === hasValue)
-      ? '#1bc51c'
-      : '#e61a1a'};
-
-  color: black;
-  padding: 5px;
+      ? theme.colors.state_success
+      : theme.colors.state_danger};
+  color: ${theme.colors.text_on_blue};
+  padding: ${theme.spacing.xxs} 5px;
   cursor: pointer;
   font-weight: bold;
   border-radius: 10px 10px 0 0;
-  border-bottom: 3px #d8d8d8 solid;
+  border-bottom: 3px ${theme.colors.border_strong} solid;
 `;
 
 const Answer = styled.p`
   width: 100%;
-
   background-color: ${({ value, hasValue, ansKey }) =>
     hasValue === 0 || value !== hasValue
-      ? '#94831f'
+      ? theme.colors.bg_translation_muted
       : (hasValue === ansKey) & (value === hasValue)
-      ? '#1bc51c'
-      : '#e61a1a'};
-
-  color: black;
-  padding: 5px;
+      ? theme.colors.state_success
+      : theme.colors.state_danger};
+  color: ${({ value, hasValue }) =>
+    hasValue === 0 || value !== hasValue
+      ? theme.colors.text_muted
+      : theme.colors.text_on_light};
+  padding: ${theme.spacing.xxs} 5px;
+  font-size: 14px;
+  line-height: 1.35;
   cursor: pointer;
   border-radius: 0 0 10px 10px;
 `;

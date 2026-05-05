@@ -1,107 +1,87 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from './Card';
 import data from '../data/data';
 import { useLanguage } from '../providers/LanguageProvider';
 import styled from 'styled-components';
-import { Flex, Pagination } from 'antd';
-import CardNew from './CardNew';
-import { motion, useScroll } from 'framer-motion';
-import MCardNew from './CardNew';
+import { Pagination } from 'antd';
 import dataNew from '../data/dataNew';
 
-const textAnimation = {
-  hidden: {
-    y: -100,
-    opacity: 0,
-  },
-  visible: (custom) => ({
-    y: 0,
-    opacity: 1,
-    transition: { delay: custom * 0.2 },
-  }),
+const totalLabels = {
+  de: (total) => `Insgesamt ${total} Aufgaben`,
+  en: (total) => `Total ${total} questions`,
+  ua: (total) => `Всього ${total} запитань`,
+  ru: (total) => `Всего ${total} вопросов`,
+  ar: (total) => `المجموع: ${total} سؤال`,
 };
 
 export function CardsContainer({ questionNr }) {
-  const { scrollYProgress } = useScroll();
   const { language } = useLanguage();
   const pageSizeOptions = [8, 16, 24, 32];
   const initialPage = localStorage.getItem('currentPage') || 1;
   const [currentPage, setCurrentPage] = useState(Number(initialPage));
-  // const [currentPage, setCurrentPage] = useState(1); // номер текущей страницы
-  const [pageSize, setPageSize] = useState(pageSizeOptions[0]); // количество отображаемых товаров на странице или размер страницы
+  const [pageSize, setPageSize] = useState(pageSizeOptions[0]);
 
   const handlePageChange = (page) => {
-    // функция, которая меняет номер текущей стариницы
     setCurrentPage(page);
   };
 
   const handlePageSizeChange = (current, size) => {
-    setCurrentPage(1); // сбрасываем номер текущей страницы, при изменении размера страницы
-    setPageSize(size); // изменяем размер страницы
+    setCurrentPage(1);
+    setPageSize(size);
   };
 
-  const startIndex = (currentPage - 1) * pageSize; // стартовый индекс элемента, с которого должны отображаться элементы на текущей странице.
-  const endIndex = startIndex + pageSize; // последний индекс элемента, до которого должны отображаться элементы на текущей странице.
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
 
-  const productsToShow = dataNew.slice(startIndex, endIndex); // с помощью стартового и последнего элемента, формируем массив элементов
+  const productsToShow = dataNew.slice(startIndex, endIndex);
   const question = dataNew.find((q) => q.id === questionNr);
-  // Update localStorage whenever currentPage changes
+
   useEffect(() => {
     localStorage.setItem('currentPage', currentPage);
   }, [currentPage]);
+
+  const showTotal = totalLabels[language] || totalLabels.de;
+
+  const renderPagination = () => (
+    <ContainerPagination>
+      <CustomPagination
+        current={currentPage}
+        total={data.length}
+        pageSize={pageSize}
+        showSizeChanger
+        showTotal={showTotal}
+        onChange={handlePageChange}
+        onShowSizeChange={handlePageSizeChange}
+        style={{
+          fontWeight: 'bold',
+          color: 'white',
+        }}
+        size="small"
+      />
+    </ContainerPagination>
+  );
+
   return (
     <Container>
-      {questionNr ? (
-        ''
-      ) : (
-        <ContainerPagination>
-          <CustomPagination
-            current={currentPage} // текущая страница, передается номер текущей страницы
-            total={data.length} // общее количество элементов, используется для вычисления количества страниц
-            pageSize={pageSize} // количество элементов на одной странице
-            // pageSizeOptions={data} // массив вариантов выбора количества элементов на странице
-            showSizeChanger // опция отображения выпадающего списка для выбора количества элементов на странице
-            // showQuickJumper // опция отображения поля для быстрого перехода на определенную страницу
-            showTotal={(total) => `Total ${total} items`} // функция для отображения общего количества элементов внизу пагинации
-            onChange={handlePageChange} // Обработчик события при изменении текущей страницы
-            onShowSizeChange={handlePageSizeChange} // Обработчик события при изменении размера страницы
-            style={{
-              fontWeight: 'bold',
-              color: 'white',
-            }}
-            size="small"
-          />
-        </ContainerPagination>
-      )}
+      {questionNr ? '' : renderPagination()}
       <ContainerCard>
         {questionNr === 0 ? (
-          productsToShow.map((question, index) => (
-            // <CardNew
-            //   // custom={index + 1}
-            //   // variants={textAnimation}
-            //   key={question.id}
-            //   id={question.id}
-            //   questionDe={question.de}
-            //   answerDe={question.answers.de}
-            //   question={question[language]}
-            //   answer={question.answers[language]}
-            //   image={question.img}
-            // />
+          productsToShow.map((q) => (
             <Card
-              key={question.id}
-              id={question.id}
-              questionDe={question.de}
-              answerFirstDe={question.answers[1].de}
-              answerSecondDe={question.answers[2].de}
-              answerThirdDe={question.answers[3].de}
-              answerFourthDe={question.answers[4].de}
-              question={question[language]}
-              answerFirst={question.answers[1][language]}
-              answerSecond={question.answers[2][language]}
-              answerThird={question.answers[3][language]}
-              answerFourth={question.answers[4][language]}
-              ansKey={question.answers.ansKey}
-              image={question.img}
+              key={q.id}
+              id={q.id}
+              questionDe={q.de}
+              answerFirstDe={q.answers[1].de}
+              answerSecondDe={q.answers[2].de}
+              answerThirdDe={q.answers[3].de}
+              answerFourthDe={q.answers[4].de}
+              question={q[language]}
+              answerFirst={q.answers[1][language]}
+              answerSecond={q.answers[2][language]}
+              answerThird={q.answers[3][language]}
+              answerFourth={q.answers[4][language]}
+              ansKey={q.answers.ansKey}
+              image={q.img}
             />
           ))
         ) : (
@@ -123,37 +103,18 @@ export function CardsContainer({ questionNr }) {
           />
         )}
       </ContainerCard>
-      {questionNr ? (
-        ''
-      ) : (
-        <ContainerPagination>
-          <CustomPagination
-            current={currentPage} // текущая страница, передается номер текущей страницы
-            total={data.length} // общее количество элементов, используется для вычисления количества страниц
-            pageSize={pageSize} // количество элементов на одной странице
-            // pageSizeOptions={data} // массив вариантов выбора количества элементов на странице
-            showSizeChanger // опция отображения выпадающего списка для выбора количества элементов на странице
-            // showQuickJumper // опция отображения поля для быстрого перехода на определенную страницу
-            showTotal={(total) => `Total ${total} items`} // функция для отображения общего количества элементов внизу пагинации
-            onChange={handlePageChange} // Обработчик события при изменении текущей страницы
-            onShowSizeChange={handlePageSizeChange} // Обработчик события при изменении размера страницы
-            style={{
-              fontWeight: 'bold',
-              color: 'white',
-            }}
-            size="small"
-          />
-        </ContainerPagination>
-      )}
+      {questionNr ? '' : renderPagination()}
     </Container>
   );
 }
+
 const Container = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 40px;
 `;
+
 const ContainerCard = styled.div`
   width: 100%;
   display: grid;
