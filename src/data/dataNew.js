@@ -1251,7 +1251,7 @@ const data = [
     img: images.img32,
     answers: {
       ansKey: 3,
-      d1: {
+      1: {
         de: 'Gesetzgebung',
         en: 'legislation',
         ua: 'законодавство',
