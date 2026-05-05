@@ -74,7 +74,13 @@ const CardNew = forwardRef(
         placement="start"
       >
         <Card ref={ref}>
-          <StyledImage src={image} alt="Image" width={'100%'} />
+          <StyledImage
+            src={image}
+            alt="Image"
+            width={'100%'}
+            loading="lazy"
+            decoding="async"
+          />
           <TitleQuestion>{frageTOggle()}</TitleQuestion>
           <QuestionDe>{questionDe}</QuestionDe>
           {language !== 'de' && <Question>{question}</Question>}
