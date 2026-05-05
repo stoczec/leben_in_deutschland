@@ -126,6 +126,10 @@ function App() {
                   onChange={handleChange}
                   size="small"
                   style={{ width: '100px' }}
+                  showSearch
+                  filterOption={(input, option) =>
+                    String(option.value).startsWith(input)
+                  }
                 >
                   {dataNew.map((q) => (
                     <Option key={q.id} value={q.id}>
