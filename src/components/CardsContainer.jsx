@@ -125,6 +125,11 @@ const ContainerCard = styled.div`
   justify-content: space-evenly;
   row-gap: 45px;
   column-gap: clamp(1.25rem, calc(0.73rem + 1.74vw), 2.81rem);
+
+  & > * {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
 `;
 
 const ContainerPagination = styled.div`
