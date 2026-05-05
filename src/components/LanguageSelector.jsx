@@ -10,6 +10,14 @@ const fadeIn = keyframes`
   to { opacity: 1; }
 `;
 
+const hintTexts = {
+  de: 'Wählen Sie Deutsch, wenn Sie Frage und Antwort nur auf Deutsch sehen möchten.',
+  en: 'Select German if you want to see questions and answers in German only.',
+  ua: 'Виберіть німецьку, якщо хочете бачити питання та відповіді лише німецькою.',
+  ru: 'Выберите немецкий, если хотите видеть вопросы и ответы только на немецком.',
+  ar: 'اختر الألمانية إذا كنت تريد رؤية الأسئلة والإجابات بالألمانية فقط.',
+};
+
 export function LanguageSelector() {
   const { language, changeLanguage } = useLanguage();
 
@@ -40,9 +48,7 @@ export function LanguageSelector() {
           <Option value="ar">العربية</Option>
         </StyledSelect>
       </StyledBadge>
-      <Hint>
-        Wählen Sie Deutsch, wenn Sie Frage und Antwort nur auf Deutsch sehen möchten.
-      </Hint>
+      <Hint>{hintTexts[language] || hintTexts.de}</Hint>
     </Container>
   );
 }
