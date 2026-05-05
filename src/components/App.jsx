@@ -27,6 +27,14 @@ import { theme } from '../assets/styles/theme';
 const { Header, Footer, Content } = Layout;
 const { Option } = Select;
 
+const navLabels = {
+  de: { prev: 'vorherige Aufgabe', next: 'nächste Aufgabe' },
+  en: { prev: 'Previous question', next: 'Next question' },
+  ua: { prev: 'Попереднє питання', next: 'Наступне питання' },
+  ru: { prev: 'Предыдущий вопрос', next: 'Следующий вопрос' },
+  ar: { prev: 'السؤال السابق', next: 'السؤال التالي' },
+};
+
 const textAnimationY = {
   hidden: {
     y: -50,
@@ -165,14 +173,14 @@ function App() {
                 ''
               ) : (
                 <Button type="primary" onClick={handleMinus}>
-                  vorherige Aufgabe
+                  {(navLabels[language] || navLabels.de).prev}
                 </Button>
               )}
               {question === 310 ? (
                 ''
               ) : (
                 <Button type="primary" onClick={handlePlus}>
-                  nächste Aufgabe
+                  {(navLabels[language] || navLabels.de).next}
                 </Button>
               )}
             </ButtonsContainer>
