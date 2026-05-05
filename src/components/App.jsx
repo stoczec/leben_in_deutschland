@@ -34,6 +34,14 @@ const navLabels = {
   ar: { prev: 'السؤال السابق', next: 'السؤال التالي' },
 };
 
+const footerTexts = {
+  de: 'Schreiben Sie mir, wenn Sie einen Fehler gefunden haben oder irgendwelche Meinungen oder Vorschläge haben.',
+  en: 'Message me if you found a bug or have any thoughts or suggestions.',
+  ua: 'Напишіть мені, якщо знайшли помилку або маєте якісь зауваження чи пропозиції.',
+  ru: 'Напишите мне, если нашли ошибку или у вас есть какие-либо замечания или предложения.',
+  ar: 'راسلني إذا وجدت خطأ أو كانت لديك أي ملاحظات أو اقتراحات.',
+};
+
 const slideDownFadeIn = keyframes`
   from { opacity: 0; transform: translateY(-50px); }
   to { opacity: 1; transform: translateY(0); }
@@ -201,10 +209,7 @@ function App() {
           <StyledDivider />
         </StyledContent>
         <StyledFooter>
-          <Text>
-            Schreiben Sie mir, wenn Sie einen Fehler gefunden haben oder
-            irgendwelche Meinungen oder Vorschläge haben.
-          </Text>
+          <Text>{footerTexts[language] || footerTexts.de}</Text>
           <FooterLinks ref={footerRef} className={footerInView ? 'in-view' : ''}>
             <a
               href="https://t.me/DmytroHerashchenko"
