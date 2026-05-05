@@ -1,5 +1,4 @@
-// LanguageSelector.jsx
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Badge, Flex, Select } from 'antd';
 import { useLanguage } from '../providers/LanguageProvider';
 import styled from 'styled-components';
