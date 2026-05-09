@@ -9,7 +9,7 @@ test.describe('Card render @critical @regression', () => {
         await inputNumber.fill('32');
         await inputNumber.press('Enter');
 
-        await expect(page.locator('input[type="radio"]')).toHaveCount(4);
+        await expect(page.locator('[role="radio"]')).toHaveCount(4);
         await expect(page.getByText('Gesetzgebung')).toBeVisible();
     });
 });
