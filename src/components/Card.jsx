@@ -216,7 +216,10 @@ const AnswerDe = styled.p`
       : (hasValue === ansKey) & (value === hasValue)
       ? theme.colors.state_success
       : theme.colors.state_danger};
-  color: ${theme.colors.text_on_blue};
+  color: ${({ value, hasValue }) =>
+    hasValue === 0 || value !== hasValue
+      ? theme.colors.text_on_blue
+      : theme.colors.text_on_light};
   padding: ${theme.spacing.xxs} 5px;
   cursor: pointer;
   font-weight: bold;

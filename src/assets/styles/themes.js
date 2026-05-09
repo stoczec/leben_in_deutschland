@@ -1,0 +1,94 @@
+// Direction A — Product. Mapped 1:1 from .claude/design/tokens.js.
+// Phase 1 foundation: source of truth for the new palette.
+// Phase 4 will add a ThemeProvider that selects light/dark at runtime.
+
+export const themes = {
+  product: {
+    light: {
+      bg: '#fbfaf8',
+      surface: '#ffffff',
+      surfaceAlt: '#f4f3ef',
+      border: '#e8e6e0',
+      borderStrong: '#d6d3cc',
+      text: '#1c1b1a',
+      textMuted: '#6b6a66',
+      textSubtle: '#9b9a95',
+      accent: '#c2410c',
+      accentBg: '#fff1ea',
+      accentBorder: '#f4c8b3',
+      accentHover: '#a3340a',
+      success: '#0e7c54',
+      successBg: '#e6f4ec',
+      successBorder: '#bfe0cd',
+      danger: '#b42318',
+      dangerBg: '#fdecea',
+      dangerBorder: '#f4c2bd',
+      focus: '#c2410c',
+    },
+    dark: {
+      bg: '#15140f',
+      surface: '#1c1b16',
+      surfaceAlt: '#23211b',
+      border: '#2e2c25',
+      borderStrong: '#3d3a31',
+      text: '#f4f2ec',
+      textMuted: '#a09c92',
+      textSubtle: '#6e6a60',
+      accent: '#e87a4f',
+      accentBg: '#2a1c14',
+      accentBorder: '#5c3924',
+      accentHover: '#f08d65',
+      success: '#5dd6a0',
+      successBg: '#15281f',
+      successBorder: '#2a4a39',
+      danger: '#f08077',
+      dangerBg: '#2c1815',
+      dangerBorder: '#583028',
+      focus: '#e87a4f',
+    },
+  },
+};
+
+export const shared = {
+  type: {
+    'display-1': { size: '48px', lh: '52px', weight: 600, tracking: '-0.02em' },
+    'display-2': { size: '32px', lh: '38px', weight: 600, tracking: '-0.015em' },
+    h1: { size: '24px', lh: '30px', weight: 600, tracking: '-0.01em' },
+    h2: { size: '19px', lh: '26px', weight: 600 },
+    'body-lg': { size: '17px', lh: '26px', weight: 400 },
+    body: { size: '15px', lh: '22px', weight: 400 },
+    'body-sm': { size: '13px', lh: '20px', weight: 400 },
+    label: { size: '12px', lh: '16px', weight: 500, tracking: '0.04em', upper: true },
+    mono: { size: '12px', lh: '16px', weight: 500, mono: true },
+  },
+  space: {
+    0: '0', 1: '4px', 2: '8px', 3: '12px', 4: '16px',
+    5: '20px', 6: '24px', 7: '32px', 8: '40px', 9: '48px',
+    10: '64px', 11: '80px', 12: '96px',
+  },
+  radius: {
+    sm: '6px',
+    md: '10px',
+    lg: '14px',
+    xl: '20px',
+    pill: '999px',
+  },
+  shadow: {
+    none: 'none',
+    sm: '0 1px 2px rgba(15,12,8,0.04), 0 1px 1px rgba(15,12,8,0.02)',
+    md: '0 1px 2px rgba(15,12,8,0.04), 0 4px 12px rgba(15,12,8,0.05)',
+    lg: '0 2px 4px rgba(15,12,8,0.04), 0 12px 32px rgba(15,12,8,0.08)',
+    focus: '0 0 0 3px rgba(194,65,12,0.18)',
+  },
+  motion: {
+    fast: '120ms cubic-bezier(.2,.7,.3,1)',
+    base: '180ms cubic-bezier(.2,.7,.3,1)',
+    slow: '320ms cubic-bezier(.2,.7,.3,1)',
+  },
+  fontStack: {
+    sans: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+    serif: '"Source Serif 4", "Iowan Old Style", Georgia, serif',
+    mono: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
+    arabic: '"Noto Naskh Arabic", "Amiri", "Geeza Pro", serif',
+  },
+};
