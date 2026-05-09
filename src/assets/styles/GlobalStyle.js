@@ -1,25 +1,26 @@
 import { createGlobalStyle } from 'styled-components';
 import { theme } from './theme';
+import { shared } from './themes';
 
 const GlobalStyle = createGlobalStyle`
-
   *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
-  html,
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, serif;
-  font-style: normal;
-  line-height: 1;
-  font-weight: 600;
-  font-size: 16px;
-  color: ${theme.colors.clr_black};
-  background-color: ${theme.colors.clr_white};
-  scroll-behavior: smooth;
-}
+  html, body {
+    font-family: ${shared.fontStack.sans};
+    font-style: normal;
+    line-height: 1.4;
+    font-weight: 400;
+    font-size: 16px;
+    color: ${theme.colors.text_primary};
+    background-color: ${theme.colors.bg_page};
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
   body {
     overflow-x: hidden;
@@ -27,8 +28,7 @@ body {
 
   a {
     text-decoration: none;
-  color: ${theme.colors.clr_black};
-
+    color: inherit;
   }
 
   ul, ol, li {
@@ -48,6 +48,11 @@ body {
     outline: 2px solid ${theme.colors.state_focus_ring};
     outline-offset: 2px;
     border-radius: 2px;
+  }
+
+  [lang="ar"] body,
+  [dir="rtl"] body {
+    font-family: ${shared.fontStack.arabic};
   }
 `;
 
