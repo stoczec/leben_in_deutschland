@@ -4,25 +4,23 @@ import {
   FloatButton,
   Layout,
   Space,
-  Flex,
-  Divider,
   Select,
   Button,
   InputNumber,
 } from 'antd';
-import { LanguageSelector } from './LanguageSelector';
 import { CardsContainer } from './CardsContainer';
 import styled, { keyframes } from 'styled-components';
-
-const Starfield = lazy(() => import('react-starfield'));
 import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
 import whatsapp from '../assets/whatsapp.svg';
 import dataNew from '../data/dataNew';
 import { CaretUpOutlined } from '@ant-design/icons';
 import { useLanguage } from '../providers/LanguageProvider';
+import { themes, shared } from '../assets/styles/themes';
 import { theme } from '../assets/styles/theme';
 
+const t = themes.product.dark;
+const Starfield = lazy(() => import('react-starfield'));
 const { Header, Footer, Content } = Layout;
 const { Option } = Select;
 
@@ -41,6 +39,8 @@ const footerTexts = {
   ru: 'Напишите мне, если нашли ошибку или у вас есть какие-либо замечания или предложения.',
   ar: 'راسلني إذا وجدت خطأ أو كانت لديك أي ملاحظات أو اقتراحات.',
 };
+
+const LANG_CODES = ['de', 'en', 'ua', 'ru', 'ar'];
 
 const slideDownFadeIn = keyframes`
   from { opacity: 0; transform: translateY(-50px); }
@@ -66,9 +66,27 @@ function useInViewOnce(options) {
 }
 const FOOTER_OBSERVER_OPTS = { threshold: 0.15 };
 
+const DiceIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <rect x="2.5" y="2.5" width="11" height="11" rx="2" stroke="currentColor" strokeWidth="1.5" />
+    <circle cx="5.5" cy="5.5" r="1" fill="currentColor" />
+    <circle cx="10.5" cy="10.5" r="1" fill="currentColor" />
+    <circle cx="8" cy="8" r="1" fill="currentColor" />
+  </svg>
+);
+
+const GridIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.5" />
+    <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.5" />
+    <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.5" />
+    <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.5" />
+  </svg>
+);
+
 function App() {
   const [question, setQuestion] = useState(0);
-  const { language } = useLanguage();
+  const { language, changeLanguage } = useLanguage();
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
 
@@ -78,163 +96,135 @@ function App() {
   }, [direction, language]);
 
   const handleChange = (value) => {
-    value === null ? (value = 0) : value;
-    setQuestion(value);
+    setQuestion(value === null ? 0 : value);
   };
 
-  const handleReset = () => {
-    setQuestion(0);
-  };
+  const handleReset = () => setQuestion(0);
+  const handlePlus = () => setQuestion((q) => q + 1);
+  const handleMinus = () => setQuestion((q) => q - 1);
+  const handleRandomNumber = () =>
+    setQuestion(Math.floor(Math.random() * 310) + 1);
 
-  const handlePlus = () => {
-    setQuestion((prevQuestion) => prevQuestion + 1);
-  };
-
-  const handleMinus = () => {
-    setQuestion((prevQuestion) => prevQuestion - 1);
-  };
-
-  const handleRandomNumber = () => {
-    const randomNumber = Math.floor(Math.random() * 310) + 1;
-    setQuestion(randomNumber);
-  };
   return (
     <ConfigProvider direction={direction}>
-      <Space
-        direction="vertical"
-        style={{
-          width: '100%',
-        }}
-        size={[0, 48]}
-      >
+      <Space direction="vertical" style={{ width: '100%' }} size={[0, 0]}>
         <StyledLayout>
-        <StyledHeader>
-          <CustomTitle>Leben in Deutschland</CustomTitle>
-        </StyledHeader>
-        <StyledContent>
-          <Suspense fallback={null}>
-            <Starfield
-              starCount={150}
-              starColor={[216, 216, 216]}
-              speedFactor={0.05}
-              backgroundColor="black"
-            />
-          </Suspense>
-          <Flex gap={15} vertical align="center">
-            <LanguageSelector />
-          </Flex>
-          <StyledDivider />
-          <SelectContainer>
-            <FilterSection>
-              <FilterContainer>
-                <Paragraph>Wählen Sie eine Aufgabennummer</Paragraph>
-                <Select
-                  value={question || undefined}
-                  placeholder="Nr."
-                  onChange={handleChange}
-                  size="small"
-                  style={{ width: '100px' }}
-                  showSearch
-                  filterOption={(input, option) =>
-                    String(option.value).startsWith(input)
-                  }
-                >
-                  {dataNew.map((q) => (
-                    <Option key={q.id} value={q.id}>
-                      {q.id}
-                    </Option>
+          <StyledHeader>
+            <Brand>
+              <Logo>LiD</Logo>
+              <BrandText>
+                <BrandTitle>Leben in Deutschland</BrandTitle>
+                <BrandSub>Einbürgerungstest · 310 Fragen</BrandSub>
+              </BrandText>
+            </Brand>
+          </StyledHeader>
+          <StyledContent>
+            <Suspense fallback={null}>
+              <Starfield
+                starCount={150}
+                starColor={[216, 216, 216]}
+                speedFactor={0.05}
+                backgroundColor="black"
+              />
+            </Suspense>
+            <ContentInner>
+              <ToolbarBar>
+                <ToolbarFilters>
+                  <Select
+                    value={question || undefined}
+                    placeholder="Frage"
+                    onChange={handleChange}
+                    size="small"
+                    style={{ width: 110 }}
+                    showSearch
+                    filterOption={(input, option) =>
+                      String(option.value).startsWith(input)
+                    }
+                  >
+                    {dataNew.map((q) => (
+                      <Option key={q.id} value={q.id}>
+                        {q.id}
+                      </Option>
+                    ))}
+                  </Select>
+                  <InputNumber
+                    size="small"
+                    min={1}
+                    max={310}
+                    value={question || undefined}
+                    placeholder="#"
+                    onChange={handleChange}
+                    style={{ width: 80 }}
+                  />
+                  <ToolbarButton onClick={handleRandomNumber} type="text">
+                    <DiceIcon /> Zufällig
+                  </ToolbarButton>
+                  <ToolbarButton
+                    onClick={handleReset}
+                    type="text"
+                    disabled={!question}
+                  >
+                    <GridIcon /> Alle 310
+                  </ToolbarButton>
+                </ToolbarFilters>
+                <Spacer />
+                <LangPill>
+                  {LANG_CODES.map((code) => (
+                    <LangOption
+                      key={code}
+                      $active={code === language}
+                      onClick={() => changeLanguage(code)}
+                      data-testid={`lang-${code}`}
+                    >
+                      {code.toUpperCase()}
+                    </LangOption>
                   ))}
-                </Select>
-              </FilterContainer>
-              <FilterContainer>
-                <Paragraph>Geben Sie eine Aufgabennummer ein</Paragraph>
-                <InputNumber
-                  size="small"
-                  min={1}
-                  max={310}
-                  value={question || undefined}
-                  placeholder="Nr."
-                  onChange={handleChange}
-                  style={{ width: '100px' }}
-                />
-              </FilterContainer>
-            </FilterSection>
-            <FilterSection>
-              <FilterContainer>
-                <Paragraph>Zeige eine zufällige Aufgabennummer</Paragraph>
-                <Button
-                  type="primary"
-                  onClick={handleRandomNumber}
-                  size="small"
-                  style={{ width: '100px' }}
-                >
-                  Zufällige
-                </Button>
-              </FilterContainer>
-              <FilterContainer>
-                <Paragraph>Alle Aufgabennummer anzeigen</Paragraph>
-                <Button
-                  onClick={handleReset}
-                  size="small"
-                  disabled={!question}
-                  style={{ width: '100px' }}
-                >
-                  Alle
-                </Button>
-              </FilterContainer>
-            </FilterSection>
-          </SelectContainer>
-          <StyledDivider />
-          <CardsContainer questionNr={question} />
-          {question ? (
-            <ButtonsContainer>
-              {question === 1 ? (
-                ''
-              ) : (
-                <Button type="primary" onClick={handleMinus}>
-                  {(navLabels[language] || navLabels.de).prev}
-                </Button>
-              )}
-              {question === 310 ? (
-                ''
-              ) : (
-                <Button type="primary" onClick={handlePlus}>
-                  {(navLabels[language] || navLabels.de).next}
-                </Button>
-              )}
-            </ButtonsContainer>
-          ) : (
-            ''
-          )}
-          <StyledDivider />
-        </StyledContent>
-        <StyledFooter>
-          <Text>{footerTexts[language] || footerTexts.de}</Text>
-          <FooterLinks ref={footerRef} className={footerInView ? 'in-view' : ''}>
-            <a
-              href="https://t.me/DmytroHerashchenko"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <CustomImage src={telegram} alt="telegram" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/herashchenko-dmytro/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <CustomImage src={linkedin} alt="linkedin" />
-            </a>
-            <a
-              href="https://wa.me/+4915120495620"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <CustomImage src={whatsapp} alt="whatsapp" />
-            </a>
-          </FooterLinks>
-          ©2023–2026 Erstellt von Dmytro Herashchenko
-        </StyledFooter>
+                </LangPill>
+              </ToolbarBar>
+              <CardsContainer questionNr={question} />
+              {question ? (
+                <ButtonsContainer>
+                  {question === 1 ? null : (
+                    <Button type="primary" onClick={handleMinus}>
+                      {(navLabels[language] || navLabels.de).prev}
+                    </Button>
+                  )}
+                  {question === 310 ? null : (
+                    <Button type="primary" onClick={handlePlus}>
+                      {(navLabels[language] || navLabels.de).next}
+                    </Button>
+                  )}
+                </ButtonsContainer>
+              ) : null}
+            </ContentInner>
+          </StyledContent>
+          <StyledFooter>
+            <FooterText>{footerTexts[language] || footerTexts.de}</FooterText>
+            <FooterLinks ref={footerRef} className={footerInView ? 'in-view' : ''}>
+              <a
+                href="https://t.me/DmytroHerashchenko"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <CustomImage src={telegram} alt="telegram" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/herashchenko-dmytro/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <CustomImage src={linkedin} alt="linkedin" />
+              </a>
+              <a
+                href="https://wa.me/+4915120495620"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <CustomImage src={whatsapp} alt="whatsapp" />
+              </a>
+            </FooterLinks>
+            <Copyright>©2023–2026 Erstellt von Dmytro Herashchenko</Copyright>
+          </StyledFooter>
 
           <CustomFloatButton icon={<CaretUpOutlined />} />
         </StyledLayout>
@@ -251,51 +241,186 @@ const StyledLayout = styled(Layout)`
 `;
 
 const StyledHeader = styled(Header)`
-  color: ${theme.colors.text_primary};
-  background-color: ${theme.colors.bg_chrome};
-  padding: ${theme.spacing.sm};
+  background-color: ${t.surface};
+  border-bottom: 1px solid ${t.border};
+  padding: 0 ${shared.space[5]};
+  display: flex;
+  align-items: center;
+  height: 64px;
+`;
+
+const Brand = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${shared.space[3]};
+  animation: ${slideDownFadeIn} 0.6s ease 0.2s both;
+`;
+
+const Logo = styled.div`
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: ${t.accent};
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.02em;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+`;
+
+const BrandText = styled.div`
+  text-align: start;
+  line-height: 1.2;
+`;
+
+const BrandTitle = styled.div`
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: ${t.text};
+`;
+
+const BrandSub = styled.div`
+  font-size: 12px;
+  color: ${t.textMuted};
+  margin-top: 2px;
 `;
 
 const StyledContent = styled(Content)`
-  text-align: center;
-  color: ${theme.colors.text_primary};
-  background-color: ${theme.colors.bg_page};
+  position: relative;
+  color: ${t.text};
+  background-color: ${t.bg};
+  padding: ${shared.space[5]} ${shared.space[5]} ${shared.space[7]};
+`;
+
+const ContentInner = styled.div`
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  gap: ${shared.space[5]};
+`;
+
+const ToolbarBar = styled.div`
+  background: ${t.surface};
+  border: 1px solid ${t.border};
+  border-radius: 12px;
+  padding: ${shared.space[2]};
+  box-shadow: ${shared.shadow.sm};
+  display: flex;
   align-items: center;
-  padding: ${theme.spacing.lg};
+  gap: ${shared.space[2]};
+  flex-wrap: wrap;
+`;
+
+const ToolbarFilters = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${shared.space[2]};
+  flex-wrap: wrap;
+`;
+
+const Spacer = styled.div`
+  flex: 1 1 auto;
+`;
+
+const ToolbarButton = styled(Button)`
+  &.ant-btn {
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid ${t.border};
+    background: ${t.surface};
+    color: ${t.text};
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    border-radius: 8px;
+  }
+  &.ant-btn:hover:not(:disabled) {
+    background: ${t.surfaceAlt};
+    color: ${t.text};
+    border-color: ${t.borderStrong};
+  }
+  &.ant-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  & svg {
+    color: ${t.accent};
+  }
+`;
+
+const LangPill = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: ${t.surfaceAlt};
+  border: 1px solid ${t.border};
+  padding: 3px;
+  border-radius: 999px;
+`;
+
+const LangOption = styled.button`
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: background ${shared.motion.fast}, color ${shared.motion.fast};
+  background: ${({ $active }) => ($active ? t.surface : 'transparent')};
+  color: ${({ $active }) => ($active ? t.accent : t.textMuted)};
+  box-shadow: ${({ $active }) => ($active ? shared.shadow.sm : 'none')};
+
+  &:hover {
+    color: ${({ $active }) => ($active ? t.accent : t.text)};
+  }
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: ${shared.space[4]};
+  margin-top: ${shared.space[3]};
 `;
 
 const StyledFooter = styled(Footer)`
   text-align: center;
-  color: ${theme.colors.text_secondary};
-  background-color: ${theme.colors.bg_chrome};
+  color: ${t.textMuted};
+  background-color: ${t.surface};
+  border-top: 1px solid ${t.border};
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing.sm};
-  padding: ${theme.spacing.lg} 0;
+  gap: ${shared.space[3]};
+  padding: ${shared.space[5]} 0 ${shared.space[4]};
 `;
 
-const StyledDivider = styled(Divider)`
-  background-color: ${theme.colors.border_strong};
+const FooterText = styled.p`
+  font-weight: 500;
+  color: ${t.textMuted};
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto;
 `;
 
-const CustomTitle = styled.p`
-  font-size: clamp(20px, 6vw, 30px);
-  font-weight: 700;
-  text-align: center;
-  color: ${theme.colors.text_primary};
-  letter-spacing: 0.02em;
-  animation: ${slideDownFadeIn} 0.6s ease 0.3s both;
+const Copyright = styled.div`
+  color: ${t.textSubtle};
+  font-size: 12px;
+  font-family: ${shared.fontStack.mono};
 `;
 
 const FooterLinks = styled.div`
   display: flex;
   justify-content: center;
-  gap: ${theme.spacing.lg};
+  gap: ${shared.space[5]};
 
   & > a {
     opacity: 0;
@@ -309,61 +434,12 @@ const FooterLinks = styled.div`
 `;
 
 const CustomImage = styled.img`
-  width: 32px;
+  width: 28px;
+  height: 28px;
 `;
 
 const CustomFloatButton = styled(FloatButton.BackTop)`
   .ant-float-btn-body {
     background-color: ${theme.colors.bg_select_light} !important;
   }
-`;
-
-const Paragraph = styled.p`
-  max-width: 150px;
-  font-size: 13px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 1.3;
-`;
-
-const SelectContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: ${theme.spacing.lg};
-  margin-bottom: ${theme.spacing.sm};
-
-  @media (max-width: 500px) {
-    flex-direction: column;
-  }
-`;
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  gap: ${theme.spacing.lg};
-  margin-top: ${theme.spacing.lg};
-`;
-
-const FilterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: ${theme.spacing.xxs};
-`;
-
-const FilterSection = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: ${theme.spacing.lg};
-`;
-
-const Text = styled.p`
-  font-weight: 600;
-  color: ${theme.colors.text_secondary};
-  font-size: 14px;
-  line-height: 1.5;
-  max-width: 600px;
-  margin: 0 auto;
 `;

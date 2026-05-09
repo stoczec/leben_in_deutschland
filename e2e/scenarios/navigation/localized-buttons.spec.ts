@@ -4,8 +4,7 @@ test.describe('Question navigation @critical', () => {
     test('prev/next buttons follow active language', async ({ page }) => {
         await page.goto('/');
 
-        await page.getByText('Wählen Sie Ihre Muttersprache').click();
-        await page.getByText('Русский', { exact: true }).click();
+        await page.getByTestId('lang-ru').click();
 
         const inputNumber = page.locator('input[role="spinbutton"]').first();
         await inputNumber.click();
