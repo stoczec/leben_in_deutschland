@@ -10,6 +10,6 @@ test.describe('Question navigation @critical', () => {
         await inputNumber.press('Enter');
 
         await expect(page.getByText('100', { exact: true }).first()).toBeVisible();
-        await expect(page.locator('input[type="radio"]')).toHaveCount(4);
+        await expect(page.locator('[role="radio"]')).toHaveCount(4);
     });
 });
