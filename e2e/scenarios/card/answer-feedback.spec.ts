@@ -1,6 +1,10 @@
 import { test, expect } from '../../fixtures';
 
 test.describe('Card answer feedback @critical', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.addInitScript(() => localStorage.setItem('theme', 'dark'));
+    });
+
     test('selecting the correct answer shows green', async ({ page }) => {
         await page.goto('/');
 

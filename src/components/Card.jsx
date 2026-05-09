@@ -2,9 +2,7 @@ import { Image } from 'antd';
 import { forwardRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
-import { themes, shared } from '../assets/styles/themes';
-
-const t = themes.product.dark;
+import { shared } from '../assets/styles/themes';
 
 const CheckIcon = ({ size = 16 }) => (
   <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -128,21 +126,35 @@ const Card = forwardRef(
 Card.displayName = 'Card';
 export default Card;
 
+const stateBg = ({ theme, $state }) =>
+  $state === 'correct'
+    ? theme.successBg
+    : $state === 'wrong'
+    ? theme.dangerBg
+    : theme.surface;
+
+const stateBorder = ({ theme, $state }) =>
+  $state === 'correct'
+    ? theme.successBorder
+    : $state === 'wrong'
+    ? theme.dangerBorder
+    : theme.border;
+
 const Article = styled.article`
-  background: ${t.surface};
-  border: 1px solid ${t.border};
+  background: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.border};
   border-radius: ${shared.radius.lg};
   box-shadow: ${shared.shadow.sm};
   overflow: hidden;
   font-family: ${shared.fontStack.sans};
-  color: ${t.text};
+  color: ${({ theme }) => theme.text};
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
 
 const ImageWrap = styled.div`
-  background: ${t.surfaceAlt};
+  background: ${({ theme }) => theme.surfaceAlt};
   padding: ${shared.space[3]};
 `;
 
@@ -188,16 +200,16 @@ const MetaRow = styled.div`
 const IdBadge = styled.span`
   font-family: ${shared.fontStack.mono};
   font-size: 12px;
-  color: ${t.textMuted};
-  background: ${t.surfaceAlt};
+  color: ${({ theme }) => theme.textMuted};
+  background: ${({ theme }) => theme.surfaceAlt};
   padding: 3px 8px;
   border-radius: ${shared.radius.sm};
-  border: 1px solid ${t.border};
+  border: 1px solid ${({ theme }) => theme.border};
 `;
 
 const Counter = styled.span`
   font-size: 12px;
-  color: ${t.textSubtle};
+  color: ${({ theme }) => theme.textSubtle};
   font-family: ${shared.fontStack.mono};
 `;
 
@@ -215,7 +227,7 @@ const QuestionTr = styled.p`
   margin-top: 6px;
   font-size: 14px;
   line-height: 21px;
-  color: ${t.textMuted};
+  color: ${({ theme }) => theme.textMuted};
   text-wrap: pretty;
 `;
 
@@ -225,31 +237,22 @@ const Answers = styled.div`
   gap: 8px;
 `;
 
-const stateBg = (state) =>
-  state === 'correct' ? t.successBg : state === 'wrong' ? t.dangerBg : t.surface;
-const stateBorder = (state) =>
-  state === 'correct'
-    ? t.successBorder
-    : state === 'wrong'
-    ? t.dangerBorder
-    : t.border;
-
 const Row = styled.div`
   display: grid;
   grid-template-columns: 22px auto 1fr 18px;
   align-items: center;
   gap: ${shared.space[3]};
   padding: 12px 14px;
-  background: ${({ $state }) => stateBg($state)};
-  border: 1px solid ${({ $state }) => stateBorder($state)};
+  background: ${stateBg};
+  border: 1px solid ${stateBorder};
   border-radius: ${shared.radius.md};
   cursor: pointer;
   transition: background ${shared.motion.fast},
     border-color ${shared.motion.fast};
 
   &:hover {
-    background: ${({ $state }) =>
-      $state === 'idle' ? t.surfaceAlt : stateBg($state)};
+    background: ${({ theme, $state }) =>
+      $state === 'idle' ? theme.surfaceAlt : stateBg({ theme, $state })};
   }
 `;
 
@@ -258,8 +261,10 @@ const Circle = styled.div`
   height: 22px;
   border-radius: 999px;
   border: 1.5px solid
-    ${({ $isSelected }) => ($isSelected ? t.accent : t.borderStrong)};
-  background: ${({ $isSelected }) => ($isSelected ? t.accent : 'transparent')};
+    ${({ theme, $isSelected }) =>
+      $isSelected ? theme.accent : theme.borderStrong};
+  background: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.accent : 'transparent'};
   position: relative;
 `;
 
@@ -267,12 +272,12 @@ const Dot = styled.span`
   position: absolute;
   inset: 5px;
   border-radius: 999px;
-  background: ${t.surface};
+  background: ${({ theme }) => theme.surface};
 `;
 
 const Number = styled.span`
   font-size: 11px;
-  color: ${t.textSubtle};
+  color: ${({ theme }) => theme.textSubtle};
   font-family: ${shared.fontStack.mono};
   text-align: center;
   min-width: 14px;
@@ -292,7 +297,7 @@ const TextDe = styled.div`
 const TextTr = styled.div`
   font-size: 13px;
   line-height: 20px;
-  color: ${t.textMuted};
+  color: ${({ theme }) => theme.textMuted};
   margin-top: 2px;
 `;
 
@@ -300,10 +305,10 @@ const Status = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({ $state }) =>
+  color: ${({ theme, $state }) =>
     $state === 'correct'
-      ? t.success
+      ? theme.success
       : $state === 'wrong'
-      ? t.danger
+      ? theme.danger
       : 'transparent'};
 `;
