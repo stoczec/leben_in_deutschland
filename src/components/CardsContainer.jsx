@@ -58,10 +58,6 @@ export function CardsContainer({ questionNr }) {
         showTotal={showTotal}
         onChange={handlePageChange}
         onShowSizeChange={handlePageSizeChange}
-        style={{
-          fontWeight: 'bold',
-          color: 'white',
-        }}
         size="small"
       />
     </ContainerPagination>
@@ -146,10 +142,13 @@ const ContainerPagination = styled.div`
 
 const CustomPagination = styled(Pagination)`
   .ant-pagination-item a {
-    color: #1677ff;
+    color: ${({ theme }) => theme.accent};
   }
   .ant-pagination-item-ellipsis,
   .ant-pagination-item-link {
-    color: #1677ff !important;
+    color: ${({ theme }) => theme.accent} !important;
+  }
+  .ant-pagination-total-text {
+    color: ${({ theme }) => theme.textMuted};
   }
 `;

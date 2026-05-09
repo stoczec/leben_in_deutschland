@@ -7,6 +7,7 @@ import {
   Select,
   Button,
   InputNumber,
+  theme as antdTheme,
 } from 'antd';
 import { CardsContainer } from './CardsContainer';
 import styled, { keyframes } from 'styled-components';
@@ -16,10 +17,9 @@ import whatsapp from '../assets/whatsapp.svg';
 import dataNew from '../data/dataNew';
 import { CaretUpOutlined } from '@ant-design/icons';
 import { useLanguage } from '../providers/LanguageProvider';
-import { themes, shared } from '../assets/styles/themes';
-import { theme } from '../assets/styles/theme';
+import { useThemeMode } from '../providers/ThemeProvider';
+import { shared } from '../assets/styles/themes';
 
-const t = themes.product.dark;
 const Starfield = lazy(() => import('react-starfield'));
 const { Header, Footer, Content } = Layout;
 const { Option } = Select;
@@ -84,9 +84,47 @@ const GridIcon = () => (
   </svg>
 );
 
+const SunIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <circle cx="8" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.5" />
+    {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => {
+      const r1 = 4.8;
+      const r2 = 6.8;
+      const x1 = 8 + r1 * Math.cos((a * Math.PI) / 180);
+      const y1 = 8 + r1 * Math.sin((a * Math.PI) / 180);
+      const x2 = 8 + r2 * Math.cos((a * Math.PI) / 180);
+      const y2 = 8 + r2 * Math.sin((a * Math.PI) / 180);
+      return (
+        <line
+          key={a}
+          x1={x1}
+          y1={y1}
+          x2={x2}
+          y2={y2}
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      );
+    })}
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path
+      d="M13 9.5A5.5 5.5 0 0 1 6.5 3a5.5 5.5 0 1 0 6.5 6.5z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 function App() {
   const [question, setQuestion] = useState(0);
   const { language, changeLanguage } = useLanguage();
+  const { mode, toggle, theme } = useThemeMode();
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
 
@@ -106,7 +144,16 @@ function App() {
     setQuestion(Math.floor(Math.random() * 310) + 1);
 
   return (
-    <ConfigProvider direction={direction}>
+    <ConfigProvider
+      direction={direction}
+      theme={{
+        algorithm:
+          mode === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+        token: {
+          colorPrimary: theme.accent,
+        },
+      }}
+    >
       <Space direction="vertical" style={{ width: '100%' }} size={[0, 0]}>
         <StyledLayout>
           <StyledHeader>
@@ -119,14 +166,16 @@ function App() {
             </Brand>
           </StyledHeader>
           <StyledContent>
-            <Suspense fallback={null}>
-              <Starfield
-                starCount={150}
-                starColor={[216, 216, 216]}
-                speedFactor={0.05}
-                backgroundColor="black"
-              />
-            </Suspense>
+            {mode === 'dark' && (
+              <Suspense fallback={null}>
+                <Starfield
+                  starCount={150}
+                  starColor={[216, 216, 216]}
+                  speedFactor={0.05}
+                  backgroundColor={theme.bg}
+                />
+              </Suspense>
+            )}
             <ContentInner>
               <ToolbarBar>
                 <ToolbarFilters>
@@ -180,6 +229,14 @@ function App() {
                     </LangOption>
                   ))}
                 </LangPill>
+                <ThemeToggle
+                  onClick={toggle}
+                  aria-label="Toggle theme"
+                  data-testid="theme-toggle"
+                  title={mode === 'dark' ? 'Switch to light' : 'Switch to dark'}
+                >
+                  {mode === 'dark' ? <SunIcon /> : <MoonIcon />}
+                </ThemeToggle>
               </ToolbarBar>
               <CardsContainer questionNr={question} />
               {question ? (
@@ -238,11 +295,12 @@ const StyledLayout = styled(Layout)`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: ${({ theme }) => theme.bg};
 `;
 
 const StyledHeader = styled(Header)`
-  background-color: ${t.surface};
-  border-bottom: 1px solid ${t.border};
+  background-color: ${({ theme }) => theme.surface};
+  border-bottom: 1px solid ${({ theme }) => theme.border};
   padding: 0 ${shared.space[5]};
   display: flex;
   align-items: center;
@@ -260,7 +318,7 @@ const Logo = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 9px;
-  background: ${t.accent};
+  background: ${({ theme }) => theme.accent};
   color: #fff;
   font-weight: 700;
   font-size: 15px;
@@ -280,19 +338,19 @@ const BrandTitle = styled.div`
   font-size: 17px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: ${t.text};
+  color: ${({ theme }) => theme.text};
 `;
 
 const BrandSub = styled.div`
   font-size: 12px;
-  color: ${t.textMuted};
+  color: ${({ theme }) => theme.textMuted};
   margin-top: 2px;
 `;
 
 const StyledContent = styled(Content)`
   position: relative;
-  color: ${t.text};
-  background-color: ${t.bg};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.bg};
   padding: ${shared.space[5]} ${shared.space[5]} ${shared.space[7]};
 `;
 
@@ -306,8 +364,8 @@ const ContentInner = styled.div`
 `;
 
 const ToolbarBar = styled.div`
-  background: ${t.surface};
-  border: 1px solid ${t.border};
+  background: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.border};
   border-radius: 12px;
   padding: ${shared.space[2]};
   box-shadow: ${shared.shadow.sm};
@@ -332,9 +390,9 @@ const ToolbarButton = styled(Button)`
   &.ant-btn {
     height: 32px;
     padding: 0 12px;
-    border: 1px solid ${t.border};
-    background: ${t.surface};
-    color: ${t.text};
+    border: 1px solid ${({ theme }) => theme.border};
+    background: ${({ theme }) => theme.surface};
+    color: ${({ theme }) => theme.text};
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -342,16 +400,16 @@ const ToolbarButton = styled(Button)`
     border-radius: 8px;
   }
   &.ant-btn:hover:not(:disabled) {
-    background: ${t.surfaceAlt};
-    color: ${t.text};
-    border-color: ${t.borderStrong};
+    background: ${({ theme }) => theme.surfaceAlt};
+    color: ${({ theme }) => theme.text};
+    border-color: ${({ theme }) => theme.borderStrong};
   }
   &.ant-btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
   }
   & svg {
-    color: ${t.accent};
+    color: ${({ theme }) => theme.accent};
   }
 `;
 
@@ -359,8 +417,8 @@ const LangPill = styled.div`
   display: flex;
   align-items: center;
   gap: 2px;
-  background: ${t.surfaceAlt};
-  border: 1px solid ${t.border};
+  background: ${({ theme }) => theme.surfaceAlt};
+  border: 1px solid ${({ theme }) => theme.border};
   padding: 3px;
   border-radius: 999px;
 `;
@@ -375,12 +433,32 @@ const LangOption = styled.button`
   border: none;
   cursor: pointer;
   transition: background ${shared.motion.fast}, color ${shared.motion.fast};
-  background: ${({ $active }) => ($active ? t.surface : 'transparent')};
-  color: ${({ $active }) => ($active ? t.accent : t.textMuted)};
+  background: ${({ theme, $active }) => ($active ? theme.surface : 'transparent')};
+  color: ${({ theme, $active }) => ($active ? theme.accent : theme.textMuted)};
   box-shadow: ${({ $active }) => ($active ? shared.shadow.sm : 'none')};
 
   &:hover {
-    color: ${({ $active }) => ($active ? t.accent : t.text)};
+    color: ${({ theme, $active }) => ($active ? theme.accent : theme.text)};
+  }
+`;
+
+const ThemeToggle = styled.button`
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid ${({ theme }) => theme.border};
+  background: ${({ theme }) => theme.surface};
+  color: ${({ theme }) => theme.textMuted};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background ${shared.motion.fast}, color ${shared.motion.fast};
+  flex-shrink: 0;
+
+  &:hover {
+    background: ${({ theme }) => theme.surfaceAlt};
+    color: ${({ theme }) => theme.text};
   }
 `;
 
@@ -393,9 +471,9 @@ const ButtonsContainer = styled.div`
 
 const StyledFooter = styled(Footer)`
   text-align: center;
-  color: ${t.textMuted};
-  background-color: ${t.surface};
-  border-top: 1px solid ${t.border};
+  color: ${({ theme }) => theme.textMuted};
+  background-color: ${({ theme }) => theme.surface};
+  border-top: 1px solid ${({ theme }) => theme.border};
   display: flex;
   flex-direction: column;
   gap: ${shared.space[3]};
@@ -404,7 +482,7 @@ const StyledFooter = styled(Footer)`
 
 const FooterText = styled.p`
   font-weight: 500;
-  color: ${t.textMuted};
+  color: ${({ theme }) => theme.textMuted};
   font-size: 14px;
   line-height: 1.5;
   max-width: 600px;
@@ -412,7 +490,7 @@ const FooterText = styled.p`
 `;
 
 const Copyright = styled.div`
-  color: ${t.textSubtle};
+  color: ${({ theme }) => theme.textSubtle};
   font-size: 12px;
   font-family: ${shared.fontStack.mono};
 `;
@@ -440,6 +518,6 @@ const CustomImage = styled.img`
 
 const CustomFloatButton = styled(FloatButton.BackTop)`
   .ant-float-btn-body {
-    background-color: ${theme.colors.bg_select_light} !important;
+    background-color: ${({ theme }) => theme.surfaceAlt} !important;
   }
 `;

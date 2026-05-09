@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import { theme } from './theme';
 import { shared } from './themes';
 
 const GlobalStyle = createGlobalStyle`
@@ -15,11 +14,12 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.4;
     font-weight: 400;
     font-size: 16px;
-    color: ${theme.colors.text_primary};
-    background-color: ${theme.colors.bg_page};
+    color: ${({ theme }) => theme.text};
+    background-color: ${({ theme }) => theme.bg};
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 200ms ease, color 200ms ease;
   }
 
   body {
@@ -45,7 +45,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   :focus-visible {
-    outline: 2px solid ${theme.colors.state_focus_ring};
+    outline: 2px solid ${({ theme }) => theme.focus};
     outline-offset: 2px;
     border-radius: 2px;
   }
