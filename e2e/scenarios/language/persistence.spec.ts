@@ -4,8 +4,7 @@ test.describe('Language @critical', () => {
     test('selecting Russian persists across reload', async ({ page }) => {
         await page.goto('/');
 
-        await page.getByText('Wählen Sie Ihre Muttersprache').click();
-        await page.getByText('Русский', { exact: true }).click();
+        await page.getByTestId('lang-ru').click();
 
         const stored = await page.evaluate(() => localStorage.getItem('language'));
         expect(stored).toBe('ru');
