@@ -10,7 +10,7 @@ import {
   theme as antdTheme,
 } from 'antd';
 import { CardsContainer } from './CardsContainer';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
 import whatsapp from '../assets/whatsapp.svg';
@@ -48,6 +48,14 @@ const progressLabels = {
   ua: { correct: 'правильно', answered: 'відповіли', reset: 'Скинути прогрес', confirm: 'Очистити весь прогрес?' },
   ru: { correct: 'верно', answered: 'отвечено', reset: 'Сбросить прогресс', confirm: 'Очистить весь прогресс?' },
   ar: { correct: 'صحيح', answered: 'تمت الإجابة', reset: 'إعادة ضبط التقدم', confirm: 'مسح كل التقدم؟' },
+};
+
+const filterLabels = {
+  de: { wrong: 'Fehler', fav: 'Markiert' },
+  en: { wrong: 'Mistakes', fav: 'Saved' },
+  ua: { wrong: 'Помилки', fav: 'Збережені' },
+  ru: { wrong: 'Ошибки', fav: 'Избранное' },
+  ar: { wrong: 'الأخطاء', fav: 'المحفوظة' },
 };
 
 const toolsLabels = {
@@ -136,6 +144,20 @@ const SunIcon = () => (
   </svg>
 );
 
+const AlertIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M8 5v3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <circle cx="8" cy="11" r="0.9" fill="currentColor" />
+  </svg>
+);
+
+const StarFilterIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M8 1.8l1.76 3.57 3.94.57-2.85 2.78.67 3.92L8 10.96l-3.52 1.86.67-3.92-2.85-2.78 3.94-.57z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+  </svg>
+);
+
 const SlidersIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
     <path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -177,12 +199,14 @@ const MoonIcon = () => (
 function App() {
   const [question, setQuestion] = useState(0);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const [filter, setFilter] = useState('all');
   const { language, changeLanguage } = useLanguage();
   const { mode, toggle, theme } = useThemeMode();
-  const { answeredCount, correctCount, resetProgress } = useProgress();
+  const { answeredCount, correctCount, resetProgress, wrongIds, favoriteIds } = useProgress();
   const { session, startExam } = useExam();
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const pLabels = progressLabels[language] || progressLabels.de;
+  const fLabels = filterLabels[language] || filterLabels.de;
   const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
 
   useEffect(() => {
@@ -198,7 +222,14 @@ function App() {
     setQuestion(Math.min(Math.max(1, value), dataNew.length));
   };
 
-  const handleReset = () => setQuestion(0);
+  const showAll = () => {
+    setFilter('all');
+    setQuestion(0);
+  };
+  const showFilter = (next) => () => {
+    setFilter(next);
+    setQuestion(0);
+  };
   const handlePlus = () => setQuestion((q) => q + 1);
   const handleMinus = () => setQuestion((q) => q - 1);
   const handleRandomNumber = () =>
@@ -268,11 +299,27 @@ function App() {
                     <DiceIcon /> Zufällig
                   </ToolbarButton>
                   <ToolbarButton
-                    onClick={handleReset}
+                    onClick={showAll}
                     type="text"
-                    disabled={!question}
+                    $active={filter === 'all' && !question}
                   >
                     <GridIcon /> Alle 310
+                  </ToolbarButton>
+                  <ToolbarButton
+                    onClick={showFilter('wrong')}
+                    type="text"
+                    $active={filter === 'wrong' && !question}
+                    data-testid="filter-wrong"
+                  >
+                    <AlertIcon /> {fLabels.wrong} {wrongIds.length}
+                  </ToolbarButton>
+                  <ToolbarButton
+                    onClick={showFilter('favorites')}
+                    type="text"
+                    $active={filter === 'favorites' && !question}
+                    data-testid="filter-fav"
+                  >
+                    <StarFilterIcon /> {fLabels.fav} {favoriteIds.length}
                   </ToolbarButton>
                   <ToolbarButton onClick={startExam} type="text" data-testid="start-exam">
                     <ExamIcon /> {examStartLabels[language] || examStartLabels.de}
@@ -341,7 +388,7 @@ function App() {
                 </ThemeToggle>
                 </Group>
               </ToolbarBar>
-              <CardsContainer questionNr={question} />
+              <CardsContainer questionNr={question} filter={filter} />
               {question ? (
                 <ButtonsContainer>
                   {question === 1 ? null : (
@@ -633,6 +680,17 @@ const ToolbarButton = styled(Button)`
   & svg {
     color: ${({ theme }) => theme.accent};
   }
+
+  ${({ $active, theme }) =>
+    $active &&
+    css`
+      &.ant-btn,
+      &.ant-btn:hover:not(:disabled) {
+        background: ${theme.accentBg};
+        border-color: ${theme.accentBorder};
+        color: ${theme.accent};
+      }
+    `}
 `;
 
 const LangPill = styled.div`

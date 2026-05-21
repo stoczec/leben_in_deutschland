@@ -28,6 +28,25 @@ const CrossIcon = ({ size = 16 }) => (
   </svg>
 );
 
+const StarIcon = ({ filled }) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill={filled ? 'currentColor' : 'none'} aria-hidden="true">
+    <path
+      d="M8 1.8l1.76 3.57 3.94.57-2.85 2.78.67 3.92L8 10.96l-3.52 1.86.67-3.92-2.85-2.78 3.94-.57z"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const favLabels = {
+  de: 'Merken',
+  en: 'Bookmark',
+  ua: 'У збережені',
+  ru: 'В избранное',
+  ar: 'حفظ',
+};
+
 const Card = forwardRef(
   (
     {
@@ -52,7 +71,9 @@ const Card = forwardRef(
     ref
   ) => {
     const { language } = useLanguage();
-    const { answers, recordAnswer } = useProgress();
+    const { answers, recordAnswer, favorites, toggleFavorite } = useProgress();
+    const isFav = favorites.has(id);
+    const favLabel = favLabels[language] || favLabels.de;
     const selected = selectedValue != null ? selectedValue : answers[id] ?? 0;
     const interactive = mode !== 'review';
     const choose = onSelect || ((idx) => recordAnswer(id, idx));
@@ -89,7 +110,22 @@ const Card = forwardRef(
         <Body $variant={variant}>
           <MetaRow>
             <IdBadge>{idStr}</IdBadge>
-            <Counter>{id} / 310</Counter>
+            <MetaRight>
+              <Counter>{id} / 310</Counter>
+              {mode !== 'exam' && (
+                <FavButton
+                  type="button"
+                  onClick={() => toggleFavorite(id)}
+                  $active={isFav}
+                  aria-pressed={isFav}
+                  aria-label={favLabel}
+                  title={favLabel}
+                  data-testid={`fav-${id}`}
+                >
+                  <StarIcon filled={isFav} />
+                </FavButton>
+              )}
+            </MetaRight>
           </MetaRow>
           <QuestionBlock>
             <QuestionDe>{questionDe}</QuestionDe>
@@ -256,6 +292,31 @@ const MetaRow = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: ${shared.space[3]};
+`;
+
+const MetaRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${shared.space[2]};
+`;
+
+const FavButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: ${({ theme, $active }) => ($active ? theme.accent : theme.textSubtle)};
+  transition: background ${shared.motion.fast}, color ${shared.motion.fast};
+
+  &:hover {
+    background: ${({ theme }) => theme.surfaceAlt};
+    color: ${({ theme }) => theme.accent};
+  }
 `;
 
 const IdBadge = styled.span`
