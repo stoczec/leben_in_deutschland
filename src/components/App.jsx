@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ConfigProvider,
   FloatButton,
@@ -24,7 +24,14 @@ import ExamView from './ExamView';
 import { shared } from '../assets/styles/themes';
 
 const { Header, Footer, Content } = Layout;
-const { Option } = Select;
+
+const searchLabels = {
+  de: 'Frage suchen',
+  en: 'Search question',
+  ua: 'Пошук питання',
+  ru: 'Поиск вопроса',
+  ar: 'بحث عن سؤال',
+};
 
 const navLabels = {
   de: { prev: 'vorherige Aufgabe', next: 'nächste Aufgabe' },
@@ -209,10 +216,35 @@ function App() {
   const fLabels = filterLabels[language] || filterLabels.de;
   const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
 
+  const questionOptions = useMemo(
+    () =>
+      dataNew.map((q) => ({
+        value: q.id,
+        label: `${q.id}. ${q.de}`,
+        ftext: `${q.id} ${q.de} ${q[language]}`.toLowerCase(),
+      })),
+    [language]
+  );
+
   useEffect(() => {
     document.documentElement.dir = direction;
     document.documentElement.lang = language;
   }, [direction, language]);
+
+  useEffect(() => {
+    if (!question || session) return;
+    const onKey = (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      const t = e.target;
+      const role = t.getAttribute?.('role');
+      if (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable) return;
+      if (role === 'combobox' || role === 'spinbutton') return;
+      if (e.key === 'ArrowLeft') setQuestion((q) => Math.max(1, q - 1));
+      else setQuestion((q) => Math.min(dataNew.length, q + 1));
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [question, session]);
 
   const handleChange = (value) => {
     if (value === null || value === undefined) {
@@ -271,21 +303,15 @@ function App() {
                 <ToolbarFilters>
                   <Select
                     value={question || undefined}
-                    placeholder="Frage"
+                    placeholder={searchLabels[language] || searchLabels.de}
                     onChange={handleChange}
                     size="small"
-                    style={{ width: 110 }}
+                    style={{ width: 230 }}
                     showSearch
-                    filterOption={(input, option) =>
-                      String(option.value).startsWith(input)
-                    }
-                  >
-                    {dataNew.map((q) => (
-                      <Option key={q.id} value={q.id}>
-                        {q.id}
-                      </Option>
-                    ))}
-                  </Select>
+                    optionFilterProp="ftext"
+                    options={questionOptions}
+                    data-testid="question-search"
+                  />
                   <InputNumber
                     size="small"
                     min={1}
@@ -392,14 +418,14 @@ function App() {
               {question ? (
                 <ButtonsContainer>
                   {question === 1 ? null : (
-                    <Button type="primary" onClick={handleMinus}>
+                    <NavBtn type="primary" onClick={handleMinus}>
                       {(navLabels[language] || navLabels.de).prev}
-                    </Button>
+                    </NavBtn>
                   )}
                   {question === 310 ? null : (
-                    <Button type="primary" onClick={handlePlus}>
+                    <NavBtn type="primary" onClick={handlePlus}>
                       {(navLabels[language] || navLabels.de).next}
-                    </Button>
+                    </NavBtn>
                   )}
                 </ButtonsContainer>
               ) : null}
@@ -745,8 +771,22 @@ const ThemeToggle = styled.button`
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: ${shared.space[4]};
   margin-top: ${shared.space[3]};
+`;
+
+const NavBtn = styled(Button)`
+  &.ant-btn {
+    min-width: 190px;
+  }
+
+  @media (max-width: 480px) {
+    &.ant-btn {
+      min-width: 0;
+      flex: 1 1 0;
+    }
+  }
 `;
 
 const StyledFooter = styled(Footer)`
