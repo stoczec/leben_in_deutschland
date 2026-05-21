@@ -4,6 +4,7 @@ import GlobalStyle from './assets/styles/GlobalStyle';
 import { LanguageProvider } from './providers/LanguageProvider';
 import { ThemeProvider } from './providers/ThemeProvider';
 import { ProgressProvider } from './providers/ProgressProvider';
+import { ExamProvider } from './providers/ExamProvider';
 import App from './components/App';
 
 const root = createRoot(document.getElementById('root'));
@@ -12,8 +13,10 @@ root.render(
     <ThemeProvider>
       <LanguageProvider>
         <ProgressProvider>
-          <GlobalStyle />
-          <App />
+          <ExamProvider>
+            <GlobalStyle />
+            <App />
+          </ExamProvider>
         </ProgressProvider>
       </LanguageProvider>
     </ThemeProvider>

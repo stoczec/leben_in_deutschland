@@ -19,6 +19,8 @@ import { CaretUpOutlined } from '@ant-design/icons';
 import { useLanguage } from '../providers/LanguageProvider';
 import { useThemeMode } from '../providers/ThemeProvider';
 import { useProgress } from '../providers/ProgressProvider';
+import { useExam } from '../providers/ExamProvider';
+import ExamView from './ExamView';
 import { shared } from '../assets/styles/themes';
 
 const { Header, Footer, Content } = Layout;
@@ -46,6 +48,14 @@ const progressLabels = {
   ua: { correct: 'правильно', answered: 'відповіли', reset: 'Скинути прогрес', confirm: 'Очистити весь прогрес?' },
   ru: { correct: 'верно', answered: 'отвечено', reset: 'Сбросить прогресс', confirm: 'Очистить весь прогресс?' },
   ar: { correct: 'صحيح', answered: 'تمت الإجابة', reset: 'إعادة ضبط التقدم', confirm: 'مسح كل التقدم؟' },
+};
+
+const examStartLabels = {
+  de: 'Prüfung',
+  en: 'Exam',
+  ua: 'Іспит',
+  ru: 'Экзамен',
+  ar: 'الاختبار',
 };
 
 const LANG_CODES = ['de', 'en', 'ua', 'ru', 'ar'];
@@ -118,6 +128,12 @@ const SunIcon = () => (
   </svg>
 );
 
+const ExamIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M3 2.5h8l2 2v9H3zM11 2.5v2h2M5.5 7.5h5M5.5 10h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const TrophyIcon = () => (
   <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
     <path d="M5 9.5a3 3 0 0 0 6 0V3H5zM5 4H3v1.5A2.5 2.5 0 0 0 5 8M11 4h2v1.5A2.5 2.5 0 0 1 11 8M6 13h4M8 12.5v-1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -146,6 +162,7 @@ function App() {
   const { language, changeLanguage } = useLanguage();
   const { mode, toggle, theme } = useThemeMode();
   const { answeredCount, correctCount, resetProgress } = useProgress();
+  const { session, startExam } = useExam();
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const pLabels = progressLabels[language] || progressLabels.de;
   const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
@@ -225,6 +242,10 @@ function App() {
           </StyledHeader>
           <StyledContent>
             <ContentInner>
+              {session ? (
+                <ExamView />
+              ) : (
+                <>
               <ToolbarBar>
                 <ToolbarFilters>
                   <Select
@@ -262,6 +283,9 @@ function App() {
                     disabled={!question}
                   >
                     <GridIcon /> Alle 310
+                  </ToolbarButton>
+                  <ToolbarButton onClick={startExam} type="text" data-testid="start-exam">
+                    <ExamIcon /> {examStartLabels[language] || examStartLabels.de}
                   </ToolbarButton>
                 </ToolbarFilters>
                 <Spacer />
@@ -301,6 +325,8 @@ function App() {
                   )}
                 </ButtonsContainer>
               ) : null}
+                </>
+              )}
             </ContentInner>
           </StyledContent>
           <StyledFooter>

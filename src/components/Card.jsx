@@ -45,12 +45,16 @@ const Card = forwardRef(
       ansKey,
       image,
       variant = 'grid',
+      selectedValue,
+      onSelect,
+      reveal = true,
     },
     ref
   ) => {
     const { language } = useLanguage();
     const { answers, recordAnswer } = useProgress();
-    const selected = answers[id] ?? 0;
+    const selected = selectedValue != null ? selectedValue : answers[id] ?? 0;
+    const choose = onSelect || ((idx) => recordAnswer(id, idx));
 
     const answersDe = [answerFirstDe, answerSecondDe, answerThirdDe, answerFourthDe];
     const answersTr = [answerFirst, answerSecond, answerThird, answerFourth];
@@ -59,16 +63,17 @@ const Card = forwardRef(
 
     const stateOf = (idx) => {
       if (selected === 0) return 'idle';
+      if (!reveal) return idx === selected ? 'selected' : 'idle';
       if (idx === ansKey) return 'correct';
       if (idx === selected) return 'wrong';
       return 'idle';
     };
 
-    const handleSelect = (idx) => () => recordAnswer(id, idx);
+    const handleSelect = (idx) => () => choose(idx);
     const handleKey = (idx) => (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        recordAnswer(id, idx);
+        choose(idx);
       }
     };
 
@@ -134,6 +139,8 @@ const stateBg = ({ theme, $state }) =>
     ? theme.successBg
     : $state === 'wrong'
     ? theme.dangerBg
+    : $state === 'selected'
+    ? theme.accentBg
     : theme.surface;
 
 const stateBorder = ({ theme, $state }) =>
@@ -141,6 +148,8 @@ const stateBorder = ({ theme, $state }) =>
     ? theme.successBorder
     : $state === 'wrong'
     ? theme.dangerBorder
+    : $state === 'selected'
+    ? theme.accentBorder
     : theme.border;
 
 const heroAtWide = (rules) => css`
