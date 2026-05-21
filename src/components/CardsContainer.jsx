@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Card from './Card';
 import { useLanguage } from '../providers/LanguageProvider';
+import { useProgress } from '../providers/ProgressProvider';
 import styled from 'styled-components';
-import { Pagination } from 'antd';
+import { Empty, Pagination } from 'antd';
 import dataNew from '../data/dataNew';
 
 const totalLabels = {
@@ -13,7 +14,31 @@ const totalLabels = {
   ar: (total) => `المجموع: ${total} سؤال`,
 };
 
+const emptyLabels = {
+  de: { wrong: 'Noch keine falsch beantworteten Fragen.', favorites: 'Noch keine gemerkten Fragen.' },
+  en: { wrong: 'No incorrectly answered questions yet.', favorites: 'No bookmarked questions yet.' },
+  ua: { wrong: 'Ще немає запитань з помилками.', favorites: 'Ще немає збережених запитань.' },
+  ru: { wrong: 'Пока нет вопросов с ошибками.', favorites: 'Пока нет избранных вопросов.' },
+  ar: { wrong: 'لا توجد أسئلة مُجاب عنها بشكل خاطئ بعد.', favorites: 'لا توجد أسئلة محفوظة بعد.' },
+};
+
 const pageSizeOptions = [8, 16, 24, 32];
+
+const cardProps = (q, language) => ({
+  id: q.id,
+  questionDe: q.de,
+  answerFirstDe: q.answers[1].de,
+  answerSecondDe: q.answers[2].de,
+  answerThirdDe: q.answers[3].de,
+  answerFourthDe: q.answers[4].de,
+  question: q[language],
+  answerFirst: q.answers[1][language],
+  answerSecond: q.answers[2][language],
+  answerThird: q.answers[3][language],
+  answerFourth: q.answers[4][language],
+  ansKey: q.answers.ansKey,
+  image: q.img,
+});
 
 const readInitialPage = () => {
   const raw = Number(localStorage.getItem('currentPage'));
@@ -22,43 +47,56 @@ const readInitialPage = () => {
   return raw;
 };
 
-export function CardsContainer({ questionNr }) {
+export function CardsContainer({ questionNr, filter = 'all' }) {
   const { language } = useLanguage();
+  const { answers, favorites } = useProgress();
   const [currentPage, setCurrentPage] = useState(readInitialPage);
   const [pageSize, setPageSize] = useState(pageSizeOptions[0]);
   const isInitialMount = useRef(true);
+  const prevFilter = useRef(filter);
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+  const list = useMemo(() => {
+    if (filter === 'wrong')
+      return dataNew.filter((q) => answers[q.id] != null && answers[q.id] !== q.answers.ansKey);
+    if (filter === 'favorites') return dataNew.filter((q) => favorites.has(q.id));
+    return dataNew;
+  }, [filter, answers, favorites]);
 
+  useEffect(() => {
+    if (prevFilter.current !== filter) {
+      prevFilter.current = filter;
+      setCurrentPage(1);
+    }
+  }, [filter]);
+
+  const handlePageChange = (page) => setCurrentPage(page);
   const handlePageSizeChange = (current, size) => {
     setCurrentPage(1);
     setPageSize(size);
   };
 
   const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-
-  const productsToShow = dataNew.slice(startIndex, endIndex);
+  const productsToShow = list.slice(startIndex, startIndex + pageSize);
   const question = dataNew.find((q) => q.id === questionNr);
 
   useEffect(() => {
-    localStorage.setItem('currentPage', currentPage);
+    if (filter === 'all') localStorage.setItem('currentPage', currentPage);
     if (isInitialMount.current) {
       isInitialMount.current = false;
       return;
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentPage]);
+  }, [currentPage, filter]);
 
   const showTotal = totalLabels[language] || totalLabels.de;
+  const showGrid = questionNr === 0 || !question;
+  const isEmpty = showGrid && list.length === 0;
 
   const renderPagination = () => (
     <ContainerPagination>
       <CustomPagination
         current={currentPage}
-        total={dataNew.length}
+        total={list.length}
         pageSize={pageSize}
         showSizeChanger
         showTotal={showTotal}
@@ -69,54 +107,27 @@ export function CardsContainer({ questionNr }) {
     </ContainerPagination>
   );
 
-  const showGrid = questionNr === 0 || !question;
-
   return (
     <Container>
-      {showGrid ? renderPagination() : ''}
+      {showGrid && !isEmpty ? renderPagination() : ''}
       {showGrid ? (
-        <ContainerCard>
-          {productsToShow.map((q) => (
-            <Card
-              key={q.id}
-              id={q.id}
-              questionDe={q.de}
-              answerFirstDe={q.answers[1].de}
-              answerSecondDe={q.answers[2].de}
-              answerThirdDe={q.answers[3].de}
-              answerFourthDe={q.answers[4].de}
-              question={q[language]}
-              answerFirst={q.answers[1][language]}
-              answerSecond={q.answers[2][language]}
-              answerThird={q.answers[3][language]}
-              answerFourth={q.answers[4][language]}
-              ansKey={q.answers.ansKey}
-              image={q.img}
-            />
-          ))}
-        </ContainerCard>
+        isEmpty ? (
+          <EmptyWrap>
+            <Empty description={(emptyLabels[language] || emptyLabels.de)[filter]} />
+          </EmptyWrap>
+        ) : (
+          <ContainerCard>
+            {productsToShow.map((q) => (
+              <Card key={q.id} {...cardProps(q, language)} />
+            ))}
+          </ContainerCard>
+        )
       ) : (
         <SingleCard>
-          <Card
-            key={question.id}
-            id={question.id}
-            questionDe={question.de}
-            answerFirstDe={question.answers[1].de}
-            answerSecondDe={question.answers[2].de}
-            answerThirdDe={question.answers[3].de}
-            answerFourthDe={question.answers[4].de}
-            question={question[language]}
-            answerFirst={question.answers[1][language]}
-            answerSecond={question.answers[2][language]}
-            answerThird={question.answers[3][language]}
-            answerFourth={question.answers[4][language]}
-            ansKey={question.answers.ansKey}
-            image={question.img}
-            variant="hero"
-          />
+          <Card key={question.id} {...cardProps(question, language)} variant="hero" />
         </SingleCard>
       )}
-      {showGrid ? renderPagination() : ''}
+      {showGrid && !isEmpty ? renderPagination() : ''}
     </Container>
   );
 }
@@ -149,6 +160,13 @@ const SingleCard = styled.div`
   width: 100%;
   max-width: 860px;
   margin: 0 auto;
+`;
+
+const EmptyWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: ${({ theme }) => theme.space[10]} 0;
+  color: ${({ theme }) => theme.textMuted};
 `;
 
 const ContainerPagination = styled.div`
