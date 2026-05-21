@@ -17,6 +17,17 @@ test.describe('Exam @critical', () => {
         await expect(page.getByTestId('exam-result')).toContainText('/ 33');
     });
 
+    test('answer review is read-only', async ({ page }) => {
+        await page.goto('/');
+        await page.getByTestId('start-exam').click();
+        await page.getByRole('button', { name: /abgeben|submit/i }).first().click();
+        await expect(page.getByTestId('exam-result')).toBeVisible();
+
+        await page.getByRole('button', { name: /antworten ansehen|review/i }).click();
+
+        await expect(page.getByTestId('answer-de-1').first()).toHaveAttribute('aria-disabled', 'true');
+    });
+
     test('an in-progress exam survives reload', async ({ page }) => {
         await page.goto('/');
         await page.getByTestId('start-exam').click();

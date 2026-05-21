@@ -118,7 +118,7 @@ function ExamRunner({ labels }) {
           key={id}
           {...cardProps(q, language)}
           variant="hero"
-          reveal={false}
+          mode="exam"
           selectedValue={answers[id] ?? 0}
           onSelect={(idx) => answerExam(id, idx)}
         />
@@ -198,9 +198,8 @@ function ExamResult({ labels }) {
             <Card
               key={qId}
               {...cardProps(questionById.get(qId), language)}
-              reveal
+              mode="review"
               selectedValue={session.answers[qId] ?? 0}
-              onSelect={() => {}}
             />
           ))}
         </ReviewList>
