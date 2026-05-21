@@ -83,6 +83,14 @@ const examStartLabels = {
 
 const LANG_CODES = ['de', 'en', 'ua', 'ru', 'ar'];
 
+const LANG_NAMES = {
+  de: 'Deutsch',
+  en: 'English',
+  ua: 'Українська',
+  ru: 'Русский',
+  ar: 'العربية',
+};
+
 const slideDownFadeIn = keyframes`
   from { opacity: 0; transform: translateY(-50px); }
   to { opacity: 1; transform: translateY(0); }
@@ -399,6 +407,8 @@ function App() {
                       $active={code === language}
                       onClick={() => changeLanguage(code)}
                       data-testid={`lang-${code}`}
+                      aria-pressed={code === language}
+                      aria-label={LANG_NAMES[code]}
                     >
                       {code.toUpperCase()}
                     </LangOption>
@@ -746,6 +756,11 @@ const LangOption = styled.button`
   &:hover {
     color: ${({ theme, $active }) => ($active ? theme.accent : theme.text)};
   }
+
+  @media (pointer: coarse) {
+    min-height: 44px;
+    padding: 5px 14px;
+  }
 `;
 
 const ThemeToggle = styled.button`
@@ -765,6 +780,11 @@ const ThemeToggle = styled.button`
   &:hover {
     background: ${({ theme }) => theme.surfaceAlt};
     color: ${({ theme }) => theme.text};
+  }
+
+  @media (pointer: coarse) {
+    width: 44px;
+    height: 44px;
   }
 `;
 
