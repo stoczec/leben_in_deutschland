@@ -5,6 +5,22 @@ import { useLanguage } from '../providers/LanguageProvider';
 import { useProgress } from '../providers/ProgressProvider';
 import { shared } from '../assets/styles/themes';
 
+const imgAltLabels = {
+  de: (id) => `Abbildung zu Frage ${id}`,
+  en: (id) => `Illustration for question ${id}`,
+  ua: (id) => `Ілюстрація до запитання ${id}`,
+  ru: (id) => `Иллюстрация к вопросу ${id}`,
+  ar: (id) => `صورة توضيحية للسؤال ${id}`,
+};
+
+const answersLabels = {
+  de: 'Antwortmöglichkeiten',
+  en: 'Answer options',
+  ua: 'Варіанти відповідей',
+  ru: 'Варианты ответов',
+  ar: 'خيارات الإجابة',
+};
+
 const CheckIcon = ({ size = 16 }) => (
   <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
     <path
@@ -104,7 +120,12 @@ const Card = forwardRef(
       <Article ref={ref} $variant={variant}>
         <ImageWrap $variant={variant}>
           <ImageInner $variant={variant}>
-            <Image src={image} alt="" loading="lazy" decoding="async" />
+            <Image
+              src={image}
+              alt={(imgAltLabels[language] || imgAltLabels.de)(id)}
+              loading="lazy"
+              decoding="async"
+            />
           </ImageInner>
         </ImageWrap>
         <Body $variant={variant}>
@@ -131,7 +152,7 @@ const Card = forwardRef(
             <QuestionDe>{questionDe}</QuestionDe>
             {showTranslation && <QuestionTr>{question}</QuestionTr>}
           </QuestionBlock>
-          <Answers role="radiogroup">
+          <Answers role="radiogroup" aria-label={answersLabels[language] || answersLabels.de}>
             {answersDe.map((ansDe, i) => {
               const idx = i + 1;
               const state = stateOf(idx);

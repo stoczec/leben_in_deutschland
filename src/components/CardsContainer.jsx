@@ -85,7 +85,8 @@ export function CardsContainer({ questionNr, filter = 'all' }) {
       isInitialMount.current = false;
       return;
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   }, [currentPage, filter]);
 
   const showTotal = totalLabels[language] || totalLabels.de;
