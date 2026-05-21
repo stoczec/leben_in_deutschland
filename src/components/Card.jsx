@@ -1,6 +1,6 @@
 import { Image } from 'antd';
 import { forwardRef, useState } from 'react';
-import { styled } from 'styled-components';
+import { styled, css } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
 import { shared } from '../assets/styles/themes';
 
@@ -43,6 +43,7 @@ const Card = forwardRef(
       answerFourth,
       ansKey,
       image,
+      variant = 'grid',
     },
     ref
   ) => {
@@ -70,13 +71,13 @@ const Card = forwardRef(
     };
 
     return (
-      <Article ref={ref}>
-        <ImageWrap>
-          <ImageInner>
+      <Article ref={ref} $variant={variant}>
+        <ImageWrap $variant={variant}>
+          <ImageInner $variant={variant}>
             <Image src={image} alt="" loading="lazy" decoding="async" />
           </ImageInner>
         </ImageWrap>
-        <Body>
+        <Body $variant={variant}>
           <MetaRow>
             <IdBadge>{idStr}</IdBadge>
             <Counter>{id} / 310</Counter>
@@ -140,6 +141,12 @@ const stateBorder = ({ theme, $state }) =>
     ? theme.dangerBorder
     : theme.border;
 
+const heroAtWide = (rules) => css`
+  @media (min-width: 800px) {
+    ${rules}
+  }
+`;
+
 const Article = styled.article`
   background: ${({ theme }) => theme.surface};
   border: 1px solid ${({ theme }) => theme.border};
@@ -151,11 +158,26 @@ const Article = styled.article`
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  ${({ $variant }) =>
+    $variant === 'hero' &&
+    heroAtWide(css`
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      flex-direction: unset;
+    `)}
 `;
 
 const ImageWrap = styled.div`
   background: ${({ theme }) => theme.surfaceAlt};
   padding: ${shared.space[3]};
+
+  ${({ $variant }) =>
+    $variant === 'hero' &&
+    heroAtWide(css`
+      display: flex;
+      align-items: stretch;
+    `)}
 `;
 
 const ImageInner = styled.div`
@@ -176,6 +198,20 @@ const ImageInner = styled.div`
   .ant-image img {
     object-fit: cover;
   }
+
+  ${({ $variant }) =>
+    $variant === 'hero' &&
+    heroAtWide(css`
+      aspect-ratio: auto;
+      flex: 1;
+      align-self: stretch;
+
+      .ant-image,
+      .ant-image-img,
+      .ant-image img {
+        height: 100%;
+      }
+    `)}
 `;
 
 const Body = styled.div`
@@ -188,6 +224,13 @@ const Body = styled.div`
   @media (max-width: 700px) {
     padding: ${shared.space[4]};
   }
+
+  ${({ $variant }) =>
+    $variant === 'hero' &&
+    heroAtWide(css`
+      padding: ${shared.space[6]} ${shared.space[6]} ${shared.space[6]};
+      gap: ${shared.space[5]};
+    `)}
 `;
 
 const MetaRow = styled.div`
