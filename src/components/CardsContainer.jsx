@@ -14,11 +14,18 @@ const totalLabels = {
   ar: (total) => `المجموع: ${total} سؤال`,
 };
 
+const pageSizeOptions = [8, 16, 24, 32];
+
+const readInitialPage = () => {
+  const raw = Number(localStorage.getItem('currentPage'));
+  const maxPage = Math.ceil(dataNew.length / pageSizeOptions[0]);
+  if (!Number.isInteger(raw) || raw < 1 || raw > maxPage) return 1;
+  return raw;
+};
+
 export function CardsContainer({ questionNr }) {
   const { language } = useLanguage();
-  const pageSizeOptions = [8, 16, 24, 32];
-  const initialPage = localStorage.getItem('currentPage') || 1;
-  const [currentPage, setCurrentPage] = useState(Number(initialPage));
+  const [currentPage, setCurrentPage] = useState(readInitialPage);
   const [pageSize, setPageSize] = useState(pageSizeOptions[0]);
   const isInitialMount = useRef(true);
 
@@ -63,10 +70,12 @@ export function CardsContainer({ questionNr }) {
     </ContainerPagination>
   );
 
+  const showGrid = questionNr === 0 || !question;
+
   return (
     <Container>
-      {questionNr ? '' : renderPagination()}
-      {questionNr === 0 ? (
+      {showGrid ? renderPagination() : ''}
+      {showGrid ? (
         <ContainerCard>
           {productsToShow.map((q) => (
             <Card
@@ -108,7 +117,7 @@ export function CardsContainer({ questionNr }) {
           />
         </SingleCard>
       )}
-      {questionNr ? '' : renderPagination()}
+      {showGrid ? renderPagination() : ''}
     </Container>
   );
 }
