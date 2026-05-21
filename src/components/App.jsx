@@ -133,7 +133,11 @@ function App() {
   }, [direction, language]);
 
   const handleChange = (value) => {
-    setQuestion(value === null ? 0 : value);
+    if (value === null || value === undefined) {
+      setQuestion(0);
+      return;
+    }
+    setQuestion(Math.min(Math.max(1, value), dataNew.length));
   };
 
   const handleReset = () => setQuestion(0);
