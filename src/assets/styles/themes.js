@@ -1,6 +1,5 @@
-// Direction A — Product. Mapped 1:1 from .claude/design/tokens.js.
-// Phase 1 foundation: source of truth for the new palette.
-// Phase 4 will add a ThemeProvider that selects light/dark at runtime.
+// Direction A — Product palette + shared scales. Source of truth for theming.
+// Consumed via ThemeProvider (light/dark) and styled-components.
 
 export const themes = {
   product: {

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import Card from './Card';
-import data from '../data/data';
 import { useLanguage } from '../providers/LanguageProvider';
 import styled from 'styled-components';
 import { Pagination } from 'antd';
@@ -59,7 +58,7 @@ export function CardsContainer({ questionNr }) {
     <ContainerPagination>
       <CustomPagination
         current={currentPage}
-        total={data.length}
+        total={dataNew.length}
         pageSize={pageSize}
         showSizeChanger
         showTotal={showTotal}
