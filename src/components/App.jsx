@@ -18,6 +18,7 @@ import dataNew from '../data/dataNew';
 import { CaretUpOutlined } from '@ant-design/icons';
 import { useLanguage } from '../providers/LanguageProvider';
 import { useThemeMode } from '../providers/ThemeProvider';
+import { useProgress } from '../providers/ProgressProvider';
 import { shared } from '../assets/styles/themes';
 
 const { Header, Footer, Content } = Layout;
@@ -37,6 +38,14 @@ const footerTexts = {
   ua: 'Напишіть мені, якщо знайшли помилку або маєте якісь зауваження чи пропозиції.',
   ru: 'Напишите мне, если нашли ошибку или у вас есть какие-либо замечания или предложения.',
   ar: 'راسلني إذا وجدت خطأ أو كانت لديك أي ملاحظات أو اقتراحات.',
+};
+
+const progressLabels = {
+  de: { correct: 'richtig', answered: 'beantwortet', reset: 'Fortschritt zurücksetzen', confirm: 'Gesamten Fortschritt löschen?' },
+  en: { correct: 'correct', answered: 'answered', reset: 'Reset progress', confirm: 'Clear all progress?' },
+  ua: { correct: 'правильно', answered: 'відповіли', reset: 'Скинути прогрес', confirm: 'Очистити весь прогрес?' },
+  ru: { correct: 'верно', answered: 'отвечено', reset: 'Сбросить прогресс', confirm: 'Очистить весь прогресс?' },
+  ar: { correct: 'صحيح', answered: 'تمت الإجابة', reset: 'إعادة ضبط التقدم', confirm: 'مسح كل التقدم؟' },
 };
 
 const LANG_CODES = ['de', 'en', 'ua', 'ru', 'ar'];
@@ -109,6 +118,18 @@ const SunIcon = () => (
   </svg>
 );
 
+const TrophyIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M5 9.5a3 3 0 0 0 6 0V3H5zM5 4H3v1.5A2.5 2.5 0 0 0 5 8M11 4h2v1.5A2.5 2.5 0 0 1 11 8M6 13h4M8 12.5v-1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const ResetIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M13 8a5 5 0 1 1-1.46-3.54M13 3v2h-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const MoonIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
     <path
@@ -124,7 +145,9 @@ function App() {
   const [question, setQuestion] = useState(0);
   const { language, changeLanguage } = useLanguage();
   const { mode, toggle, theme } = useThemeMode();
+  const { answeredCount, correctCount, resetProgress } = useProgress();
   const direction = language === 'ar' ? 'rtl' : 'ltr';
+  const pLabels = progressLabels[language] || progressLabels.de;
   const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
 
   useEffect(() => {
@@ -145,6 +168,9 @@ function App() {
   const handleMinus = () => setQuestion((q) => q - 1);
   const handleRandomNumber = () =>
     setQuestion(Math.floor(Math.random() * 310) + 1);
+  const handleResetProgress = () => {
+    if (window.confirm(pLabels.confirm)) resetProgress();
+  };
 
   return (
     <ConfigProvider
@@ -167,6 +193,35 @@ function App() {
                 <BrandSub>Einbürgerungstest · 310 Fragen</BrandSub>
               </BrandText>
             </Brand>
+            <Spacer />
+            <Progress>
+              <Stat
+                $tone="success"
+                data-testid="progress-correct"
+                title={`${correctCount} ${pLabels.correct}`}
+                aria-label={`${correctCount} ${pLabels.correct}`}
+              >
+                <TrophyIcon />
+                {correctCount}
+              </Stat>
+              <Stat
+                data-testid="progress-answered"
+                title={`${answeredCount} ${pLabels.answered}`}
+                aria-label={`${answeredCount} ${pLabels.answered}`}
+              >
+                {answeredCount}
+                <Total>/310</Total>
+              </Stat>
+              {answeredCount > 0 && (
+                <ResetButton
+                  onClick={handleResetProgress}
+                  aria-label={pLabels.reset}
+                  title={pLabels.reset}
+                >
+                  <ResetIcon />
+                </ResetButton>
+              )}
+            </Progress>
           </StyledHeader>
           <StyledContent>
             <ContentInner>
@@ -338,6 +393,56 @@ const BrandSub = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.textMuted};
   margin-top: 2px;
+`;
+
+const Progress = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${shared.space[2]};
+  flex-shrink: 0;
+`;
+
+const Stat = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: ${shared.fontStack.mono};
+  font-size: 13px;
+  font-weight: 600;
+  color: ${({ theme, $tone }) => ($tone === 'success' ? theme.success : theme.textMuted)};
+
+  & svg {
+    color: ${({ theme }) => theme.success};
+  }
+`;
+
+const Total = styled.span`
+  color: ${({ theme }) => theme.textSubtle};
+  font-weight: 400;
+`;
+
+const ResetButton = styled.button`
+  width: 30px;
+  height: 30px;
+  border-radius: ${shared.radius.sm};
+  border: 1px solid ${({ theme }) => theme.border};
+  background: ${({ theme }) => theme.surface};
+  color: ${({ theme }) => theme.textMuted};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background ${shared.motion.fast}, color ${shared.motion.fast};
+
+  &:hover {
+    background: ${({ theme }) => theme.surfaceAlt};
+    color: ${({ theme }) => theme.danger};
+  }
+
+  @media (pointer: coarse) {
+    width: 44px;
+    height: 44px;
+  }
 `;
 
 const StyledContent = styled(Content)`
