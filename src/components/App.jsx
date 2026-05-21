@@ -50,6 +50,14 @@ const progressLabels = {
   ar: { correct: 'صحيح', answered: 'تمت الإجابة', reset: 'إعادة ضبط التقدم', confirm: 'مسح كل التقدم؟' },
 };
 
+const toolsLabels = {
+  de: 'Steuerung',
+  en: 'Controls',
+  ua: 'Керування',
+  ru: 'Управление',
+  ar: 'الأدوات',
+};
+
 const examStartLabels = {
   de: 'Prüfung',
   en: 'Exam',
@@ -128,6 +136,15 @@ const SunIcon = () => (
   </svg>
 );
 
+const SlidersIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <circle cx="6" cy="4.5" r="1.8" fill="currentColor" />
+    <circle cx="10.5" cy="8" r="1.8" fill="currentColor" />
+    <circle cx="5" cy="11.5" r="1.8" fill="currentColor" />
+  </svg>
+);
+
 const ExamIcon = () => (
   <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
     <path d="M3 2.5h8l2 2v9H3zM11 2.5v2h2M5.5 7.5h5M5.5 10h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -159,6 +176,7 @@ const MoonIcon = () => (
 
 function App() {
   const [question, setQuestion] = useState(0);
+  const [toolsOpen, setToolsOpen] = useState(false);
   const { language, changeLanguage } = useLanguage();
   const { mode, toggle, theme } = useThemeMode();
   const { answeredCount, correctCount, resetProgress } = useProgress();
@@ -210,35 +228,6 @@ function App() {
                 <BrandSub>Einbürgerungstest · 310 Fragen</BrandSub>
               </BrandText>
             </Brand>
-            <Spacer />
-            <Progress>
-              <Stat
-                $tone="success"
-                data-testid="progress-correct"
-                title={`${correctCount} ${pLabels.correct}`}
-                aria-label={`${correctCount} ${pLabels.correct}`}
-              >
-                <TrophyIcon />
-                {correctCount}
-              </Stat>
-              <Stat
-                data-testid="progress-answered"
-                title={`${answeredCount} ${pLabels.answered}`}
-                aria-label={`${answeredCount} ${pLabels.answered}`}
-              >
-                {answeredCount}
-                <Total>/310</Total>
-              </Stat>
-              {answeredCount > 0 && (
-                <ResetButton
-                  onClick={handleResetProgress}
-                  aria-label={pLabels.reset}
-                  title={pLabels.reset}
-                >
-                  <ResetIcon />
-                </ResetButton>
-              )}
-            </Progress>
           </StyledHeader>
           <StyledContent>
             <ContentInner>
@@ -247,6 +236,7 @@ function App() {
               ) : (
                 <>
               <ToolbarBar>
+                <Group $open={toolsOpen}>
                 <ToolbarFilters>
                   <Select
                     value={question || undefined}
@@ -288,7 +278,47 @@ function App() {
                     <ExamIcon /> {examStartLabels[language] || examStartLabels.de}
                   </ToolbarButton>
                 </ToolbarFilters>
+                </Group>
+                <Lead>
                 <Spacer />
+                <Progress>
+                  <Stat
+                    $tone="success"
+                    data-testid="progress-correct"
+                    title={`${correctCount} ${pLabels.correct}`}
+                    aria-label={`${correctCount} ${pLabels.correct}`}
+                  >
+                    <TrophyIcon />
+                    {correctCount}
+                  </Stat>
+                  <Stat
+                    data-testid="progress-answered"
+                    title={`${answeredCount} ${pLabels.answered}`}
+                    aria-label={`${answeredCount} ${pLabels.answered}`}
+                  >
+                    {answeredCount}
+                    <Total>/310</Total>
+                  </Stat>
+                  {answeredCount > 0 && (
+                    <ResetButton
+                      onClick={handleResetProgress}
+                      aria-label={pLabels.reset}
+                      title={pLabels.reset}
+                    >
+                      <ResetIcon />
+                    </ResetButton>
+                  )}
+                </Progress>
+                  <MoreButton
+                    onClick={() => setToolsOpen((o) => !o)}
+                    aria-expanded={toolsOpen}
+                    aria-label={toolsLabels[language] || toolsLabels.de}
+                    title={toolsLabels[language] || toolsLabels.de}
+                  >
+                    <SlidersIcon />
+                  </MoreButton>
+                </Lead>
+                <Group $open={toolsOpen}>
                 <LangPill>
                   {LANG_CODES.map((code) => (
                     <LangOption
@@ -309,6 +339,7 @@ function App() {
                 >
                   {mode === 'dark' ? <SunIcon /> : <MoonIcon />}
                 </ThemeToggle>
+                </Group>
               </ToolbarBar>
               <CardsContainer questionNr={question} />
               {question ? (
@@ -488,15 +519,78 @@ const ContentInner = styled.div`
 `;
 
 const ToolbarBar = styled.div`
-  background: ${({ theme }) => theme.surface};
+  position: sticky;
+  top: 8px;
+  z-index: 20;
+  background: ${({ theme }) => theme.surfaceGlass};
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 12px;
   padding: ${shared.space[2]};
-  box-shadow: ${shared.shadow.sm};
+  box-shadow: ${shared.shadow.md};
   display: flex;
   align-items: center;
   gap: ${shared.space[2]};
   flex-wrap: wrap;
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background: ${({ theme }) => theme.surface};
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: ${shared.space[3]};
+  }
+`;
+
+const Group = styled.div`
+  display: contents;
+
+  @media (max-width: 640px) {
+    display: ${({ $open }) => ($open ? 'flex' : 'none')};
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: ${shared.space[2]};
+  }
+`;
+
+const Lead = styled.div`
+  display: contents;
+
+  @media (max-width: 640px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    order: -1;
+  }
+`;
+
+const MoreButton = styled.button`
+  display: none;
+
+  @media (max-width: 640px) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid ${({ theme }) => theme.border};
+    background: ${({ theme }) => theme.surface};
+    color: ${({ theme }) => theme.text};
+    cursor: pointer;
+    transition: background ${shared.motion.fast}, color ${shared.motion.fast};
+  }
+
+  &[aria-expanded='true'] {
+    background: ${({ theme }) => theme.surfaceAlt};
+    border-color: ${({ theme }) => theme.borderStrong};
+    color: ${({ theme }) => theme.accent};
+  }
 `;
 
 const ToolbarFilters = styled.div`
@@ -508,6 +602,10 @@ const ToolbarFilters = styled.div`
 
 const Spacer = styled.div`
   flex: 1 1 auto;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const ToolbarButton = styled(Button)`

@@ -47,13 +47,14 @@ const Card = forwardRef(
       variant = 'grid',
       selectedValue,
       onSelect,
-      reveal = true,
+      mode = 'practice',
     },
     ref
   ) => {
     const { language } = useLanguage();
     const { answers, recordAnswer } = useProgress();
     const selected = selectedValue != null ? selectedValue : answers[id] ?? 0;
+    const interactive = mode !== 'review';
     const choose = onSelect || ((idx) => recordAnswer(id, idx));
 
     const answersDe = [answerFirstDe, answerSecondDe, answerThirdDe, answerFourthDe];
@@ -62,10 +63,11 @@ const Card = forwardRef(
     const idStr = String(id).padStart(3, '0');
 
     const stateOf = (idx) => {
-      if (selected === 0) return 'idle';
-      if (!reveal) return idx === selected ? 'selected' : 'idle';
+      if (mode === 'exam') return selected !== 0 && idx === selected ? 'selected' : 'idle';
+      const shouldReveal = mode === 'review' || selected !== 0;
+      if (!shouldReveal) return 'idle';
       if (idx === ansKey) return 'correct';
-      if (idx === selected) return 'wrong';
+      if (selected !== 0 && idx === selected) return 'wrong';
       return 'idle';
     };
 
@@ -103,24 +105,27 @@ const Card = forwardRef(
                   key={idx}
                   role="radio"
                   aria-checked={isSelected}
-                  tabIndex={0}
-                  onClick={handleSelect(idx)}
-                  onKeyDown={handleKey(idx)}
+                  aria-disabled={!interactive}
+                  tabIndex={interactive ? 0 : -1}
+                  onClick={interactive ? handleSelect(idx) : undefined}
+                  onKeyDown={interactive ? handleKey(idx) : undefined}
                   $state={state}
+                  $interactive={interactive}
                   data-testid={`answer-de-${idx}`}
                 >
-                  <Circle $isSelected={isSelected}>
-                    {isSelected && <Dot />}
-                  </Circle>
-                  <Number>{idx}</Number>
+                  <Badge $state={state}>
+                    {state === 'correct' ? (
+                      <CheckIcon size={16} />
+                    ) : state === 'wrong' ? (
+                      <CrossIcon size={16} />
+                    ) : (
+                      idx
+                    )}
+                  </Badge>
                   <Text>
                     <TextDe>{ansDe}</TextDe>
                     {showTranslation && <TextTr>{answersTr[i]}</TextTr>}
                   </Text>
-                  <Status $state={state}>
-                    {state === 'correct' && <CheckIcon />}
-                    {state === 'wrong' && <CrossIcon />}
-                  </Status>
                 </Row>
               );
             })}
@@ -161,8 +166,8 @@ const heroAtWide = (rules) => css`
 const Article = styled.article`
   background: ${({ theme }) => theme.surface};
   border: 1px solid ${({ theme }) => theme.border};
-  border-radius: ${shared.radius.lg};
-  box-shadow: ${shared.shadow.sm};
+  border-radius: 18px;
+  box-shadow: ${shared.shadow.md};
   overflow: hidden;
   font-family: ${shared.fontStack.sans};
   color: ${({ theme }) => theme.text};
@@ -193,9 +198,10 @@ const ImageWrap = styled.div`
 
 const ImageInner = styled.div`
   width: 100%;
-  border-radius: ${shared.radius.md};
+  border-radius: 12px;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
+  max-height: 200px;
   display: block;
 
   .ant-image,
@@ -214,6 +220,7 @@ const ImageInner = styled.div`
     $variant === 'hero' &&
     heroAtWide(css`
       aspect-ratio: auto;
+      max-height: none;
       flex: 1;
       align-self: stretch;
 
@@ -293,48 +300,65 @@ const Answers = styled.div`
 
 const Row = styled.div`
   display: grid;
-  grid-template-columns: 22px auto 1fr 18px;
+  grid-template-columns: 30px 1fr;
   align-items: center;
   gap: ${shared.space[3]};
-  padding: 12px 14px;
+  padding: 13px 14px;
+  min-height: 56px;
   background: ${stateBg};
   border: 1px solid ${stateBorder};
-  border-radius: ${shared.radius.md};
-  cursor: pointer;
-  transition: background ${shared.motion.fast},
-    border-color ${shared.motion.fast};
+  border-radius: ${shared.radius.lg};
+  cursor: ${({ $interactive }) => ($interactive ? 'pointer' : 'default')};
+  transition: background ${shared.motion.fast}, border-color ${shared.motion.fast},
+    transform ${shared.motion.fast};
 
   &:hover {
-    background: ${({ theme, $state }) =>
-      $state === 'idle' ? theme.surfaceAlt : stateBg({ theme, $state })};
+    background: ${({ theme, $state, $interactive }) =>
+      $interactive && $state === 'idle' ? theme.surfaceAlt : stateBg({ theme, $state })};
+    border-color: ${({ theme, $state, $interactive }) =>
+      $interactive && $state === 'idle' ? theme.borderStrong : stateBorder({ theme, $state })};
+  }
+
+  &:active {
+    transform: ${({ $interactive }) => ($interactive ? 'scale(0.985)' : 'none')};
   }
 `;
 
-const Circle = styled.div`
-  width: 22px;
-  height: 22px;
-  border-radius: 999px;
-  border: 1.5px solid
-    ${({ theme, $isSelected }) =>
-      $isSelected ? theme.accent : theme.borderStrong};
-  background: ${({ theme, $isSelected }) =>
-    $isSelected ? theme.accent : 'transparent'};
-  position: relative;
-`;
+const badgeBg = ({ theme, $state }) =>
+  $state === 'correct'
+    ? theme.success
+    : $state === 'wrong'
+    ? theme.danger
+    : $state === 'selected'
+    ? theme.accent
+    : 'transparent';
 
-const Dot = styled.span`
-  position: absolute;
-  inset: 5px;
-  border-radius: 999px;
-  background: ${({ theme }) => theme.surface};
-`;
+const badgeFg = ({ theme, $state }) =>
+  $state === 'correct'
+    ? theme.successBg
+    : $state === 'wrong'
+    ? theme.dangerBg
+    : $state === 'selected'
+    ? theme.accentBg
+    : theme.textMuted;
 
-const Number = styled.span`
-  font-size: 11px;
-  color: ${({ theme }) => theme.textSubtle};
+const Badge = styled.span`
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   font-family: ${shared.fontStack.mono};
-  text-align: center;
-  min-width: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: ${badgeBg};
+  color: ${badgeFg};
+  border: 1.5px solid
+    ${({ theme, $state }) => ($state === 'idle' ? theme.borderStrong : 'transparent')};
+  transition: background ${shared.motion.fast}, color ${shared.motion.fast},
+    border-color ${shared.motion.fast};
 `;
 
 const Text = styled.div`
@@ -355,14 +379,3 @@ const TextTr = styled.div`
   margin-top: 2px;
 `;
 
-const Status = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${({ theme, $state }) =>
-    $state === 'correct'
-      ? theme.success
-      : $state === 'wrong'
-      ? theme.danger
-      : 'transparent'};
-`;
