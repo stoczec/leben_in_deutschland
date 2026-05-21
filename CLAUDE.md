@@ -20,31 +20,27 @@ Vite + React 18 (JavaScript, not TS) single-page app for the German "Leben in De
 
 ### Data model — the central concept
 
-There are **two parallel question datasets** in [src/data/](src/data/):
-
-- [src/data/dataNew.js](src/data/dataNew.js) — the **active** dataset. Each entry: `{ id, de, en, ua, ru, ar, img, answers: { ansKey, 1: {de,en,ua,ru,ar}, 2: {...}, 3: {...}, 4: {...} } }`. `ansKey` is the index (1–4) of the correct answer. Used by [CardsContainer.jsx](src/components/CardsContainer.jsx) for the question-number `Select` and for rendering every `Card`.
-- [src/data/data.js](src/data/data.js) — older schema with a single `answers` object (no multiple choice). [App.jsx](src/components/App.jsx) and [CardsContainer.jsx](src/components/CardsContainer.jsx) still import it solely for `data.length` in the pagination `total`. Keep `data.length === dataNew.length` when adding questions, or pagination breaks.
+- [src/data/dataNew.js](src/data/dataNew.js) — the single source of truth. Each entry: `{ id, de, en, ua, ru, ar, img, answers: { ansKey, 1: {de,en,ua,ru,ar}, 2: {...}, 3: {...}, 4: {...} } }`. `ansKey` is the index (1–4) of the correct answer. [App.jsx](src/components/App.jsx) uses it for the question-number `Select`; [CardsContainer.jsx](src/components/CardsContainer.jsx) renders every `Card` from it and reads `dataNew.length` for the pagination `total`.
 
 Recent commit history (`add 291-310`, `add 276-290`, …) shows the dominant ongoing task is **incrementally adding questions in batches**. When adding a question with id N:
 
 1. Drop `N.jpg` into [src/assets/images/](src/assets/images/).
 2. Append `import imgN from './N.jpg';` and re-export in [src/assets/images/images.js](src/assets/images/images.js).
-3. Append the question object to **both** `dataNew.js` (full 4-answer form) and `data.js` (single-answer form) referencing `images.imgN`.
+3. Append the question object to `dataNew.js` (full 4-answer form) referencing `images.imgN`. Every answer needs all 5 language keys; `ansKey` is 1–4.
 
 ### Component flow
 
-- [src/main.jsx](src/main.jsx) wraps `<App>` in `LanguageProvider` and `GlobalStyle`.
-- [providers/LanguageProvider.jsx](src/providers/LanguageProvider.jsx) — React Context holding the current UI language (`'de' | 'en' | 'ua' | 'ru' | 'ar'`). Consumed via `useLanguage()`. The selected language is persisted to `localStorage` by [LanguageSelector.jsx](src/components/LanguageSelector.jsx) (key: `language`).
-- [components/App.jsx](src/components/App.jsx) — top-level layout, filter controls (jump to question by `Select` / `InputNumber`, random, reset, prev/next), and starfield background. Holds the `question` (current question id) state; `0` = show all (paginated), non-zero = show that single question.
-- [components/CardsContainer.jsx](src/components/CardsContainer.jsx) — paginated list when `questionNr === 0`, single card otherwise. Pagination's `currentPage` is also persisted to `localStorage` (key: `currentPage`).
-- [components/Card.jsx](src/components/Card.jsx) — **the rendered question card**. Always shows the German question + 4 German answers; if the active language ≠ `de`, also shows translations beneath each. Clicking a `Radio` colors the chosen answer green if `value === ansKey`, red otherwise (logic inline in styled-components in `Card.jsx`).
-- [components/CardNew.jsx](src/components/CardNew.jsx) — an earlier single-answer variant matching the `data.js` schema. Currently **not rendered** (the `CardNew` JSX in `CardsContainer.jsx` is commented out). Don't mistake it for the live component.
+- [src/main.jsx](src/main.jsx) wraps `<App>` in `ThemeProvider` → `LanguageProvider` → `GlobalStyle`.
+- [providers/LanguageProvider.jsx](src/providers/LanguageProvider.jsx) — React Context holding the current UI language (`'de' | 'en' | 'ua' | 'ru' | 'ar'`). Consumed via `useLanguage()`. Owns its `localStorage` persistence (key: `language`).
+- [providers/ThemeProvider.jsx](src/providers/ThemeProvider.jsx) — light/dark mode context. Consumed via `useThemeMode()` (`{ mode, toggle, theme }`). Wraps children in styled-components `ThemeProvider`, persists to `localStorage` (key: `theme`), mirrors `<html data-theme>`.
+- [components/App.jsx](src/components/App.jsx) — top-level layout: brand Header, Toolbar (jump by `Select` / `InputNumber`, random, reset, segmented language pill, theme toggle), prev/next nav. Holds the `question` state; `0` = paginated, non-zero = single question.
+- [components/CardsContainer.jsx](src/components/CardsContainer.jsx) — paginated grid when `questionNr === 0` (or question not found), single hero card otherwise. `currentPage` persisted to `localStorage` (validated on read).
+- [components/Card.jsx](src/components/Card.jsx) — **the rendered question card**. German question + 4 German answers; translations beneath each when active language ≠ `de`. Answer rows are `<div role="radio">`; selecting colors the correct answer with `successBg` + ✓, a wrong pick with `dangerBg` + ✕. `variant="hero"` (single question) goes side-by-side at ≥800px; `variant="grid"` (default) stacks.
 
 ### Styling and UI
 
-- **antd** is tree-shaken at build time via `babel-plugin-import` configured in [.babelrc](.babelrc) — keep using named imports `import { X } from 'antd'`.
-- **styled-components** for everything else; shared theme tokens in [src/assets/styles/](src/assets/styles/) (`theme.js`, `colors.js`, `fonts.js`, `mixins.js`), applied through [GlobalStyle.js](src/assets/styles/GlobalStyle.js).
-- **framer-motion** wraps several antd/layout primitives (`motion(Header)`, `motion(Flex)`, `motion(CardNew)`, etc.) for entrance animations driven by `initial="hidden"` / `whileInView="visible"` variants defined per file.
+- **antd** is tree-shaken at build time via `babel-plugin-import` configured in [.babelrc](.babelrc) — keep using named imports `import { X } from 'antd'`. Light/dark is driven by `ConfigProvider`'s `theme.algorithm`.
+- **styled-components** for everything else; theme tokens (Direction A, light + dark palettes + shared scales) live in [src/assets/styles/themes.js](src/assets/styles/themes.js), applied through [GlobalStyle.js](src/assets/styles/GlobalStyle.js) and read via the `${({ theme }) => ...}` prop. Entrance animations are CSS `@keyframes` (no framer-motion).
 
 ---
 
@@ -52,7 +48,6 @@ Recent commit history (`add 291-310`, `add 276-290`, …) shows the dominant ong
 
 1. **Never `git commit` / `git push` without explicit user command.** This rule is absolute. Auto mode, `run_in_background`, tool batching, pre-push skill, end-of-task cleanup, ANY other context — none of them override it. Permission is single-use: one explicit "commit and push" → one commit + one push. Next time ask again. Silence = no. Tests passing = no. Task looking done = no. The user types the command or nothing happens.
 2. **Comments: 2 lines hard cap, every Edit/Write.** Before submitting any Edit or Write tool call: count comment lines in `new_string`/`content`. Any `/* */` block, JSDoc, or consecutive `//` run > 2 lines → rewrite before submit. The count is mechanical: if 3 lines exist, the rule is broken regardless of how essential the content felt. Auto mode, "complex topic", "important nuance", "old comment was longer" — none are exceptions. Trim to ≤2 lines, or delete entirely. Old code is not grandfathered — touching a function with a 5-line comment means trimming it in the same edit.
-3. **Data parity invariant.** `data.js.length === dataNew.js.length`. Every new question goes into BOTH files. Pagination breaks otherwise.
 
 `.claude/`, `CLAUDE.md` are tooling — never staged, never committed unless user explicitly requests.
 
