@@ -102,6 +102,7 @@ export function CardsContainer({ questionNr }) {
             answerFourth={question.answers[4][language]}
             ansKey={question.answers.ansKey}
             image={question.img}
+            variant="hero"
           />
         )}
       </ContainerCard>
