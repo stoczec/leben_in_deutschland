@@ -1,7 +1,8 @@
 import { Image } from 'antd';
-import { forwardRef, useState } from 'react';
+import { forwardRef } from 'react';
 import { styled, css } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
+import { useProgress } from '../providers/ProgressProvider';
 import { shared } from '../assets/styles/themes';
 
 const CheckIcon = ({ size = 16 }) => (
@@ -48,7 +49,8 @@ const Card = forwardRef(
     ref
   ) => {
     const { language } = useLanguage();
-    const [selected, setSelected] = useState(0);
+    const { answers, recordAnswer } = useProgress();
+    const selected = answers[id] ?? 0;
 
     const answersDe = [answerFirstDe, answerSecondDe, answerThirdDe, answerFourthDe];
     const answersTr = [answerFirst, answerSecond, answerThird, answerFourth];
@@ -62,11 +64,11 @@ const Card = forwardRef(
       return 'idle';
     };
 
-    const handleSelect = (idx) => () => setSelected(idx);
+    const handleSelect = (idx) => () => recordAnswer(id, idx);
     const handleKey = (idx) => (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        setSelected(idx);
+        recordAnswer(id, idx);
       }
     };
 
