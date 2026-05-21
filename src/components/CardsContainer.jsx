@@ -66,9 +66,9 @@ export function CardsContainer({ questionNr }) {
   return (
     <Container>
       {questionNr ? '' : renderPagination()}
-      <ContainerCard>
-        {questionNr === 0 ? (
-          productsToShow.map((q) => (
+      {questionNr === 0 ? (
+        <ContainerCard>
+          {productsToShow.map((q) => (
             <Card
               key={q.id}
               id={q.id}
@@ -85,8 +85,10 @@ export function CardsContainer({ questionNr }) {
               ansKey={q.answers.ansKey}
               image={q.img}
             />
-          ))
-        ) : (
+          ))}
+        </ContainerCard>
+      ) : (
+        <SingleCard>
           <Card
             key={question.id}
             id={question.id}
@@ -104,8 +106,8 @@ export function CardsContainer({ questionNr }) {
             image={question.img}
             variant="hero"
           />
-        )}
-      </ContainerCard>
+        </SingleCard>
+      )}
       {questionNr ? '' : renderPagination()}
     </Container>
   );
@@ -133,6 +135,12 @@ const ContainerCard = styled.div`
     content-visibility: auto;
     contain-intrinsic-size: auto 600px;
   }
+`;
+
+const SingleCard = styled.div`
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
 `;
 
 const ContainerPagination = styled.div`

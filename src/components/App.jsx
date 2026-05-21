@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ConfigProvider,
   FloatButton,
@@ -20,7 +20,6 @@ import { useLanguage } from '../providers/LanguageProvider';
 import { useThemeMode } from '../providers/ThemeProvider';
 import { shared } from '../assets/styles/themes';
 
-const Starfield = lazy(() => import('react-starfield'));
 const { Header, Footer, Content } = Layout;
 const { Option } = Select;
 
@@ -166,16 +165,6 @@ function App() {
             </Brand>
           </StyledHeader>
           <StyledContent>
-            {mode === 'dark' && (
-              <Suspense fallback={null}>
-                <Starfield
-                  starCount={150}
-                  starColor={[216, 216, 216]}
-                  speedFactor={0.05}
-                  backgroundColor={theme.bg}
-                />
-              </Suspense>
-            )}
             <ContentInner>
               <ToolbarBar>
                 <ToolbarFilters>

@@ -29,7 +29,6 @@
     "react-router-dom": "^6.21.0",
     "react-scripts": "^5.0.1",
     "react-spring": "^9.7.3",
-    "react-starfield": "^1.0.3",
     "styled-components": "^6.1.1",
     "three": "^0.159.0",
     "vanta": "^0.5.24"
