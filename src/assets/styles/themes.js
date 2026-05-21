@@ -6,6 +6,7 @@ export const themes = {
     light: {
       bg: '#fbfaf8',
       surface: '#ffffff',
+      surfaceGlass: 'rgba(255,255,255,0.72)',
       surfaceAlt: '#f4f3ef',
       border: '#e8e6e0',
       borderStrong: '#d6d3cc',
@@ -27,6 +28,7 @@ export const themes = {
     dark: {
       bg: '#15140f',
       surface: '#1c1b16',
+      surfaceGlass: 'rgba(28,27,22,0.72)',
       surfaceAlt: '#23211b',
       border: '#2e2c25',
       borderStrong: '#3d3a31',
