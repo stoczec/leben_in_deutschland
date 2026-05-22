@@ -66,6 +66,37 @@ const ClockIcon = () => (
   </svg>
 );
 
+function ScoreRing({ score, total, passed }) {
+  const radius = 56;
+  const circ = 2 * Math.PI * radius;
+  const [offset, setOffset] = useState(circ);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setOffset(circ * (1 - score / total)));
+    return () => cancelAnimationFrame(id);
+  }, [circ, score, total]);
+  return (
+    <RingWrap>
+      <svg width="148" height="148" viewBox="0 0 148 148" aria-hidden="true">
+        <RingTrack cx="74" cy="74" r={radius} fill="none" strokeWidth="11" />
+        <RingProgress
+          cx="74"
+          cy="74"
+          r={radius}
+          fill="none"
+          strokeWidth="11"
+          strokeLinecap="round"
+          $passed={passed}
+          style={{ strokeDasharray: circ, strokeDashoffset: offset }}
+        />
+      </svg>
+      <RingLabel>
+        <RingScore>{score}</RingScore>
+        <RingTotal>/ {total}</RingTotal>
+      </RingLabel>
+    </RingWrap>
+  );
+}
+
 function ExamRunner({ labels }) {
   const { language } = useLanguage();
   const { session, answerExam, goTo, submitExam, exitExam, answeredCount } = useExam();
@@ -159,9 +190,7 @@ function ExamResult({ labels }) {
     <Wrap>
       <Banner $passed={passed} data-testid="exam-result">
         <BannerTitle>{passed ? labels.passed : labels.failed}</BannerTitle>
-        <BannerScore>
-          {score} / {EXAM_SIZE}
-        </BannerScore>
+        <ScoreRing score={score} total={EXAM_SIZE} passed={passed} />
         <BannerNote>{labels.threshold(PASS_THRESHOLD)}</BannerNote>
       </Banner>
 
@@ -308,11 +337,16 @@ const SubmitRow = styled.div`
 `;
 
 const Banner = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${shared.space[3]};
   text-align: center;
-  border-radius: ${shared.radius.lg};
-  padding: ${shared.space[7]} ${shared.space[5]};
+  border-radius: ${shared.radius.xl};
+  padding: ${shared.space[8]} ${shared.space[5]};
   border: 1px solid ${({ theme, $passed }) => ($passed ? theme.successBorder : theme.dangerBorder)};
-  background: ${({ theme, $passed }) => ($passed ? theme.successBg : theme.dangerBg)};
+  background: ${({ theme, $passed }) =>
+    `linear-gradient(160deg, ${$passed ? theme.successBg : theme.dangerBg} 0%, ${theme.surface} 75%)`};
   color: ${({ theme, $passed }) => ($passed ? theme.success : theme.danger)};
 `;
 
@@ -321,16 +355,47 @@ const BannerTitle = styled.div`
   font-weight: 700;
 `;
 
-const BannerScore = styled.div`
-  font-size: 44px;
-  font-weight: 700;
+const RingWrap = styled.div`
+  position: relative;
+  width: 148px;
+  height: 148px;
+`;
+
+const RingTrack = styled.circle`
+  stroke: ${({ theme }) => theme.surfaceAlt};
+`;
+
+const RingProgress = styled.circle`
+  stroke: ${({ theme, $passed }) => ($passed ? theme.success : theme.danger)};
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.9s ease-out;
+`;
+
+const RingLabel = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   font-family: ${shared.fontStack.mono};
-  margin-top: ${shared.space[2]};
+`;
+
+const RingScore = styled.div`
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+`;
+
+const RingTotal = styled.div`
+  font-size: 14px;
+  color: ${({ theme }) => theme.textMuted};
+  margin-top: 4px;
 `;
 
 const BannerNote = styled.div`
   font-size: 13px;
-  margin-top: ${shared.space[2]};
   opacity: 0.85;
 `;
 

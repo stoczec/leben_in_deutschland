@@ -1,6 +1,6 @@
 import { Image } from 'antd';
 import { forwardRef } from 'react';
-import { styled, css } from 'styled-components';
+import { styled, css, keyframes } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
 import { useProgress } from '../providers/ProgressProvider';
 import { shared } from '../assets/styles/themes';
@@ -220,6 +220,11 @@ const heroAtWide = (rules) => css`
   }
 `;
 
+const heroIn = keyframes`
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+`;
+
 const Article = styled.article`
   background: ${({ theme }) => theme.surface};
   border: 1px solid ${({ theme }) => theme.border};
@@ -231,6 +236,12 @@ const Article = styled.article`
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  ${({ $variant }) =>
+    $variant === 'hero' &&
+    css`
+      animation: ${heroIn} 0.4s ease-out both;
+    `}
 
   ${({ $variant }) =>
     $variant === 'hero' &&
@@ -424,6 +435,12 @@ const badgeFg = ({ theme, $state }) =>
     ? theme.accentBg
     : theme.textMuted;
 
+const badgePop = keyframes`
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+`;
+
 const Badge = styled.span`
   width: 30px;
   height: 30px;
@@ -441,6 +458,12 @@ const Badge = styled.span`
     ${({ theme, $state }) => ($state === 'idle' ? theme.borderStrong : 'transparent')};
   transition: background ${shared.motion.fast}, color ${shared.motion.fast},
     border-color ${shared.motion.fast};
+
+  ${({ $state }) =>
+    ($state === 'correct' || $state === 'wrong') &&
+    css`
+      animation: ${badgePop} 0.3s ease-out;
+    `}
 `;
 
 const Text = styled.div`
