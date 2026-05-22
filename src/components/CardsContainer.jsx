@@ -2,9 +2,10 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import Card from './Card';
 import { useLanguage } from '../providers/LanguageProvider';
 import { useProgress } from '../providers/ProgressProvider';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Empty, Pagination } from 'antd';
 import dataNew from '../data/dataNew';
+import { shared } from '../assets/styles/themes';
 
 const totalLabels = {
   de: (total) => `Insgesamt ${total} Aufgaben`,
@@ -140,6 +141,11 @@ const Container = styled.section`
   gap: 40px;
 `;
 
+const cardIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
 const ContainerCard = styled.div`
   width: 100%;
   display: grid;
@@ -154,6 +160,22 @@ const ContainerCard = styled.div`
   & > * {
     content-visibility: auto;
     contain-intrinsic-size: auto 600px;
+    animation: ${cardIn} 0.45s ease-out both;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  & > *:nth-child(2) { animation-delay: 0.04s; }
+  & > *:nth-child(3) { animation-delay: 0.08s; }
+  & > *:nth-child(4) { animation-delay: 0.12s; }
+  & > *:nth-child(5) { animation-delay: 0.16s; }
+  & > *:nth-child(6) { animation-delay: 0.2s; }
+  & > *:nth-child(7) { animation-delay: 0.24s; }
+  & > *:nth-child(8) { animation-delay: 0.28s; }
+
+  @media (hover: hover) {
+    & > *:hover {
+      transform: translateY(-4px);
+      box-shadow: ${shared.shadow.lg};
+    }
   }
 `;
 

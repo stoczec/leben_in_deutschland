@@ -49,6 +49,14 @@ const footerTexts = {
   ar: 'راسلني إذا وجدت خطأ أو كانت لديك أي ملاحظات أو اقتراحات.',
 };
 
+const footerLabels = {
+  de: { feedback: 'Feedback', questions: 'Fragen', languages: 'Sprachen', free: 'Kostenlos', note: 'Mit Sorgfalt erstellt' },
+  en: { feedback: 'Feedback', questions: 'questions', languages: 'languages', free: 'Free', note: 'Made with care' },
+  ua: { feedback: 'Зворотний зв’язок', questions: 'питань', languages: 'мов', free: 'Безкоштовно', note: 'Зроблено з турботою' },
+  ru: { feedback: 'Обратная связь', questions: 'вопросов', languages: 'языков', free: 'Бесплатно', note: 'Сделано с заботой' },
+  ar: { feedback: 'ملاحظات', questions: 'أسئلة', languages: 'لغات', free: 'مجاني', note: 'صُنع بعناية' },
+};
+
 const progressLabels = {
   de: { correct: 'richtig', answered: 'beantwortet', reset: 'Fortschritt zurücksetzen', confirm: 'Gesamten Fortschritt löschen?' },
   en: { correct: 'correct', answered: 'answered', reset: 'Reset progress', confirm: 'Clear all progress?' },
@@ -222,6 +230,7 @@ function App() {
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const pLabels = progressLabels[language] || progressLabels.de;
   const fLabels = filterLabels[language] || filterLabels.de;
+  const footL = footerLabels[language] || footerLabels.de;
   const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
 
   const questionOptions = useMemo(
@@ -370,7 +379,7 @@ function App() {
                     aria-label={`${correctCount} ${pLabels.correct}`}
                   >
                     <TrophyIcon />
-                    {correctCount}
+                    <Pop key={correctCount}>{correctCount}</Pop>
                   </Stat>
                   <Stat
                     data-testid="progress-answered"
@@ -444,31 +453,57 @@ function App() {
             </ContentInner>
           </StyledContent>
           <StyledFooter>
-            <FooterText>{footerTexts[language] || footerTexts.de}</FooterText>
-            <FooterLinks ref={footerRef} className={footerInView ? 'in-view' : ''}>
-              <a
-                href="https://t.me/DmytroHerashchenko"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <CustomImage src={telegram} alt="telegram" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/herashchenko-dmytro/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <CustomImage src={linkedin} alt="linkedin" />
-              </a>
-              <a
-                href="https://wa.me/+4915120495620"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <CustomImage src={whatsapp} alt="whatsapp" />
-              </a>
-            </FooterLinks>
-            <Copyright>©2023–2026 Erstellt von Dmytro Herashchenko</Copyright>
+            <FooterGlow />
+            <FooterMain>
+              <BrandCol>
+                <BrandRow>
+                  <Logo>LiD</Logo>
+                  <BrandText>
+                    <BrandTitle>Leben in Deutschland</BrandTitle>
+                    <BrandSub>Einbürgerungstest</BrandSub>
+                  </BrandText>
+                </BrandRow>
+                <Chips>
+                  <Chip>310 {footL.questions}</Chip>
+                  <Chip>5 {footL.languages}</Chip>
+                  <Chip>{footL.free}</Chip>
+                </Chips>
+              </BrandCol>
+              <ContactCol>
+                <ContactHeading>{footL.feedback}</ContactHeading>
+                <FooterText>{footerTexts[language] || footerTexts.de}</FooterText>
+                <FooterLinks ref={footerRef} className={footerInView ? 'in-view' : ''}>
+                  <a
+                    href="https://t.me/DmytroHerashchenko"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Telegram"
+                  >
+                    <CustomImage src={telegram} alt="" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/herashchenko-dmytro/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                  >
+                    <CustomImage src={linkedin} alt="" />
+                  </a>
+                  <a
+                    href="https://wa.me/+4915120495620"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp"
+                  >
+                    <CustomImage src={whatsapp} alt="" />
+                  </a>
+                </FooterLinks>
+              </ContactCol>
+            </FooterMain>
+            <FooterBottom>
+              <Copyright>©2023–2026 · Dmytro Herashchenko</Copyright>
+              <BottomNote>{footL.note}</BottomNote>
+            </FooterBottom>
           </StyledFooter>
 
           <CustomFloatButton icon={<CaretUpOutlined />} />
@@ -533,6 +568,21 @@ const BrandSub = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.textMuted};
   margin-top: 2px;
+`;
+
+const popIn = keyframes`
+  from { transform: scale(0.5); }
+  to { transform: scale(1); }
+`;
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+const Pop = styled.span`
+  display: inline-block;
+  animation: ${popIn} 0.3s ease-out;
 `;
 
 const Progress = styled.div`
@@ -810,23 +860,99 @@ const NavBtn = styled(Button)`
 `;
 
 const StyledFooter = styled(Footer)`
-  text-align: center;
+  position: relative;
   color: ${({ theme }) => theme.textMuted};
   background-color: ${({ theme }) => theme.surface};
   border-top: 1px solid ${({ theme }) => theme.border};
+  padding: ${shared.space[9]} ${shared.space[5]} ${shared.space[5]};
+`;
+
+const FooterGlow = styled.div`
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    ${({ theme }) => theme.accent} 50%,
+    transparent
+  );
+  opacity: 0.5;
+`;
+
+const FooterMain = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: ${shared.space[8]};
+  flex-wrap: wrap;
+`;
+
+const BrandCol = styled.div`
   display: flex;
   flex-direction: column;
+  gap: ${shared.space[4]};
+`;
+
+const BrandRow = styled.div`
+  display: flex;
+  align-items: center;
   gap: ${shared.space[3]};
-  padding: ${shared.space[5]} 0 ${shared.space[4]};
+`;
+
+const Chips = styled.div`
+  display: flex;
+  gap: ${shared.space[2]};
+  flex-wrap: wrap;
+`;
+
+const Chip = styled.span`
+  font-size: 12px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.textMuted};
+  background: ${({ theme }) => theme.surfaceAlt};
+  border: 1px solid ${({ theme }) => theme.border};
+  padding: 4px 10px;
+  border-radius: ${shared.radius.pill};
+`;
+
+const ContactCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ${shared.space[3]};
+  max-width: 420px;
+`;
+
+const ContactHeading = styled.div`
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.textSubtle};
 `;
 
 const FooterText = styled.p`
-  font-weight: 500;
   color: ${({ theme }) => theme.textMuted};
   font-size: 14px;
-  line-height: 1.5;
-  max-width: 600px;
-  margin: 0 auto;
+  line-height: 1.55;
+  text-align: start;
+`;
+
+const FooterBottom = styled.div`
+  max-width: 1280px;
+  margin: ${shared.space[7]} auto 0;
+  padding-top: ${shared.space[4]};
+  border-top: 1px solid ${({ theme }) => theme.border};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: ${shared.space[3]};
+  flex-wrap: wrap;
 `;
 
 const Copyright = styled.div`
@@ -835,25 +961,56 @@ const Copyright = styled.div`
   font-family: ${shared.fontStack.mono};
 `;
 
+const BottomNote = styled.div`
+  color: ${({ theme }) => theme.textSubtle};
+  font-size: 12px;
+`;
+
 const FooterLinks = styled.div`
   display: flex;
-  justify-content: center;
-  gap: ${shared.space[5]};
+  justify-content: flex-start;
+  gap: ${shared.space[3]};
+  margin-top: ${shared.space[2]};
 
   & > a {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid ${({ theme }) => theme.border};
+    background: ${({ theme }) => theme.surface};
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
+    transition: transform ${shared.motion.fast}, border-color ${shared.motion.fast},
+      background ${shared.motion.fast};
   }
   &.in-view > a {
-    animation: ${slideDownFadeIn} 0.5s ease both;
+    animation: ${fadeIn} 0.5s ease both;
   }
   &.in-view > a:nth-child(1) { animation-delay: 0.05s; }
-  &.in-view > a:nth-child(2) { animation-delay: 0.2s; }
-  &.in-view > a:nth-child(3) { animation-delay: 0.35s; }
+  &.in-view > a:nth-child(2) { animation-delay: 0.15s; }
+  &.in-view > a:nth-child(3) { animation-delay: 0.25s; }
+
+  @media (hover: hover) {
+    & > a:hover {
+      transform: translateY(-2px);
+      border-color: ${({ theme }) => theme.borderStrong};
+      background: ${({ theme }) => theme.surfaceAlt};
+    }
+    & > a:hover img {
+      filter: none;
+      opacity: 1;
+    }
+  }
 `;
 
 const CustomImage = styled.img`
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter ${shared.motion.fast}, opacity ${shared.motion.fast};
 `;
 
 const CustomFloatButton = styled(FloatButton.BackTop)`

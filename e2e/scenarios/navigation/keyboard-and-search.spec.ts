@@ -10,7 +10,7 @@ test.describe('Keyboard navigation @critical', () => {
         await input.press('Enter');
         await expect(page.getByText('5 / 310')).toBeVisible();
 
-        await page.getByText('Leben in Deutschland').click(); // blur the number input
+        await page.getByText('Leben in Deutschland').first().click(); // blur the number input (header brand)
         await page.keyboard.press('ArrowRight');
         await expect(page.getByText('6 / 310')).toBeVisible();
 
