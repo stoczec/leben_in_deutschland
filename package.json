@@ -14,9 +14,13 @@
     "e2e:headed": "playwright test --headed",
     "e2e:smoke": "playwright test --grep @smoke",
     "e2e:critical": "playwright test --grep @critical",
-    "e2e:report": "playwright show-report"
+    "e2e:report": "playwright show-report",
+    "audit": "npm audit --omit=dev --audit-level=high"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@fontsource/noto-naskh-arabic": "^5.2.11",
     "antd": "^5.12.1",
     "babel-plugin-import": "^1.13.8",
     "react": "^18.2.0",
