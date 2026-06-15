@@ -118,16 +118,18 @@ const Card = forwardRef(
 
     return (
       <Article ref={ref} $variant={variant}>
-        <ImageWrap $variant={variant}>
-          <ImageInner $variant={variant}>
-            <Image
-              src={image}
-              alt={(imgAltLabels[language] || imgAltLabels.de)(id)}
-              loading="lazy"
-              decoding="async"
-            />
-          </ImageInner>
-        </ImageWrap>
+        {image && (
+          <ImageWrap $variant={variant}>
+            <ImageInner $variant={variant}>
+              <Image
+                src={image}
+                alt={(imgAltLabels[language] || imgAltLabels.de)(id)}
+                loading="lazy"
+                decoding="async"
+              />
+            </ImageInner>
+          </ImageWrap>
+        )}
         <Body $variant={variant}>
           <MetaRow>
             <IdBadge>{idStr}</IdBadge>
