@@ -6,6 +6,7 @@ import { ThemeProvider } from './providers/ThemeProvider';
 import { ProgressProvider } from './providers/ProgressProvider';
 import { ExamProvider } from './providers/ExamProvider';
 import App from './components/App';
+import ReloadPrompt from './components/ReloadPrompt';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +17,7 @@ root.render(
           <ExamProvider>
             <GlobalStyle />
             <App />
+            <ReloadPrompt />
           </ExamProvider>
         </ProgressProvider>
       </LanguageProvider>
