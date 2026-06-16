@@ -13,7 +13,6 @@ import { CardsContainer } from './CardsContainer';
 import styled, { css, keyframes } from 'styled-components';
 import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
-import whatsapp from '../assets/whatsapp.svg';
 import dataNew from '../data/dataNew';
 import { CaretUpOutlined } from '@ant-design/icons';
 import { useLanguage } from '../providers/LanguageProvider';
@@ -21,6 +20,7 @@ import { useThemeMode } from '../providers/ThemeProvider';
 import { useProgress } from '../providers/ProgressProvider';
 import { useExam } from '../providers/ExamProvider';
 import ExamView from './ExamView';
+import LegalPage from './LegalPage';
 import { shared } from '../assets/styles/themes';
 
 const { Header, Footer, Content } = Layout;
@@ -41,20 +41,20 @@ const navLabels = {
   ar: { prev: 'السؤال السابق', next: 'السؤال التالي' },
 };
 
-const footerTexts = {
-  de: 'Schreiben Sie mir, wenn Sie einen Fehler gefunden haben oder irgendwelche Meinungen oder Vorschläge haben.',
-  en: 'Message me if you found a bug or have any thoughts or suggestions.',
-  ua: 'Напишіть мені, якщо знайшли помилку або маєте якісь зауваження чи пропозиції.',
-  ru: 'Напишите мне, если нашли ошибку или у вас есть какие-либо замечания или предложения.',
-  ar: 'راسلني إذا وجدت خطأ أو كانت لديك أي ملاحظات أو اقتراحات.',
-};
-
 const footerLabels = {
   de: { feedback: 'Feedback', questions: 'Fragen', languages: 'Sprachen', free: 'Kostenlos', note: 'Mit Sorgfalt erstellt' },
   en: { feedback: 'Feedback', questions: 'questions', languages: 'languages', free: 'Free', note: 'Made with care' },
   ua: { feedback: 'Зворотний зв’язок', questions: 'питань', languages: 'мов', free: 'Безкоштовно', note: 'Зроблено з турботою' },
   ru: { feedback: 'Обратная связь', questions: 'вопросов', languages: 'языков', free: 'Бесплатно', note: 'Сделано с заботой' },
   ar: { feedback: 'ملاحظات', questions: 'أسئلة', languages: 'لغات', free: 'مجاني', note: 'صُنع بعناية' },
+};
+
+const disclaimerTexts = {
+  de: 'Privates, nicht-kommerzielles Lernprojekt. Nicht mit dem BAMF verbunden.',
+  en: 'Private, non-commercial learning project. Not affiliated with the BAMF.',
+  ua: 'Приватний некомерційний навчальний проєкт. Не пов’язаний із BAMF.',
+  ru: 'Частный некоммерческий учебный проект. Не связан с BAMF.',
+  ar: 'مشروع تعليمي خاص غير تجاري. لا علاقة له بـ BAMF.',
 };
 
 const progressLabels = {
@@ -232,6 +232,7 @@ function App() {
   const fLabels = filterLabels[language] || filterLabels.de;
   const footL = footerLabels[language] || footerLabels.de;
   const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
+  const [legalPage, setLegalPage] = useState(null);
 
   const questionOptions = useMemo(
     () =>
@@ -311,7 +312,12 @@ function App() {
           </StyledHeader>
           <StyledContent>
             <ContentInner>
-              {session ? (
+              {legalPage ? (
+                <LegalPage
+                  language={language}
+                  onBack={() => setLegalPage(null)}
+                />
+              ) : session ? (
                 <ExamView />
               ) : (
                 <>
@@ -468,10 +474,10 @@ function App() {
                   <Chip>5 {footL.languages}</Chip>
                   <Chip>{footL.free}</Chip>
                 </Chips>
+                <Disclaimer>{disclaimerTexts[language] || disclaimerTexts.de}</Disclaimer>
               </BrandCol>
               <ContactCol>
                 <ContactHeading>{footL.feedback}</ContactHeading>
-                <FooterText>{footerTexts[language] || footerTexts.de}</FooterText>
                 <FooterLinks ref={footerRef} className={footerInView ? 'in-view' : ''}>
                   <a
                     href="https://t.me/DmytroHerashchenko"
@@ -489,19 +495,14 @@ function App() {
                   >
                     <CustomImage src={linkedin} alt="" />
                   </a>
-                  <a
-                    href="https://wa.me/+4915120495620"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="WhatsApp"
-                  >
-                    <CustomImage src={whatsapp} alt="" />
-                  </a>
                 </FooterLinks>
               </ContactCol>
             </FooterMain>
             <FooterBottom>
               <Copyright>©2023–2026 · Dmytro Herashchenko</Copyright>
+              <LegalLinks>
+                <LegalLink onClick={() => setLegalPage('datenschutz')}>Datenschutz</LegalLink>
+              </LegalLinks>
               <BottomNote>{footL.note}</BottomNote>
             </FooterBottom>
           </StyledFooter>
@@ -519,6 +520,23 @@ const StyledLayout = styled(Layout)`
   flex-direction: column;
   min-height: 100vh;
   background: ${({ theme }) => theme.bg};
+`;
+
+const LegalLinks = styled.div`
+  display: flex;
+  gap: 16px;
+`;
+
+const LegalLink = styled.button`
+  background: none;
+  border: none;
+  font: inherit;
+  color: ${({ theme }) => theme.textMuted};
+  cursor: pointer;
+  padding: 0;
+  &:hover {
+    color: ${({ theme }) => theme.accent};
+  }
 `;
 
 const StyledHeader = styled(Header)`
@@ -898,6 +916,13 @@ const BrandCol = styled.div`
   gap: ${shared.space[4]};
 `;
 
+const Disclaimer = styled.p`
+  max-width: 320px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.textSubtle};
+`;
+
 const BrandRow = styled.div`
   display: flex;
   align-items: center;
@@ -934,13 +959,6 @@ const ContactHeading = styled.div`
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.textSubtle};
-`;
-
-const FooterText = styled.p`
-  color: ${({ theme }) => theme.textMuted};
-  font-size: 14px;
-  line-height: 1.55;
-  text-align: start;
 `;
 
 const FooterBottom = styled.div`
@@ -990,7 +1008,6 @@ const FooterLinks = styled.div`
   }
   &.in-view > a:nth-child(1) { animation-delay: 0.05s; }
   &.in-view > a:nth-child(2) { animation-delay: 0.15s; }
-  &.in-view > a:nth-child(3) { animation-delay: 0.25s; }
 
   @media (hover: hover) {
     & > a:hover {
