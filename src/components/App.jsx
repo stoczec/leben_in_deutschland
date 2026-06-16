@@ -220,7 +220,11 @@ const MoonIcon = () => (
 );
 
 function App() {
-  const [question, setQuestion] = useState(0);
+  const [question, setQuestion] = useState(() => {
+    if (typeof window === 'undefined') return 0;
+    const n = Number(new URLSearchParams(window.location.search).get('frage'));
+    return Number.isInteger(n) && n >= 1 && n <= dataNew.length ? n : 0;
+  });
   const [toolsOpen, setToolsOpen] = useState(false);
   const [filter, setFilter] = useState('all');
   const { language, changeLanguage } = useLanguage();

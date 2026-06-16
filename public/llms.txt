@@ -1,0 +1,16 @@
+# Leben in Deutschland — Einbürgerungstest
+
+> Free, multilingual practice for the official German "Leben in Deutschland" / citizenship test (Einbürgerungstest). All 310 official questions with the correct answer, each in German plus English, Ukrainian, Russian and Arabic. Private, non-commercial project — not affiliated with the BAMF.
+
+Each question has a dedicated page at /{lang}/frage/{id} (lang ∈ de, en, ua, ru, ar) stating the question, all four options, and the correct answer in plain text.
+
+## Questions
+
+- [Sitemap — all 1550 question pages](https://leben-in-deutschland-nine.vercel.app/sitemap.xml): every question × language, with hreflang alternates.
+- [Question 1 (German)](https://leben-in-deutschland-nine.vercel.app/de/frage/1): example of the per-question page format.
+
+## Notes
+
+- Source: official Gesamtfragenkatalog for the "Leben in Deutschland" test (310 questions).
+- Every page lists all four answer options and marks the single correct one explicitly.
+- The interactive practice app lives at the site root (/).
