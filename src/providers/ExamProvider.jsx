@@ -2,21 +2,28 @@ import { createContext, useCallback, useContext, useMemo, useState } from 'react
 import dataNew from '../data/dataNew';
 
 const EXAM_KEY = 'exam';
-export const EXAM_SIZE = 33;
+// Real Einbürgerungstest composition: 30 general (ids 1–300) + 3 state (ids 301+).
+export const GENERAL_COUNT = 30;
+export const STATE_COUNT = 3;
+export const EXAM_SIZE = GENERAL_COUNT + STATE_COUNT;
 export const PASS_THRESHOLD = 17;
 const DURATION_MS = 60 * 60 * 1000;
+const STATE_FIRST_ID = 301;
 
 const ansKeyById = new Map(dataNew.map((q) => [q.id, q.answers.ansKey]));
-const allIds = dataNew.map((q) => q.id);
+const generalIds = dataNew.filter((q) => q.id < STATE_FIRST_ID).map((q) => q.id);
+const stateIds = dataNew.filter((q) => q.id >= STATE_FIRST_ID).map((q) => q.id);
 
-const pickIds = () => {
-  const pool = [...allIds];
+const sample = (ids, n) => {
+  const pool = [...ids];
   for (let i = pool.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
-  return pool.slice(0, EXAM_SIZE);
+  return pool.slice(0, n);
 };
+
+const pickIds = () => [...sample(generalIds, GENERAL_COUNT), ...sample(stateIds, STATE_COUNT)];
 
 const readInitial = () => {
   try {
