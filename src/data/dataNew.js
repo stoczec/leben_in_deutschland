@@ -6148,7 +6148,7 @@ const data = [
     ar: 'القاضي الشعبي في ألمانيا هو ...',
     img: '/q/150.webp',
     answers: {
-      ansKey: 1,
+      ansKey: 2,
       1: {
         de: 'der Stellvertreter / die Stellvertreterin des Stadtoberhaupts.',
         en: 'the deputy mayor.',
@@ -6277,7 +6277,7 @@ const data = [
     ar: 'ماذا حدث في 8 مايو 1945؟',
     img: '/q/153.webp',
     answers: {
-      ansKey: 2,
+      ansKey: 4,
       1: {
         de: 'Tod Adolf Hitlers',
         en: 'Death of Adolf Hitler',
@@ -6489,7 +6489,7 @@ const data = [
     en: 'The "Third Reich" was a...',
     ua: 'Третій Рейх був ...',
     ru: '«Третий рейх» был ...',
-    ar: 'كانت "المستعمرة الثالثة" ...',
+    ar: 'كانت "الرايخ الثالث" ...',
     img: '/q/158.webp',
     answers: {
       ansKey: 1,
@@ -6704,7 +6704,7 @@ const data = [
     en: 'In which year did the Nazis destroy synagogues and Jewish businesses in Germany?',
     ua: 'У якому році нацисти знищили синагоги та єврейські магазини в Німеччині?',
     ru: 'В каком году нацисты разрушили синагоги и еврейские магазины в Германии?',
-    ar: 'في أي عام دمر النازيون الكنائس اليهودية والأعمال التجارية اليهودية في ألمانيا؟',
+    ar: 'في أي عام دمر النازيون المعابد اليهودية والأعمال التجارية اليهودية في ألمانيا؟',
     img: '/q/163.webp',
     answers: {
       ansKey: 3,
@@ -6772,7 +6772,7 @@ const data = [
         en: 'Jewish shops and synagogues are destroyed by National Socialists and their supporters.',
         ua: 'Німецькі націонал-соціалісти та їх прихильники руйнують єврейські магазини та синагоги.',
         ru: 'Национал-социалисты и их сторонники разрушают еврейские магазины и синагоги.',
-        ar: 'يقوم النازيون الاشتراكيون الألمان وأنصارهم بتدمير المتاجر والكنائس اليهودية.',
+        ar: 'يقوم النازيون الاشتراكيون الألمان وأنصارهم بتدمير المتاجر والمعابد اليهودية.',
       },
 
       4: {
@@ -7180,7 +7180,7 @@ const data = [
     ar: 'متى تأسست جمهورية ألمانيا الديمقراطية؟',
     img: '/q/174.webp',
     answers: {
-      ansKey: 1,
+      ansKey: 2,
       1: {
         de: '1947',
         en: '1947',
@@ -7761,7 +7761,7 @@ const data = [
         en: '"Third Reich"',
         ua: '"Третє Рейх"',
         ru: '"Третий Рейх"',
-        ar: '"المستعمرة الثالثة"',
+        ar: '"الرايخ الثالث"',
       },
 
       4: {
