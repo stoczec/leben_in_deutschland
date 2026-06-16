@@ -1,6 +1,7 @@
+import type { Page } from '@playwright/test';
 import { test, expect } from '../../fixtures';
 
-const goToQ1 = async (page) => {
+const goToQ1 = async (page: Page) => {
     const inputNumber = page.locator('input[role="spinbutton"]').first();
     await inputNumber.click();
     await inputNumber.fill('1');
