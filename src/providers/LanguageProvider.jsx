@@ -1,4 +1,5 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useEffect, useState, useContext } from 'react';
+import { loadArabicFonts } from '../fonts';
 
 const LANG_KEY = 'language';
 
@@ -11,6 +12,10 @@ export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(
     () => localStorage.getItem(LANG_KEY) || 'de'
   );
+
+  useEffect(() => {
+    if (language === 'ar') loadArabicFonts();
+  }, [language]);
 
   const changeLanguage = (lang) => {
     setLanguage(lang);

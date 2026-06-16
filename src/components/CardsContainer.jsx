@@ -5,6 +5,7 @@ import { useProgress } from '../providers/ProgressProvider';
 import styled, { keyframes } from 'styled-components';
 import { Empty, Pagination } from 'antd';
 import dataNew from '../data/dataNew';
+import { useExam } from '../providers/ExamProvider';
 import { shared } from '../assets/styles/themes';
 
 const totalLabels = {
@@ -27,6 +28,7 @@ const pageSizeOptions = [8, 16, 24, 32];
 
 const cardProps = (q, language) => ({
   id: q.id,
+  land: q.land,
   questionDe: q.de,
   answerFirstDe: q.answers[1].de,
   answerSecondDe: q.answers[2].de,
@@ -51,24 +53,27 @@ const readInitialPage = () => {
 export function CardsContainer({ questionNr, filter = 'all' }) {
   const { language } = useLanguage();
   const { answers, favorites } = useProgress();
+  const { land } = useExam();
   const [currentPage, setCurrentPage] = useState(readInitialPage);
   const [pageSize, setPageSize] = useState(pageSizeOptions[0]);
   const isInitialMount = useRef(true);
-  const prevFilter = useRef(filter);
+  const prevKey = useRef(`${filter}:${land}`);
 
+  const pool = useMemo(() => dataNew.filter((q) => !q.land || q.land === land), [land]);
   const list = useMemo(() => {
     if (filter === 'wrong')
-      return dataNew.filter((q) => answers[q.id] != null && answers[q.id] !== q.answers.ansKey);
-    if (filter === 'favorites') return dataNew.filter((q) => favorites.has(q.id));
-    return dataNew;
-  }, [filter, answers, favorites]);
+      return pool.filter((q) => answers[q.id] != null && answers[q.id] !== q.answers.ansKey);
+    if (filter === 'favorites') return pool.filter((q) => favorites.has(q.id));
+    return pool;
+  }, [filter, answers, favorites, pool]);
 
   useEffect(() => {
-    if (prevFilter.current !== filter) {
-      prevFilter.current = filter;
+    const key = `${filter}:${land}`;
+    if (prevKey.current !== key) {
+      prevKey.current = key;
       setCurrentPage(1);
     }
-  }, [filter]);
+  }, [filter, land]);
 
   const handlePageChange = (page) => setCurrentPage(page);
   const handlePageSizeChange = (current, size) => {
@@ -120,13 +125,13 @@ export function CardsContainer({ questionNr, filter = 'all' }) {
         ) : (
           <ContainerCard>
             {productsToShow.map((q) => (
-              <Card key={q.id} {...cardProps(q, language)} />
+              <Card key={q.id} {...cardProps(q, language)} total={pool.length} />
             ))}
           </ContainerCard>
         )
       ) : (
         <SingleCard>
-          <Card key={question.id} {...cardProps(question, language)} variant="hero" />
+          <Card key={question.id} {...cardProps(question, language)} variant="hero" total={pool.length} />
         </SingleCard>
       )}
       {showGrid && !isEmpty ? renderPagination() : ''}

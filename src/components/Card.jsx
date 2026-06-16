@@ -4,6 +4,8 @@ import { styled, css, keyframes } from 'styled-components';
 import { useLanguage } from '../providers/LanguageProvider';
 import { useProgress } from '../providers/ProgressProvider';
 import { shared } from '../assets/styles/themes';
+import { landName } from '../data/lands';
+import dataNew from '../data/dataNew';
 
 const imgAltLabels = {
   de: (id) => `Abbildung zu Frage ${id}`,
@@ -55,6 +57,18 @@ const StarIcon = ({ filled }) => (
   </svg>
 );
 
+const PinIcon = () => (
+  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path
+      d="M8 1.5c-2.5 0-4.6 2-4.6 4.6 0 3.2 4.6 7.9 4.6 7.9s4.6-4.7 4.6-7.9c0-2.6-2.1-4.6-4.6-4.6Z"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinejoin="round"
+    />
+    <circle cx="8" cy="6" r="1.7" fill="currentColor" />
+  </svg>
+);
+
 const favLabels = {
   de: 'Merken',
   en: 'Bookmark',
@@ -77,6 +91,8 @@ const Card = forwardRef(
   (
     {
       id,
+      land,
+      total = dataNew.length,
       questionDe,
       answerFirstDe,
       answerSecondDe,
@@ -145,7 +161,18 @@ const Card = forwardRef(
         )}
         <Body $variant={variant}>
           <MetaRow>
-            <Counter>{id} / 310</Counter>
+            <MetaLeft>
+              <Counter>{id} / {total}</Counter>
+              {land && (
+                <LandBadge
+                  title={landName(land)}
+                  aria-label={`Landesfrage: ${landName(land)}`}
+                  data-testid="land-badge"
+                >
+                  <PinIcon /> {land}
+                </LandBadge>
+              )}
+            </MetaLeft>
             {mode !== 'exam' && (
               <FavButton
                 type="button"
@@ -341,6 +368,27 @@ const MetaRow = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: ${shared.space[3]};
+`;
+
+const MetaLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const LandBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-family: ${shared.fontStack.mono};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: ${({ theme }) => theme.accent};
+  background: ${({ theme }) => theme.accentBg};
+  border: 1px solid ${({ theme }) => theme.accentBorder};
 `;
 
 const FavButton = styled.button`

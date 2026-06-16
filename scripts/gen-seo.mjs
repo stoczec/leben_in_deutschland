@@ -6,7 +6,10 @@ const SITE = (process.env.SITE_URL || 'https://leben-in-deutschland-nine.vercel.
 const OUT = resolve(process.cwd(), 'dist');
 const LANGS = ['de', 'en', 'ua', 'ru', 'ar'];
 const HREFLANG = { de: 'de', en: 'en', ua: 'uk', ru: 'ru', ar: 'ar' };
+const OG_LOCALE = { de: 'de_DE', en: 'en_US', ua: 'uk_UA', ru: 'ru_RU', ar: 'ar_AR' };
 const RTL = new Set(['ar']);
+const BUILD_DATE = process.env.CONTENT_DATE || new Date().toISOString().slice(0, 10);
+let TOTAL = 310;
 
 const L = {
   frage: { de: 'Frage', en: 'Question', ua: 'Запитання', ru: 'Вопрос', ar: 'سؤال' },
@@ -69,7 +72,7 @@ function jsonLd(lang, id, q) {
 function head(lang, id, q) {
   const key = q.answers.ansKey;
   const correct = q.answers[key][lang];
-  const title = `${L.frage[lang]} ${id}: ${clamp(q[lang], 65)} | Leben in Deutschland`;
+  const title = `${L.frage[lang]} ${id}: ${clamp(q[lang], 60)}`;
   const desc = clamp(`${q[lang]} ${L.correct[lang]}: ${correct}.`, 160);
   const canonical = `${SITE}/${lang}/frage/${id}`;
   const alts = LANGS.map(
@@ -79,13 +82,13 @@ function head(lang, id, q) {
     <meta name="description" content="${esc(desc)}">
     <link rel="canonical" href="${canonical}">
     ${alts}
-    <link rel="alternate" hreflang="x-default" href="${SITE}/de/frage/${id}">
+    <link rel="alternate" hreflang="x-default" href="${SITE}/en/frage/${id}">
     <meta property="og:type" content="article">
     <meta property="og:title" content="${esc(title)}">
     <meta property="og:description" content="${esc(desc)}">
     <meta property="og:url" content="${canonical}">
     <meta property="og:site_name" content="Leben in Deutschland">
-    <meta property="og:locale" content="${HREFLANG[lang]}">
+    <meta property="og:locale" content="${OG_LOCALE[lang]}">
     <meta property="og:image" content="${SITE}/og.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -111,6 +114,8 @@ function body(lang, id, q) {
   const langNav = LANGS.filter((l) => l !== lang)
     .map((l) => `<a href="${SITE}/${l}/frage/${id}" hreflang="${HREFLANG[l]}">${L.langName[l]}</a>`)
     .join(' · ');
+  const prev = id > 1 ? `<a class="pg" rel="prev" href="${SITE}/${lang}/frage/${id - 1}">← ${L.frage[lang]} ${id - 1}</a>` : '<span></span>';
+  const next = id < TOTAL ? `<a class="pg" rel="next" href="${SITE}/${lang}/frage/${id + 1}">${L.frage[lang]} ${id + 1} →</a>` : '<span></span>';
   return `<header class="top"><a class="brand" href="${SITE}/"><span class="logo">LiD</span> Leben in Deutschland</a></header>
       <main>
         <article>
@@ -125,6 +130,7 @@ function body(lang, id, q) {
           <a class="cta" href="${SITE}/?frage=${id}">${L.practice[lang]} →</a>
           <p class="source">${esc(L.source[lang])}</p>
           <nav class="langs"><span class="lbl">${L.otherLangs[lang]}:</span> ${langNav}</nav>
+          <nav class="pager">${prev}${next}</nav>
         </article>
       </main>
       <footer class="foot">
@@ -155,6 +161,7 @@ h2{font-size:14px;color:var(--muted);font-weight:600;margin:26px 0 10px;text-tra
 .cta:hover{text-decoration:none;filter:brightness(1.05)}
 .source{color:var(--subtle);font-size:13px;margin-top:24px}
 .langs{margin-top:18px;font-size:14px;color:var(--muted)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:18px}.pg{font-size:14px}
 .foot{max-width:760px;margin:40px auto 0;padding-top:18px;border-top:1px solid var(--border);color:var(--subtle);font-size:12px}
 .foot p{margin:4px 0}
 [dir=rtl] .answers li{padding:13px 48px 13px 16px}[dir=rtl] .answers li::before{left:auto;right:14px}[dir=rtl] .answers .mark{right:auto;left:14px}`;
@@ -184,13 +191,13 @@ function sitemap(ids) {
         (l) => `<xhtml:link rel="alternate" hreflang="${HREFLANG[l]}" href="${SITE}/${l}/frage/${id}"/>`
       ).join('');
       urls.push(
-        `<url><loc>${SITE}/${lang}/frage/${id}</loc>${alts}<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/de/frage/${id}"/></url>`
+        `<url><loc>${SITE}/${lang}/frage/${id}</loc><lastmod>${BUILD_DATE}</lastmod>${alts}<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/en/frage/${id}"/></url>`
       );
     }
   }
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-<url><loc>${SITE}/</loc></url>
+<url><loc>${SITE}/</loc><lastmod>${BUILD_DATE}</lastmod></url>
 ${urls.join('\n')}
 </urlset>
 `;
@@ -285,6 +292,7 @@ async function main() {
     await vite.close();
   }
 
+  TOTAL = data.length;
   let count = 0;
   for (const q of data) {
     for (const lang of LANGS) {

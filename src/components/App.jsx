@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ConfigProvider,
   FloatButton,
@@ -18,9 +18,9 @@ import { CaretUpOutlined } from '@ant-design/icons';
 import { useLanguage } from '../providers/LanguageProvider';
 import { useThemeMode } from '../providers/ThemeProvider';
 import { useProgress } from '../providers/ProgressProvider';
-import { useExam } from '../providers/ExamProvider';
-import ExamView from './ExamView';
-import LegalPage from './LegalPage';
+import { useExam, LANDS } from '../providers/ExamProvider';
+const ExamView = lazy(() => import('./ExamView'));
+const LegalPage = lazy(() => import('./LegalPage'));
 import { shared } from '../assets/styles/themes';
 
 const { Header, Footer, Content } = Layout;
@@ -229,8 +229,8 @@ function App() {
   const [filter, setFilter] = useState('all');
   const { language, changeLanguage } = useLanguage();
   const { mode, toggle, theme } = useThemeMode();
-  const { answeredCount, correctCount, resetProgress, wrongIds, favoriteIds } = useProgress();
-  const { session, startExam } = useExam();
+  const { answers, favorites, resetProgress } = useProgress();
+  const { session, startExam, land, setLand } = useExam();
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const pLabels = progressLabels[language] || progressLabels.de;
   const fLabels = filterLabels[language] || filterLabels.de;
@@ -238,14 +238,30 @@ function App() {
   const [footerRef, footerInView] = useInViewOnce(FOOTER_OBSERVER_OPTS);
   const [legalPage, setLegalPage] = useState(null);
 
+  const visiblePool = useMemo(() => dataNew.filter((q) => !q.land || q.land === land), [land]);
+
+  const stats = useMemo(() => {
+    let answered = 0, correct = 0, wrong = 0, fav = 0;
+    for (const q of visiblePool) {
+      const picked = answers[q.id];
+      if (picked != null) {
+        answered += 1;
+        if (picked === q.answers.ansKey) correct += 1;
+        else wrong += 1;
+      }
+      if (favorites.has(q.id)) fav += 1;
+    }
+    return { answered, correct, wrong, fav };
+  }, [visiblePool, answers, favorites]);
+
   const questionOptions = useMemo(
     () =>
-      dataNew.map((q) => ({
+      visiblePool.map((q) => ({
         value: q.id,
         label: `${q.id}. ${q.de}`,
         ftext: `${q.id} ${q.de} ${q[language]}`.toLowerCase(),
       })),
-    [language]
+    [language, visiblePool]
   );
 
   useEffect(() => {
@@ -287,7 +303,7 @@ function App() {
   const handlePlus = () => setQuestion((q) => q + 1);
   const handleMinus = () => setQuestion((q) => q - 1);
   const handleRandomNumber = () =>
-    setQuestion(Math.floor(Math.random() * 310) + 1);
+    setQuestion(visiblePool[Math.floor(Math.random() * visiblePool.length)].id);
   const handleResetProgress = () => {
     if (window.confirm(pLabels.confirm)) resetProgress();
   };
@@ -310,19 +326,23 @@ function App() {
               <Logo>LiD</Logo>
               <BrandText>
                 <BrandTitle>Leben in Deutschland</BrandTitle>
-                <BrandSub>Einbürgerungstest · 310 Fragen</BrandSub>
+                <BrandSub>Einbürgerungstest · {visiblePool.length} Fragen</BrandSub>
               </BrandText>
             </Brand>
           </StyledHeader>
           <StyledContent>
             <ContentInner>
               {legalPage ? (
-                <LegalPage
-                  language={language}
-                  onBack={() => setLegalPage(null)}
-                />
+                <Suspense fallback={null}>
+                  <LegalPage
+                    language={language}
+                    onBack={() => setLegalPage(null)}
+                  />
+                </Suspense>
               ) : session ? (
-                <ExamView />
+                <Suspense fallback={null}>
+                  <ExamView />
+                </Suspense>
               ) : (
                 <>
               <ToolbarBar>
@@ -342,7 +362,7 @@ function App() {
                   <InputNumber
                     size="small"
                     min={1}
-                    max={310}
+                    max={dataNew.length}
                     value={question || undefined}
                     placeholder="#"
                     onChange={handleChange}
@@ -356,7 +376,7 @@ function App() {
                     type="text"
                     $active={filter === 'all' && !question}
                   >
-                    <GridIcon /> Alle 310
+                    <GridIcon /> Alle {visiblePool.length}
                   </ToolbarButton>
                   <ToolbarButton
                     onClick={showFilter('wrong')}
@@ -364,7 +384,7 @@ function App() {
                     $active={filter === 'wrong' && !question}
                     data-testid="filter-wrong"
                   >
-                    <AlertIcon /> {fLabels.wrong} {wrongIds.length}
+                    <AlertIcon /> {fLabels.wrong} {stats.wrong}
                   </ToolbarButton>
                   <ToolbarButton
                     onClick={showFilter('favorites')}
@@ -372,8 +392,17 @@ function App() {
                     $active={filter === 'favorites' && !question}
                     data-testid="filter-fav"
                   >
-                    <StarFilterIcon /> {fLabels.fav} {favoriteIds.length}
+                    <StarFilterIcon /> {fLabels.fav} {stats.fav}
                   </ToolbarButton>
+                  <Select
+                    size="small"
+                    value={land}
+                    onChange={setLand}
+                    options={LANDS.map((l) => ({ value: l.code, label: l.name }))}
+                    aria-label="Bundesland"
+                    data-testid="exam-land"
+                    style={{ minWidth: 168 }}
+                  />
                   <ToolbarButton onClick={startExam} type="text" data-testid="start-exam">
                     <ExamIcon /> {examStartLabels[language] || examStartLabels.de}
                   </ToolbarButton>
@@ -385,21 +414,21 @@ function App() {
                   <Stat
                     $tone="success"
                     data-testid="progress-correct"
-                    title={`${correctCount} ${pLabels.correct}`}
-                    aria-label={`${correctCount} ${pLabels.correct}`}
+                    title={`${stats.correct} ${pLabels.correct}`}
+                    aria-label={`${stats.correct} ${pLabels.correct}`}
                   >
                     <TrophyIcon />
-                    <Pop key={correctCount}>{correctCount}</Pop>
+                    <Pop key={stats.correct}>{stats.correct}</Pop>
                   </Stat>
                   <Stat
                     data-testid="progress-answered"
-                    title={`${answeredCount} ${pLabels.answered}`}
-                    aria-label={`${answeredCount} ${pLabels.answered}`}
+                    title={`${stats.answered} ${pLabels.answered}`}
+                    aria-label={`${stats.answered} ${pLabels.answered}`}
                   >
-                    {answeredCount}
-                    <Total>/310</Total>
+                    {stats.answered}
+                    <Total>/{visiblePool.length}</Total>
                   </Stat>
-                  {answeredCount > 0 && (
+                  {stats.answered > 0 && (
                     <ResetButton
                       onClick={handleResetProgress}
                       aria-label={pLabels.reset}
@@ -451,7 +480,7 @@ function App() {
                       {(navLabels[language] || navLabels.de).prev}
                     </NavBtn>
                   )}
-                  {question === 310 ? null : (
+                  {question === dataNew.length ? null : (
                     <NavBtn type="primary" onClick={handlePlus}>
                       {(navLabels[language] || navLabels.de).next}
                     </NavBtn>
@@ -474,7 +503,7 @@ function App() {
                   </BrandText>
                 </BrandRow>
                 <Chips>
-                  <Chip>310 {footL.questions}</Chip>
+                  <Chip>{dataNew.length} {footL.questions}</Chip>
                   <Chip>5 {footL.languages}</Chip>
                   <Chip>{footL.free}</Chip>
                 </Chips>
