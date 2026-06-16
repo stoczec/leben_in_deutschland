@@ -2,17 +2,25 @@ import { createContext, useCallback, useContext, useMemo, useState } from 'react
 import dataNew from '../data/dataNew';
 
 const EXAM_KEY = 'exam';
-// Real Einbürgerungstest composition: 30 general (ids 1–300) + 3 state (ids 301+).
+const LAND_KEY = 'land';
+// Real Einbürgerungstest: 30 general questions + 3 for the test-taker's federal state.
 export const GENERAL_COUNT = 30;
 export const STATE_COUNT = 3;
 export const EXAM_SIZE = GENERAL_COUNT + STATE_COUNT;
 export const PASS_THRESHOLD = 17;
 const DURATION_MS = 60 * 60 * 1000;
-const STATE_FIRST_ID = 301;
+
+const LAND_NAMES = { SH: 'Schleswig-Holstein' };
 
 const ansKeyById = new Map(dataNew.map((q) => [q.id, q.answers.ansKey]));
-const generalIds = dataNew.filter((q) => q.id < STATE_FIRST_ID).map((q) => q.id);
-const stateIds = dataNew.filter((q) => q.id >= STATE_FIRST_ID).map((q) => q.id);
+const generalIds = dataNew.filter((q) => !q.land).map((q) => q.id);
+const stateIdsByLand = dataNew.reduce((acc, q) => {
+  if (q.land) (acc[q.land] = acc[q.land] || []).push(q.id);
+  return acc;
+}, {});
+export const LANDS = Object.keys(stateIdsByLand)
+  .sort()
+  .map((code) => ({ code, name: LAND_NAMES[code] || code }));
 
 const sample = (ids, n) => {
   const pool = [...ids];
@@ -23,7 +31,15 @@ const sample = (ids, n) => {
   return pool.slice(0, n);
 };
 
-const pickIds = () => [...sample(generalIds, GENERAL_COUNT), ...sample(stateIds, STATE_COUNT)];
+const pickIds = (land) => [
+  ...sample(generalIds, GENERAL_COUNT),
+  ...sample(stateIdsByLand[land] || [], STATE_COUNT),
+];
+
+const readLand = () => {
+  const saved = localStorage.getItem(LAND_KEY);
+  return LANDS.some((l) => l.code === saved) ? saved : LANDS[0]?.code;
+};
 
 const readInitial = () => {
   try {
@@ -45,15 +61,21 @@ const ExamContext = createContext(null);
 
 export const ExamProvider = ({ children }) => {
   const [session, setSession] = useState(readInitial);
+  const [land, setLandState] = useState(readLand);
 
   const update = useCallback((next) => {
     setSession(next);
     persist(next);
   }, []);
 
+  const setLand = useCallback((code) => {
+    setLandState(code);
+    localStorage.setItem(LAND_KEY, code);
+  }, []);
+
   const startExam = useCallback(() => {
-    update({ ids: pickIds(), answers: {}, current: 0, endsAt: Date.now() + DURATION_MS, status: 'active' });
-  }, [update]);
+    update({ ids: pickIds(land), answers: {}, current: 0, endsAt: Date.now() + DURATION_MS, status: 'active' });
+  }, [update, land]);
 
   const answerExam = useCallback((qId, idx) => {
     setSession((prev) => {
@@ -97,6 +119,8 @@ export const ExamProvider = ({ children }) => {
     }
     return {
       session,
+      land,
+      setLand,
       startExam,
       answerExam,
       goTo,
@@ -106,7 +130,7 @@ export const ExamProvider = ({ children }) => {
       answeredCount,
       passed: score >= PASS_THRESHOLD,
     };
-  }, [session, startExam, answerExam, goTo, submitExam, exitExam]);
+  }, [session, land, setLand, startExam, answerExam, goTo, submitExam, exitExam]);
 
   return <ExamContext.Provider value={value}>{children}</ExamContext.Provider>;
 };

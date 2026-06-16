@@ -12586,6 +12586,7 @@ const data = [
   },
   {
     id: 301,
+    land: 'SH',
     de: 'Welches Wappen gehört zum Bundesland Schleswig-Holstein?',
     en: 'Which coat of arms belongs to the federal state of Schleswig-Holstein?',
     ua: 'Який герб належить землі Шлезвіг-Гольштейн?',
@@ -12629,6 +12630,7 @@ const data = [
   },
   {
     id: 302,
+    land: 'SH',
     de: 'Welches ist ein Landkreis in Schleswig-Holstein?',
     en: 'Which is a district in Schleswig-Holstein?',
     ua: 'Який є округом в Шлезвіг-Гольштейні?',
@@ -12669,6 +12671,7 @@ const data = [
   },
   {
     id: 303,
+    land: 'SH',
     de: 'Für wie viele Jahre wird der Landtag in Schleswig-Holstein gewählt?',
     en: 'For how many years is the state parliament in Schleswig-Holstein elected?',
     ua: 'На скільки років обирається парламент землі Шлезвіг-Гольштейн?',
@@ -12709,6 +12712,7 @@ const data = [
   },
   {
     id: 304,
+    land: 'SH',
     de: 'Ab welchem Alter darf man in Schleswig-Holstein bei Kommunalwahlen wählen?',
     en: 'From what age can one vote in local elections in Schleswig-Holstein?',
     ua: 'З якого віку можна голосувати на комунальних виборах в Шлезвіг-Гольштейні?',
@@ -12749,6 +12753,7 @@ const data = [
   },
   {
     id: 305,
+    land: 'SH',
     de: 'Welche Farben hat die Landesflagge von Schleswig-Holstein?',
     en: 'What colors does the state flag of Schleswig-Holstein have?',
     ua: 'Які кольори у державному прапорі Шлезвіг-Гольштейну?',
@@ -12789,6 +12794,7 @@ const data = [
   },
   {
     id: 306,
+    land: 'SH',
     de: 'Wo können Sie sich in Schleswig-Holstein über politische Themen informieren?',
     en: 'Where can you get information on political topics in Schleswig-Holstein?',
     ua: 'Де ви можете отримати інформацію про політичні теми в Шлезвіг-Гольштейні?',
@@ -12829,6 +12835,7 @@ const data = [
   },
   {
     id: 307,
+    land: 'SH',
     de: 'Die Landeshauptstadt von Schleswig-Holstein heißt ...',
     en: 'The capital of Schleswig-Holstein is called ...',
     ua: 'Столиця Шлезвіг-Гольштейну називається ...',
@@ -12869,6 +12876,7 @@ const data = [
   },
   {
     id: 308,
+    land: 'SH',
     de: 'Welches Bundesland ist Schleswig-Holstein?',
     en: 'Which federal state is Schleswig-Holstein?',
     ua: 'Яка федеральна земля є Шлезвіг-Гольштейн?',
@@ -12912,6 +12920,7 @@ const data = [
   },
   {
     id: 309,
+    land: 'SH',
     de: 'Wie nennt man den Regierungschef/die Regierungschefin in Schleswig-Holstein?',
     en: 'What is the name for the head of government in Schleswig-Holstein?',
     ua: 'Як називається глава уряду в Шлезвіг-Гольштейні?',
@@ -12952,6 +12961,7 @@ const data = [
   },
   {
     id: 310,
+    land: 'SH',
     de: 'Welchen Minister/welche Ministerin hat Schleswig-Holstein nicht?',
     en: 'Which minister does Schleswig-Holstein not have?',
     ua: 'Якого міністра/яку міністрку Шлезвіг-Гольштейн не має?',

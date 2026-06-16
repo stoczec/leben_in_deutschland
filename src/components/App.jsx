@@ -18,7 +18,7 @@ import { CaretUpOutlined } from '@ant-design/icons';
 import { useLanguage } from '../providers/LanguageProvider';
 import { useThemeMode } from '../providers/ThemeProvider';
 import { useProgress } from '../providers/ProgressProvider';
-import { useExam } from '../providers/ExamProvider';
+import { useExam, LANDS } from '../providers/ExamProvider';
 const ExamView = lazy(() => import('./ExamView'));
 const LegalPage = lazy(() => import('./LegalPage'));
 import { shared } from '../assets/styles/themes';
@@ -230,7 +230,7 @@ function App() {
   const { language, changeLanguage } = useLanguage();
   const { mode, toggle, theme } = useThemeMode();
   const { answeredCount, correctCount, resetProgress, wrongIds, favoriteIds } = useProgress();
-  const { session, startExam } = useExam();
+  const { session, startExam, land, setLand } = useExam();
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const pLabels = progressLabels[language] || progressLabels.de;
   const fLabels = filterLabels[language] || filterLabels.de;
@@ -378,6 +378,15 @@ function App() {
                   >
                     <StarFilterIcon /> {fLabels.fav} {favoriteIds.length}
                   </ToolbarButton>
+                  <Select
+                    size="small"
+                    value={land}
+                    onChange={setLand}
+                    options={LANDS.map((l) => ({ value: l.code, label: l.name }))}
+                    aria-label="Bundesland"
+                    data-testid="exam-land"
+                    style={{ minWidth: 168 }}
+                  />
                   <ToolbarButton onClick={startExam} type="text" data-testid="start-exam">
                     <ExamIcon /> {examStartLabels[language] || examStartLabels.de}
                   </ToolbarButton>
