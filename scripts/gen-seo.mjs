@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { createServer } from 'vite';
 
@@ -196,6 +196,81 @@ ${urls.join('\n')}
 `;
 }
 
+const FAQ = [
+  [
+    'Wie viele Fragen hat der Einbürgerungstest „Leben in Deutschland“?',
+    'Der amtliche Gesamtfragenkatalog umfasst 310 Fragen. In der Prüfung werden 33 Fragen gestellt.',
+  ],
+  [
+    'Wie viele Fragen muss man richtig beantworten, um zu bestehen?',
+    'Mindestens 17 der 33 gestellten Fragen müssen richtig beantwortet werden.',
+  ],
+  ['Ist das Üben kostenlos?', 'Ja, das Üben aller 310 Fragen ist komplett kostenlos und ohne Anmeldung.'],
+  [
+    'In welchen Sprachen kann ich üben?',
+    'Auf Deutsch sowie mit Übersetzung auf Englisch, Ukrainisch, Russisch und Arabisch.',
+  ],
+];
+
+function homepageBody() {
+  const faq = FAQ.map(([q, a]) => `<h3>${esc(q)}</h3>\n      <p>${esc(a)}</p>`).join('\n      ');
+  const ex = [1, 2, 3, 4, 5, 6, 7, 8].map((i) => `<li><a href="/de/frage/${i}">Frage ${i}</a></li>`).join('');
+  return `<main style="max-width:760px;margin:0 auto;padding:32px 18px;line-height:1.6;font-family:system-ui,-apple-system,sans-serif">
+      <h1>Leben in Deutschland — Einbürgerungstest: alle 310 Fragen üben</h1>
+      <p>Kostenloses Üben für den offiziellen Test „Leben in Deutschland“ und den Einbürgerungstest. Alle 310 amtlichen Fragen mit den richtigen Antworten — auf Deutsch, Englisch, Ukrainisch, Russisch und Arabisch.</p>
+      <ul>
+        <li>310 Fragen im amtlichen Gesamtfragenkatalog</li>
+        <li>In der Prüfung: 33 Fragen, bestanden ab 17 richtigen Antworten</li>
+        <li>5 Sprachen: Deutsch, English, Українська, Русский, العربية</li>
+        <li>Kostenlos, ohne Anmeldung, offline nutzbar</li>
+      </ul>
+      <h2>Häufige Fragen</h2>
+      ${faq}
+      <h2>Beispielfragen</h2>
+      <ul>${ex}</ul>
+      <p><a href="/de/frage/1">Alle Fragen durchgehen →</a></p>
+    </main>`;
+}
+
+function homepageJsonLd() {
+  const website = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Leben in Deutschland — Einbürgerungstest',
+    url: `${SITE}/`,
+    description:
+      'Kostenlos den Einbürgerungstest „Leben in Deutschland“ üben: alle 310 amtlichen Fragen mit Antworten in 5 Sprachen.',
+    inLanguage: ['de', 'en', 'uk', 'ru', 'ar'],
+    publisher: {
+      '@type': 'Person',
+      name: 'Dmytro Herashchenko',
+      url: SITE,
+      sameAs: ['https://www.linkedin.com/in/herashchenko-dmytro/', 'https://github.com/stoczec'],
+    },
+  };
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ.map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  };
+  return `<script type="application/ld+json">${JSON.stringify(website)}</script>\n    <script type="application/ld+json">${JSON.stringify(faq)}</script>`;
+}
+
+async function injectHomepage() {
+  const file = resolve(OUT, 'index.html');
+  let html = await readFile(file, 'utf8');
+  const head = html.includes('</head>');
+  const root = html.includes('<div id="root"></div>');
+  if (head) html = html.replace('</head>', `  ${homepageJsonLd()}\n  </head>`);
+  if (root) html = html.replace('<div id="root"></div>', `<div id="root">${homepageBody()}</div>`);
+  await writeFile(file, html, 'utf8');
+  return head && root;
+}
+
 async function main() {
   const vite = await createServer({
     root: process.cwd(),
@@ -220,9 +295,11 @@ async function main() {
     }
   }
   await writeFile(resolve(OUT, 'sitemap.xml'), sitemap(data.map((q) => q.id)), 'utf8');
+  const homeOk = await injectHomepage();
 
   console.log(`[gen-seo] ${count} pages for ${data.length} questions × ${LANGS.length} langs → dist/{lang}/frage/{id}/`);
   console.log(`[gen-seo] sitemap.xml: ${data.length * LANGS.length + 1} urls`);
+  console.log(`[gen-seo] homepage SEO injected into dist/index.html: ${homeOk ? 'ok' : 'TARGETS NOT FOUND'}`);
 }
 
 main().catch((e) => {
