@@ -9,7 +9,7 @@ test.describe('Question navigation @critical', () => {
         await inputNumber.fill('100');
         await inputNumber.press('Enter');
 
-        await expect(page.getByText('100', { exact: true }).first()).toBeVisible();
+        await expect(page.getByText('100 / 310')).toBeVisible();
         await expect(page.locator('[role="radio"]')).toHaveCount(4);
     });
 });

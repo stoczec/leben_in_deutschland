@@ -63,6 +63,16 @@ const favLabels = {
   ar: 'حفظ',
 };
 
+const reportLabels = {
+  de: 'Fehler melden',
+  en: 'Report an error',
+  ua: 'Повідомити про помилку',
+  ru: 'Сообщить об ошибке',
+  ar: 'الإبلاغ عن خطأ',
+};
+
+const REPORT_EMAIL = 'dmytro.herashchenko.de@gmail.com';
+
 const Card = forwardRef(
   (
     {
@@ -90,6 +100,10 @@ const Card = forwardRef(
     const { answers, recordAnswer, favorites, toggleFavorite } = useProgress();
     const isFav = favorites.has(id);
     const favLabel = favLabels[language] || favLabels.de;
+    const reportLabel = reportLabels[language] || reportLabels.de;
+    const reportHref = `mailto:${REPORT_EMAIL}?subject=${encodeURIComponent(
+      `Fehler in Frage ${id} – Leben in Deutschland`
+    )}`;
     const selected = selectedValue != null ? selectedValue : answers[id] ?? 0;
     const interactive = mode !== 'review';
     const choose = onSelect || ((idx) => recordAnswer(id, idx));
@@ -97,7 +111,6 @@ const Card = forwardRef(
     const answersDe = [answerFirstDe, answerSecondDe, answerThirdDe, answerFourthDe];
     const answersTr = [answerFirst, answerSecond, answerThird, answerFourth];
     const showTranslation = language !== 'de';
-    const idStr = String(id).padStart(3, '0');
 
     const stateOf = (idx) => {
       if (mode === 'exam') return selected !== 0 && idx === selected ? 'selected' : 'idle';
@@ -132,23 +145,20 @@ const Card = forwardRef(
         )}
         <Body $variant={variant}>
           <MetaRow>
-            <IdBadge>{idStr}</IdBadge>
-            <MetaRight>
-              <Counter>{id} / 310</Counter>
-              {mode !== 'exam' && (
-                <FavButton
-                  type="button"
-                  onClick={() => toggleFavorite(id)}
-                  $active={isFav}
-                  aria-pressed={isFav}
-                  aria-label={favLabel}
-                  title={favLabel}
-                  data-testid={`fav-${id}`}
-                >
-                  <StarIcon filled={isFav} />
-                </FavButton>
-              )}
-            </MetaRight>
+            <Counter>{id} / 310</Counter>
+            {mode !== 'exam' && (
+              <FavButton
+                type="button"
+                onClick={() => toggleFavorite(id)}
+                $active={isFav}
+                aria-pressed={isFav}
+                aria-label={favLabel}
+                title={favLabel}
+                data-testid={`fav-${id}`}
+              >
+                <StarIcon filled={isFav} />
+              </FavButton>
+            )}
           </MetaRow>
           <QuestionBlock>
             <QuestionDe>{questionDe}</QuestionDe>
@@ -189,6 +199,11 @@ const Card = forwardRef(
               );
             })}
           </Answers>
+          {mode !== 'exam' && (
+            <ReportRow>
+              <ReportLink href={reportHref}>{reportLabel}</ReportLink>
+            </ReportRow>
+          )}
         </Body>
       </Article>
     );
@@ -328,12 +343,6 @@ const MetaRow = styled.div`
   gap: ${shared.space[3]};
 `;
 
-const MetaRight = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${shared.space[2]};
-`;
-
 const FavButton = styled.button`
   display: inline-flex;
   align-items: center;
@@ -353,19 +362,9 @@ const FavButton = styled.button`
   }
 `;
 
-const IdBadge = styled.span`
-  font-family: ${shared.fontStack.mono};
-  font-size: 12px;
-  color: ${({ theme }) => theme.textMuted};
-  background: ${({ theme }) => theme.surfaceAlt};
-  padding: 3px 8px;
-  border-radius: ${shared.radius.sm};
-  border: 1px solid ${({ theme }) => theme.border};
-`;
-
 const Counter = styled.span`
   font-size: 12px;
-  color: ${({ theme }) => theme.textSubtle};
+  color: ${({ theme }) => theme.textMuted};
   font-family: ${shared.fontStack.mono};
 `;
 
@@ -484,5 +483,21 @@ const TextTr = styled.div`
   line-height: 20px;
   color: ${({ theme }) => theme.textMuted};
   margin-top: 2px;
+`;
+
+const ReportRow = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const ReportLink = styled.a`
+  font-size: 12px;
+  color: ${({ theme }) => theme.textSubtle};
+  text-decoration: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.accent};
+    text-decoration: underline;
+  }
 `;
 
