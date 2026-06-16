@@ -5,6 +5,7 @@ import { useLanguage } from '../providers/LanguageProvider';
 import { useProgress } from '../providers/ProgressProvider';
 import { shared } from '../assets/styles/themes';
 import { landName } from '../data/lands';
+import dataNew from '../data/dataNew';
 
 const imgAltLabels = {
   de: (id) => `Abbildung zu Frage ${id}`,
@@ -91,6 +92,7 @@ const Card = forwardRef(
     {
       id,
       land,
+      total = dataNew.length,
       questionDe,
       answerFirstDe,
       answerSecondDe,
@@ -160,7 +162,7 @@ const Card = forwardRef(
         <Body $variant={variant}>
           <MetaRow>
             <MetaLeft>
-              <Counter>{id} / 310</Counter>
+              <Counter>{id} / {total}</Counter>
               {land && (
                 <LandBadge
                   title={landName(land)}
