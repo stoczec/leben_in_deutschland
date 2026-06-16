@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ConfigProvider,
   FloatButton,
@@ -19,8 +19,8 @@ import { useLanguage } from '../providers/LanguageProvider';
 import { useThemeMode } from '../providers/ThemeProvider';
 import { useProgress } from '../providers/ProgressProvider';
 import { useExam } from '../providers/ExamProvider';
-import ExamView from './ExamView';
-import LegalPage from './LegalPage';
+const ExamView = lazy(() => import('./ExamView'));
+const LegalPage = lazy(() => import('./LegalPage'));
 import { shared } from '../assets/styles/themes';
 
 const { Header, Footer, Content } = Layout;
@@ -317,12 +317,16 @@ function App() {
           <StyledContent>
             <ContentInner>
               {legalPage ? (
-                <LegalPage
-                  language={language}
-                  onBack={() => setLegalPage(null)}
-                />
+                <Suspense fallback={null}>
+                  <LegalPage
+                    language={language}
+                    onBack={() => setLegalPage(null)}
+                  />
+                </Suspense>
               ) : session ? (
-                <ExamView />
+                <Suspense fallback={null}>
+                  <ExamView />
+                </Suspense>
               ) : (
                 <>
               <ToolbarBar>
