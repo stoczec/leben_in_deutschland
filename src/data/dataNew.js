@@ -916,7 +916,7 @@ const data = [
         de: 'bei einer Firma oder Behörde beschäftigt.',
         en: 'employed at a company or authority.',
         ua: 'працюють у компанії чи установі.',
-        ru: 'работаю в компании или учреждении.',
+        ru: 'работают в компании или учреждении.',
         ar: 'يعمل في شركة أو سلطة.',
       },
     },
@@ -10333,7 +10333,7 @@ const data = [
         en: 'maternity leave',
         ua: 'охорона материнства',
         ru: 'декретный отпуск',
-        ar: 'إجازة الوالدين',
+        ar: 'إجازة الأمومة',
       },
 
       3: {
