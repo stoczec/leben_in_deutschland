@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import dataNew from '../data/dataNew';
+import { LAND_NAMES } from '../data/lands';
 
 const EXAM_KEY = 'exam';
 const LAND_KEY = 'land';
@@ -9,8 +10,6 @@ export const STATE_COUNT = 3;
 export const EXAM_SIZE = GENERAL_COUNT + STATE_COUNT;
 export const PASS_THRESHOLD = 17;
 const DURATION_MS = 60 * 60 * 1000;
-
-const LAND_NAMES = { SH: 'Schleswig-Holstein' };
 
 const ansKeyById = new Map(dataNew.map((q) => [q.id, q.answers.ansKey]));
 const generalIds = dataNew.filter((q) => !q.land).map((q) => q.id);

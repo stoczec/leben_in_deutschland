@@ -27,6 +27,7 @@ const pageSizeOptions = [8, 16, 24, 32];
 
 const cardProps = (q, language) => ({
   id: q.id,
+  land: q.land,
   questionDe: q.de,
   answerFirstDe: q.answers[1].de,
   answerSecondDe: q.answers[2].de,

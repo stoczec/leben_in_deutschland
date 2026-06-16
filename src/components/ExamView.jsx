@@ -19,6 +19,7 @@ const L = {
 
 const cardProps = (q, language) => ({
   id: q.id,
+  land: q.land,
   questionDe: q.de,
   answerFirstDe: q.answers[1].de,
   answerSecondDe: q.answers[2].de,
