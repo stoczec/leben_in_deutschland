@@ -10,6 +10,10 @@ updates:
     groups:
       dev-dependencies:
         dependency-type: "development"
+    ignore:
+      # major bumps are handled deliberately as tested migrations, not auto-PRs
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
