@@ -50,11 +50,6 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 2px;
   }
 
-  [lang="ar"] body,
-  [dir="rtl"] body {
-    font-family: ${shared.fontStack.arabic};
-  }
-
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;

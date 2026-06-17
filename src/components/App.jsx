@@ -230,7 +230,6 @@ function App() {
   const { mode, toggle, theme } = useThemeMode();
   const { answers, favorites, resetProgress } = useProgress();
   const { session, startExam, land, setLand } = useExam();
-  const direction = language === 'ar' ? 'rtl' : 'ltr';
   const pLabels = progressLabels[language] || progressLabels.de;
   const fLabels = filterLabels[language] || filterLabels.de;
   const footL = footerLabels[language] || footerLabels.de;
@@ -264,9 +263,8 @@ function App() {
   );
 
   useEffect(() => {
-    document.documentElement.dir = direction;
     document.documentElement.lang = language;
-  }, [direction, language]);
+  }, [language]);
 
   useEffect(() => {
     if (!question || session) return;
@@ -309,7 +307,6 @@ function App() {
 
   return (
     <ConfigProvider
-      direction={direction}
       theme={{
         algorithm:
           mode === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
