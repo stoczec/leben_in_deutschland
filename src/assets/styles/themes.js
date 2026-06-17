@@ -90,6 +90,5 @@ export const shared = {
     sans: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
     serif: '"Source Serif 4", "Iowan Old Style", Georgia, serif',
     mono: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
-    arabic: '"Noto Naskh Arabic", "Amiri", "Geeza Pro", serif',
   },
 };
