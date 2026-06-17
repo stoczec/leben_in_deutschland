@@ -189,14 +189,14 @@ const data = [
         de: 'Der Wähler darf bei der Wahl weder beeinflusst noch zu einer bestimmten Stimmabgabe gezwungen werden und keine Nachteile durch die Wahl haben.',
         en: 'The voter must neither be influenced nor forced to vote in a particular way, and should not face any disadvantages due to the vote.',
         ua: 'Виборець не повинен бути впливований або примушуваний голосувати певним чином і не повинен зазнавати шкоди від голосування.',
-        ru: 'Избиратель не должен быть подвергнут влиянию или принужден голосовать определенным образом и не должен иметь никаких недостатков из-за голосования.',
+        ru: 'Избиратель не должен быть подвергнут влиянию или принужден голосовать определенным образом и не должен иметь никаких неблагоприятных последствий из-за голосования.',
         ar: 'يجب ألا يتأثر الناخب ولا يجب أن يجبر على التصويت بطريقة معينة ولا ينبغي أن يتعرض لأي عواقب سلبية بسبب التصويت.',
       },
       4: {
         de: 'Alle wahlberechtigten Personen müssen wählen.',
         en: 'All eligible voters must vote.',
         ua: 'Усі виборці повинні голосувати.',
-        ru: 'Все избирательные лица должны голосовать.',
+        ru: 'Все лица, имеющие право голоса, должны голосовать.',
         ar: 'يجب على جميع الناخبين المؤهلين التصويت.',
       },
     },
@@ -533,8 +533,8 @@ const data = [
       ansKey: 2,
       1: {
         de: 'Passanten auf der Straße beschimpfen darf.',
-        en: 'is allowed to insult pedestrians on the street.',
-        ua: 'може ображати випадкових перехожих на вулиці.',
+        en: 'am allowed to insult pedestrians on the street.',
+        ua: 'можу ображати випадкових перехожих на вулиці.',
         ru: 'разрешено оскорблять прохожих на улице.',
         ar: 'مسموح له بإهانة المارة في الشارع.',
       },
@@ -547,8 +547,8 @@ const data = [
       },
       3: {
         de: 'Nazi-Symbole tragen darf.',
-        en: 'is allowed to wear Nazi symbols.',
-        ua: 'може носити нацистські символи.',
+        en: 'am allowed to wear Nazi symbols.',
+        ua: 'можу носити нацистські символи.',
         ru: 'разрешено носить нацистские символы.',
         ar: 'مسموح له بارتداء رموز النازية.',
       },
@@ -1749,7 +1749,7 @@ const data = [
         de: 'Landtagsabgeordnete',
         en: 'state parliament deputies',
         ua: 'Депутати земельних парламентів',
-        ru: 'Депутаты областных парламентов',
+        ru: 'Депутаты земельных парламентов',
         ar: 'نواب البرلمان الإقليمي',
       },
       4: {
@@ -2428,7 +2428,7 @@ const data = [
       3: {
         de: 'Die Interessenverbände üben die Souveränität zusammen mit der Regierung aus.',
         en: 'Interest groups exercise sovereignty together with the government.',
-        ua: "Інтересні об'єднання виражають суверенітет разом із урядом.",
+        ua: "Групи інтересів здійснюють суверенітет разом із урядом.",
         ru: 'Интересные объединения осуществляют суверенитет вместе с правительством.',
         ar: 'تمارس جمعيات المصلحة السيادة بالتعاون مع الحكومة.',
       },
@@ -2956,7 +2956,7 @@ const data = [
         de: 'Bundesgerichtshof.',
         en: 'Federal Court of Justice.',
         ua: 'Федеральний суд правосуддя.',
-        ru: 'Федеральный суд правосудия.',
+        ru: 'Федеральный верховный суд.',
         ar: 'المحكمة الفيدرالية للعدالة.',
       },
     },
@@ -3524,7 +3524,7 @@ const data = [
   {
     id: 89,
     de: 'Wie nennt man in Deutschland die Vereinigung von Abgeordneten einer Partei im Parlament?',
-    en: 'What is the term in Germany for the association of party members in parliament?',
+    en: "What is the term in Germany for the association of a party's members of parliament?",
     ua: "Як називається в Німеччині об'єднання членів партії в парламенті?",
     ru: 'Как называется в Германии объединение членов партии в парламенте?',
     ar: 'ما هو المصطلح في ألمانيا لتجمع أعضاء الحزب في البرلمان؟',
@@ -3658,7 +3658,7 @@ const data = [
       1: {
         de: 'Christlich Sichere Union',
         en: 'Christian Secure Union',
-        ua: "Християнський Об'єднаний Союз",
+        ua: "Християнський Безпечний Союз",
         ru: 'Христианский Безопасный Союз',
         ar: 'اتحاد مسيحي آمن',
       },
@@ -3735,7 +3735,7 @@ const data = [
     id: 94,
     de: 'Ab welchem Alter darf man in Deutschland an der Wahl zum Deutschen Bundestag teilnehmen?',
     en: 'From what age can one participate in the election to the German Bundestag in Germany?',
-    ua: 'З якого віку можна приймати участь в виборах до Бундестагу в Німеччині?',
+    ua: 'З якого віку можна брати участь в виборах до Бундестагу в Німеччині?',
     ru: 'С какого возраста можно участвовать в выборах в немецкий бундестаг?',
     ar: 'ابتداءً من أي عمر يمكن للشخص المشاركة في انتخابات البوندستاغ الألماني؟',
     img: '/q/94.webp',
@@ -4036,7 +4036,7 @@ const data = [
     id: 101,
     de: 'Gewerkschaften sind Interessenverbände der …',
     en: 'Trade unions are interest groups of...',
-    ua: "Профспілки є інтересними об'єднаннями ...",
+    ua: "Профспілки є об'єднаннями для захисту інтересів ...",
     ru: 'Профсоюзы - это объединения интересов ...',
     ar: 'النقابات هي جمعيات مصالح ...',
     img: '/q/101.webp',
@@ -4147,7 +4147,7 @@ const data = [
       3: {
         de: 'von CSU, Die LINKE und Bündnis 90/Die Grünen in einer Regierung',
         en: 'of CSU, The Left, and Alliance 90/The Greens in a government',
-        ua: "в уряді CSU, Лінк і Об'єднання 90/Зелені",
+        ua: "в уряді CSU, Ліві і Об'єднання 90/Зелені",
         ru: 'от CSU, Левых и Союз 90/Зеленые в правительстве',
         ar: 'من حكومة CSU و The Left وتحالف 90/الخضر',
       },
@@ -4570,7 +4570,7 @@ const data = [
         de: 'die meisten Männer mehrheitlich gewählt haben.',
         en: 'have majority voted for most men.',
         ua: 'більшість голосів була віддана за чоловіків.',
-        ru: 'большинство голосовали за большинство мужчин.',
+        ru: 'за которую проголосовало большинство мужчин.',
         ar: 'قامت معظم الرجال بالتصويت بالأغلبية.',
       },
 
@@ -4724,7 +4724,7 @@ const data = [
     id: 117,
     de: 'Wie viel Prozent der Zweitstimmen müssen Parteien mindestens bekommen, um in den Deutschen Bundestag gewählt zu werden?',
     en: 'What percentage of the second votes must parties receive at least to be elected to the German Bundestag?',
-    ua: 'Який відсоток дійсних голосів повинні отримати партії, щоб бути обраними в Бундестаг Німеччини?',
+    ua: 'Який відсоток других голосів повинні отримати партії, щоб бути обраними в Бундестаг Німеччини?',
     ru: 'Какой процент вторых голосов должны получить партии, чтобы быть избранными в Бундестаг Германии?',
     ar: 'كم نسبة من الأصوات الثانوية يجب أن تحصل عليها الأحزاب على الأقل لتُنتخب في البوندستاغ الألماني؟',
     img: '/q/117.webp',
@@ -7400,7 +7400,7 @@ const data = [
         de: 'mit dem Tod Adolf Hitlers',
         en: 'with the death of Adolf Hitler',
         ua: 'зі смертю Адольфа Гітлера',
-        ru: 'с смертью Адольфа Гитлера',
+        ru: 'со смертью Адольфа Гитлера',
         ar: 'مع وفاة أدولف هتلر',
       },
 
@@ -7501,7 +7501,7 @@ const data = [
       3: {
         de: 'Er zeigte seine Demut vor dem Warschauer Pakt.',
         en: 'He showed his humility towards the Warsaw Pact.',
-        ua: 'Він виявив своє покору перед Варшавським пактом.',
+        ua: 'Він виявив свою покору перед Варшавським пактом.',
         ru: 'Он проявил смирение перед Варшавским пактом.',
         ar: 'أظهر تواضعه تجاه حلف وارسو.',
       },
@@ -7510,7 +7510,7 @@ const data = [
         de: 'Er sprach ein Gebet am Grab des Unbekannten Soldaten.',
         en: 'He said a prayer at the Tomb of the Unknown Soldier.',
         ua: 'Він молився біля могили Невідомого Солдата.',
-        ru: 'Он молился у могиле Неизвестного солдата.',
+        ru: 'Он молился у могилы Неизвестного солдата.',
         ar: 'صلى صلاة عند قبر الجندي المجهول.',
       },
     },
@@ -7605,8 +7605,8 @@ const data = [
     id: 184,
     de: 'Was nannten die Menschen in Deutschland sehr lange „Die Stunde Null“?',
     en: 'What did people in Germany call "Die Stunde Null" for a very long time?',
-    ua: 'Що довго називали люди в Німеччині "Стунде нуль"?',
-    ru: 'Что долго называли люди в Германии "Стунде нуль"?',
+    ua: 'Що довго називали люди в Німеччині «нульовою годиною» (Die Stunde Null)?',
+    ru: 'Что долго называли люди в Германии «нулевым часом» (Die Stunde Null)?',
     ar: 'ماذا سمّاه الناس في ألمانيا "دي شتوند نول" لفترة طويلة؟',
     img: '/q/184.webp',
     answers: {
@@ -7649,7 +7649,7 @@ const data = [
     de: 'Wofür stand der Ausdruck „Eiserner Vorhang“? Für die Abschottung …',
     en: 'What did the term "Iron Curtain" stand for? For the isolation...',
     ua: 'Що означав термін "Залізна завіса"? Для ізоляції ...',
-    ru: 'За что стояло выражение "Железный занавес"? Для изоляции ...',
+    ru: 'Что символизировало выражение "Железный занавес"? Для изоляции ...',
     ar: 'ماذا كان يعني مصطلح "الستار الحديدي"؟ لعزل ...',
     img: '/q/185.webp',
     answers: {
@@ -7691,7 +7691,7 @@ const data = [
     id: 186,
     de: 'Im Jahr 1953 gab es in der DDR einen Aufstand, an den lange Zeit in der Bundesrepublik Deutschland ein Feiertag erinnerte. Wann war das?',
     en: 'In 1953, there was an uprising in the GDR, which was commemorated for a long time as a public holiday in the Federal Republic of Germany. When was that?',
-    ua: 'У 1953 році в НДР відбувся повстання, яке протягом довгого часу в Федеративній Республіці Німеччина вшановувалося як святковий день. Коли це було?',
+    ua: 'У 1953 році в НДР відбулося повстання, яке протягом довгого часу в Федеративній Республіці Німеччина вшановувалося як святковий день. Коли це було?',
     ru: 'В 1953 году в ГДР произошло восстание, которое долгое время в Федеративной Республике Германия отмечалось как праздник. Когда это было?',
     ar: 'في عام 1953، حدثت في جمهورية ألمانيا الديمقراطية انتفاضة تم استذكارها لفترة طويلة كعطلة عامة في جمهورية ألمانيا الاتحادية. متى كان ذلك؟',
     img: '/q/186.webp',
@@ -7734,7 +7734,7 @@ const data = [
     id: 187,
     de: 'Welcher deutsche Staat hatte eine schwarz-rotgoldene Flagge mit Hammer, Zirkel und Ährenkranz?',
     en: 'Which German state had a black-red-gold flag with a hammer, compass, and wreath of ears?',
-    ua: 'Яка німецька держава мала чорно-червоне-золоте знамено з молотом, циркулем і вінком зірок?',
+    ua: 'Яка німецька держава мала чорно-червоне-золоте знамено з молотом, циркулем і вінком з колосся?',
     ru: 'Какое немецкое государство имело черно-красно-золотое знамя с молотом, циркулем и венком из колосьев?',
     ar: 'أي دولة ألمانية كان لديها علم أسود أحمر ذهبي مع مطرقة وبوصلة وإكليل من السنابل؟',
     img: '/q/187.webp',
@@ -7873,7 +7873,7 @@ const data = [
         de: 'Dritter Deutscher Rundfunk',
         en: 'Third German Radio',
         ua: 'Третє Німецьке Радіо',
-        ru: 'Третий Немецкое радио',
+        ru: 'Третье немецкое радио',
         ar: 'الراديو الألماني الثالث',
       },
 
@@ -8122,7 +8122,7 @@ const data = [
     de: 'Warum nennt man die Zeit im Herbst 1989 in der DDR „Die Wende“? In dieser Zeit veränderte sich die DDR politisch …',
     en: 'Why is the period in the autumn of 1989 in the GDR called "Die Wende"? During this time, the GDR changed politically...',
     ua: 'Чому час восени 1989 року в НДР називають "Поворотом" (Die Wende)? У цей період політично змінювалася НДР ...',
-    ru: 'Почему период осени 1989 года в ГДР называют "Дие Венде"? В это время ГДР политически менялась ...',
+    ru: 'Почему период осени 1989 года в ГДР называют «Die Wende» (Поворот)? В это время ГДР политически менялась ...',
     ar: 'لماذا يُطلق على الفترة في خريف عام 1989 في جمهورية ألمانيا الديمقراطية "دي فيندا"؟ خلال هذا الوقت، تغيرت جمهورية ألمانيا الديمقراطية سياسيًا...',
     img: '/q/196.webp',
     answers: {
@@ -8474,7 +8474,7 @@ const data = [
       1: {
         de: 'Die Bundesrepublik hat die DDR besetzt.',
         en: 'West Germany occupied East Germany.',
-        ua: 'Федеративна Республіка найняла НДР.',
+        ua: 'Федеративна Республіка окупувала НДР.',
         ru: 'Федеративная Республика захватила ГДР.',
         ar: 'ألمانيا الغربية احتلت ألمانيا الشرقية.',
       },
@@ -8576,7 +8576,7 @@ const data = [
       3: {
         de: 'Am ersten Montag im Monat trafen sich in der Bundesrepublik Deutschland Demonstranten.',
         en: 'On the first Monday of the month, demonstrators gathered in the Federal Republic of Germany.',
-        ua: 'У перший понеділок місяця у Федеративній Республіці Німеччина збиралися демонстрани.',
+        ua: 'У перший понеділок місяця у Федеративній Республіці Німеччина збиралися демонстранти.',
         ru: 'В первый понедельник месяца в Федеративной Республике Германия собирались демонстранты.',
         ar: 'في الاثنين الأول من الشهر، اجتمع المتظاهرون في جمهورية ألمانيا الاتحادية.',
       },
@@ -10057,7 +10057,7 @@ const data = [
     de: 'Frau Seger bekommt ein Kind. Was muss sie tun, um Elterngeld zu erhalten?',
     en: 'Mrs. Seger is having a child. What does she need to do to receive parental allowance?',
     ua: 'Пані Зегер народжує дитину. Що їй треба зробити, щоб отримати батьківську допомогу?',
-    ru: 'Миссис Сегер ожидает ребенка. Что ей нужно сделать, чтобы получить детские пособия?',
+    ru: 'Госпожа Зегер ожидает ребенка. Что ей нужно сделать, чтобы получить родительское пособие (Elterngeld)?',
     ar: 'السيدة سيجر في انتظار مولود. ماذا يجب عليها فعله للحصول على إعانة الأمومة؟',
     img: '/q/241.webp',
     answers: {
@@ -10082,14 +10082,14 @@ const data = [
         de: 'Sie muss nichts tun, denn sie bekommt automatisch Elterngeld.',
         en: "She doesn't have to do anything because she automatically receives parental allowance.",
         ua: 'Їй нічого робити не потрібно, оскільки вона автоматично отримує батьківську допомогу.',
-        ru: 'Ей ничего не нужно делать, потому что она автоматически получает родительский пособие.',
+        ru: 'Ей ничего не нужно делать, потому что она автоматически получает родительское пособие.',
         ar: 'ليس عليها القيام بأي شيء لأنها تحصل تلقائيًا على إعانة الأمومة.',
       },
 
       4: {
         de: 'Sie muss das Arbeitsamt um Erlaubnis bitten.',
         en: 'She has to ask the employment office for permission.',
-        ua: 'Вона повинна попросити разрешение у служби зайнятості.',
+        ua: 'Вона повинна попросити дозвіл у служби зайнятості.',
         ru: 'Ей нужно попросить разрешение в службе занятости.',
         ar: 'عليها أن تطلب إذنًا من مكتب التوظيف.',
       },
@@ -10460,7 +10460,7 @@ const data = [
       2: {
         de: 'gut ausgebildet ist.',
         en: 'is well-educated.',
-        ua: 'має хороше освіту.',
+        ua: 'має хорошу освіту.',
         ru: 'хорошо образован.',
         ar: 'متعلم جيداً.',
       },
@@ -10486,7 +10486,7 @@ const data = [
     id: 251,
     de: 'Wenn man in Deutschland ein Kind schlägt, …',
     en: 'If someone hits a child in Germany, …',
-    ua: 'Якщо в Німеччині когось б’ють дитину, …',
+    ua: 'Якщо в Німеччині б’ють дитину, …',
     ru: 'Если в Германии кто-то бьет ребенка, …',
     ar: 'إذا ضرب شخص ما طفلاً في ألمانيا، …',
     img: '/q/251.webp',
@@ -10648,7 +10648,7 @@ const data = [
       4: {
         de: 'Mann und Frau führen mindestens ein Jahr getrennt ihr eigenes Leben. Danach ist die Scheidung möglich.',
         en: 'Husband and wife live separately for at least one year. After that, divorce is possible.',
-        ua: 'Чоловік і дружина проживають окремо принаймні рік. Після цього можливий розлучення.',
+        ua: 'Чоловік і дружина проживають окремо принаймні рік. Після цього можливе розлучення.',
         ru: 'Муж и жена живут раздельно как минимум год. После этого возможен развод.',
         ar: 'يعيش الزوج والزوجة منفصلين لمدة عام على الأقل. بعد ذلك، يصبح الطلاق ممكنًا.',
       },
@@ -10969,7 +10969,7 @@ const data = [
         de: 'Niemand darf z.B. wegen einer Behinderung benachteiligt werden.',
         en: 'No one may be disadvantaged, for example, due to a disability.',
         ua: 'Ніхто не може бути обмежений, наприклад, через інвалідність.',
-        ru: 'Никто не может быть обделен, например, из-за инвалидности.',
+        ru: 'Никто не может подвергаться дискриминации, например, из-за инвалидности.',
         ar: 'لا يجوز أن يتم التمييز ضد أي شخص، على سبيل المثال، بسبب الإعاقة.',
       },
 
@@ -11011,7 +11011,7 @@ const data = [
       1: {
         de: 'werden bestraft.',
         en: 'will be punished.',
-        ua: 'буде покараний.',
+        ua: 'будуть покарані.',
         ru: 'будут наказаны.',
         ar: 'سيتم معاقبته.',
       },
@@ -11035,7 +11035,7 @@ const data = [
       4: {
         de: 'werden nicht bestraft.',
         en: 'will not be punished.',
-        ua: 'не буде покараний.',
+        ua: 'не будуть покарані.',
         ru: 'не будут наказаны.',
         ar: 'لن يتم معاقبته.',
       },
@@ -11207,7 +11207,7 @@ const data = [
       4: {
         de: 'Sie suchen einen anderen Mann für die Tochter.',
         en: 'They are looking for another man for the daughter.',
-        ua: 'Вони шукают іншого чоловіка для дочки.',
+        ua: 'Вони шукають іншого чоловіка для дочки.',
         ru: 'Они ищут другого мужчину для дочери.',
         ar: 'أنت تبحث عن رجل آخر للابنة.',
       },
@@ -11475,7 +11475,7 @@ const data = [
     id: 274,
     de: 'Sie haben in Deutschland absichtlich einen Brief geöffnet, der an eine andere Person adressiert ist. Was haben Sie nicht beachtet?',
     en: 'In Germany, you intentionally opened a letter addressed to someone else. What did you not consider?',
-    ua: 'Ви намагались у Німеччині спеціально відкрити лист, адресований іншій особі. Що ви не врахували?',
+    ua: 'Ви умисно відкрили в Німеччині лист, адресований іншій особі. Що ви не врахували?',
     ru: 'Вы специально открыли письмо, адресованное другому человеку, в Германии. Чего вы не учли?',
     ar: 'فتحت بغرض رسالة موجهة لشخص آخر في ألمانيا. ماذا لم تأخذ في اعتبارك؟',
     img: '/q/274.webp',
@@ -11562,7 +11562,7 @@ const data = [
     de: 'Was sollten Sie tun, wenn Sie von Ihrem Ansprechpartner / Ihrer Ansprechpartnerin in einer deutschen Behörde schlecht behandelt werden?',
     en: 'What should you do if you are treated poorly by your contact person in a German authority?',
     ua: 'Що ви повинні робити, якщо вас погано обслуговують вашім контактними особами в німецькому органі?',
-    ru: 'Что следует делать, если вас плохо обслуживают вашим контактным лицом в немецком органе?',
+    ru: 'Что следует делать, если с вами плохо обращается контактное лицо в немецком ведомстве?',
     ar: 'ماذا يجب عليك فعله إذا تم التعامل معك بشكل سيء من قبل الشخص الذي تتصل به في جهة ألمانية؟',
     img: '/q/276.webp',
     answers: {
@@ -11603,7 +11603,7 @@ const data = [
   {
     id: 277,
     de: 'Eine Frau, die ein zweijähriges Kind hat, bewirbt sich in Deutschland um eine Stelle. Was ist ein Beispiel für Diskriminierung? Sie bekommt die Stelle nur deshalb nicht, weil sie …',
-    en: 'A woman with a two-year-old child applies for a job in Germany. What is an example of discrimination? She does not get the job only because she is a …',
+    en: 'A woman with a two-year-old child applies for a job in Germany. What is an example of discrimination? She does not get the job only because she …',
     ua: 'Жінка з дворічним дитином подає заяву на роботу в Німеччині. Який приклад дискримінації? Вона не отримує роботу тільки тому, що вона …',
     ru: 'Женщина с двухлетним ребенком подает заявку на работу в Германии. Какой пример дискриминации? Она не получает работу только потому, что она …',
     ar: 'امرأة لديها طفل يبلغ من العمر عامين تقدم طلبًا للحصول على وظيفة في ألمانيا. ما هو مثال على التمييز؟ إنها لا تحصل على الوظيفة إلا لأنها …',
@@ -11733,7 +11733,7 @@ const data = [
     id: 280,
     de: 'Wenn Sie sich in Deutschland gegen einen falschen Steuerbescheid wehren wollen, müssen Sie …',
     en: 'If you want to contest an incorrect tax assessment notice in Germany, you must …',
-    ua: 'Якщо ви хочете оскаржити неправильний податковий повідомлення в Німеччині, вам слід …',
+    ua: 'Якщо ви хочете оскаржити неправильне податкове повідомлення в Німеччині, вам слід …',
     ru: 'Если вы хотите оспорить неправильное налоговое уведомление в Германии, вы должны …',
     ar: 'إذا كنت ترغب في الاحتجاج على إشعار الضرائب غير الصحيح في ألمانيا، يجب عليك …',
     img: '/q/280.webp',
@@ -12051,7 +12051,7 @@ const data = [
       3: {
         de: 'die Kündigungsfrist',
         en: 'notice period',
-        ua: 'строк відмови',
+        ua: 'строк попередження про звільнення',
         ru: 'срок уведомления об увольнении',
         ar: 'فترة الإشعار',
       },
@@ -12813,8 +12813,8 @@ const data = [
       2: {
         de: 'beim Ordnungsamt der Gemeinde',
         en: 'at the municipal regulatory office',
-        ua: 'в орденському відділі громади',
-        ru: 'в отделе учёта городского управления',
+        ua: 'у відомстві громадського порядку громади',
+        ru: 'в ведомстве по охране общественного порядка общины',
         ar: 'في مكتب النظام العام في البلدية',
       },
       3: {
@@ -12862,7 +12862,7 @@ const data = [
         de: 'Lübeck',
         en: 'Lübeck',
         ua: 'Любек',
-        ru: 'Любекк',
+        ru: 'Любек',
         ar: 'لوبيك',
       },
       4: {
@@ -13219,8 +13219,8 @@ const data = [
       1: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       2: {
@@ -13629,8 +13629,8 @@ const data = [
       1: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       2: {
@@ -14039,8 +14039,8 @@ const data = [
       1: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       2: {
@@ -14456,8 +14456,8 @@ const data = [
       2: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       3: {
@@ -14859,8 +14859,8 @@ const data = [
       1: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       2: {
@@ -15269,8 +15269,8 @@ const data = [
       1: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       2: {
@@ -15693,8 +15693,8 @@ const data = [
       3: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       4: {
@@ -16103,8 +16103,8 @@ const data = [
       3: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       4: {
@@ -16506,8 +16506,8 @@ const data = [
       2: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       3: {
@@ -16916,8 +16916,8 @@ const data = [
       2: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       3: {
@@ -17333,8 +17333,8 @@ const data = [
       3: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       4: {
@@ -17750,8 +17750,8 @@ const data = [
       4: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
     },
@@ -18146,8 +18146,8 @@ const data = [
       2: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       3: {
@@ -18563,8 +18563,8 @@ const data = [
       3: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
       4: {
@@ -18980,8 +18980,8 @@ const data = [
       4: {
         de: "beim Ordnungsamt der Gemeinde",
         en: "at the municipal regulatory office",
-        ua: "в орденському відділі громади",
-        ru: "в отделе учёта городского управления",
+        ua: "у відомстві громадського порядку громади",
+        ru: "в ведомстве по охране общественного порядка общины",
         ar: "في مكتب النظام العام في البلدية",
       },
     },
