@@ -4,12 +4,12 @@ import { createServer } from 'vite';
 
 const SITE = (process.env.SITE_URL || 'https://leben-in-deutschland-nine.vercel.app').replace(/\/$/, '');
 const OUT = resolve(process.cwd(), 'dist');
-const LANGS = ['de', 'en', 'ua', 'ru', 'ar'];
+const LANGS = ['de', 'en', 'ua', 'ru'];
 const HREFLANG = { de: 'de', en: 'en', ua: 'uk', ru: 'ru', ar: 'ar' };
 const OG_LOCALE = { de: 'de_DE', en: 'en_US', ua: 'uk_UA', ru: 'ru_RU', ar: 'ar_AR' };
 const RTL = new Set(['ar']);
 const BUILD_DATE = process.env.CONTENT_DATE || new Date().toISOString().slice(0, 10);
-let TOTAL = 310;
+let TOTAL = 460;
 
 const L = {
   frage: { de: 'Frage', en: 'Question', ua: 'Запитання', ru: 'Вопрос', ar: 'سؤال' },
@@ -119,7 +119,7 @@ function body(lang, id, q) {
   return `<header class="top"><a class="brand" href="${SITE}/"><span class="logo">LiD</span> Leben in Deutschland</a></header>
       <main>
         <article>
-          <p class="kicker">Einbürgerungstest · ${L.frage[lang]} ${id} / 310</p>
+          <p class="kicker">Einbürgerungstest · ${L.frage[lang]} ${id} / ${TOTAL}</p>
           <h1>${esc(q[lang])}</h1>
           ${showDe ? `<p class="orig"><span class="lbl">${L.original[lang]}:</span> ${esc(q.de)}</p>` : ''}
           <h2>${L.options[lang]}</h2>
@@ -206,16 +206,16 @@ ${urls.join('\n')}
 const FAQ = [
   [
     'Wie viele Fragen hat der Einbürgerungstest „Leben in Deutschland“?',
-    'Der amtliche Gesamtfragenkatalog umfasst 310 Fragen. In der Prüfung werden 33 Fragen gestellt.',
+    'Der amtliche Gesamtfragenkatalog umfasst 460 Fragen. In der Prüfung werden 33 Fragen gestellt.',
   ],
   [
     'Wie viele Fragen muss man richtig beantworten, um zu bestehen?',
     'Mindestens 17 der 33 gestellten Fragen müssen richtig beantwortet werden.',
   ],
-  ['Ist das Üben kostenlos?', 'Ja, das Üben aller 310 Fragen ist komplett kostenlos und ohne Anmeldung.'],
+  ['Ist das Üben kostenlos?', 'Ja, das Üben aller 460 Fragen ist komplett kostenlos und ohne Anmeldung.'],
   [
     'In welchen Sprachen kann ich üben?',
-    'Auf Deutsch sowie mit Übersetzung auf Englisch, Ukrainisch, Russisch und Arabisch.',
+    'Auf Deutsch sowie mit Übersetzung auf Englisch, Ukrainisch und Russisch.',
   ],
 ];
 
@@ -223,12 +223,12 @@ function homepageBody() {
   const faq = FAQ.map(([q, a]) => `<h3>${esc(q)}</h3>\n      <p>${esc(a)}</p>`).join('\n      ');
   const ex = [1, 2, 3, 4, 5, 6, 7, 8].map((i) => `<li><a href="/de/frage/${i}">Frage ${i}</a></li>`).join('');
   return `<main style="max-width:760px;margin:0 auto;padding:32px 18px;line-height:1.6;font-family:system-ui,-apple-system,sans-serif">
-      <h1>Leben in Deutschland — Einbürgerungstest: alle 310 Fragen üben</h1>
-      <p>Kostenloses Üben für den offiziellen Test „Leben in Deutschland“ und den Einbürgerungstest. Alle 310 amtlichen Fragen mit den richtigen Antworten — auf Deutsch, Englisch, Ukrainisch, Russisch und Arabisch.</p>
+      <h1>Leben in Deutschland — Einbürgerungstest: alle 460 Fragen üben</h1>
+      <p>Kostenloses Üben für den offiziellen Test „Leben in Deutschland“ und den Einbürgerungstest. Alle 460 amtlichen Fragen mit den richtigen Antworten — auf Deutsch, Englisch, Ukrainisch und Russisch.</p>
       <ul>
-        <li>310 Fragen im amtlichen Gesamtfragenkatalog</li>
+        <li>460 Fragen im amtlichen Gesamtfragenkatalog</li>
         <li>In der Prüfung: 33 Fragen, bestanden ab 17 richtigen Antworten</li>
-        <li>5 Sprachen: Deutsch, English, Українська, Русский, العربية</li>
+        <li>4 Sprachen: Deutsch, English, Українська, Русский</li>
         <li>Kostenlos, ohne Anmeldung, offline nutzbar</li>
       </ul>
       <h2>Häufige Fragen</h2>
@@ -246,8 +246,8 @@ function homepageJsonLd() {
     name: 'Leben in Deutschland — Einbürgerungstest',
     url: `${SITE}/`,
     description:
-      'Kostenlos den Einbürgerungstest „Leben in Deutschland“ üben: alle 310 amtlichen Fragen mit Antworten in 5 Sprachen.',
-    inLanguage: ['de', 'en', 'uk', 'ru', 'ar'],
+      'Kostenlos den Einbürgerungstest „Leben in Deutschland“ üben: alle 460 amtlichen Fragen mit Antworten in 4 Sprachen.',
+    inLanguage: ['de', 'en', 'uk', 'ru'],
     publisher: {
       '@type': 'Person',
       name: 'Dmytro Herashchenko',

@@ -5,6 +5,6 @@ test.describe('Boot @smoke', () => {
         await page.goto('/');
         await expect(page.getByText('Leben in Deutschland').first()).toBeVisible();
         await expect(page.getByTestId('lang-de')).toBeVisible();
-        await expect(page.getByTestId('lang-ar')).toBeVisible();
+        await expect(page.getByTestId('lang-ru')).toBeVisible();
     });
 });
