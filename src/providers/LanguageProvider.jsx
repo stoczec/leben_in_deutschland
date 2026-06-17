@@ -9,9 +9,10 @@ const LanguageContext = createContext({
 });
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState(
-    () => localStorage.getItem(LANG_KEY) || 'de'
-  );
+  const [language, setLanguage] = useState(() => {
+    const saved = localStorage.getItem(LANG_KEY);
+    return ['de', 'en', 'ua', 'ru'].includes(saved) ? saved : 'de';
+  });
 
   useEffect(() => {
     if (language === 'ar') loadArabicFonts();

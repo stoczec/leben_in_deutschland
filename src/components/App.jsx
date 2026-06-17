@@ -89,14 +89,13 @@ const examStartLabels = {
   ar: 'الاختبار',
 };
 
-const LANG_CODES = ['de', 'en', 'ua', 'ru', 'ar'];
+const LANG_CODES = ['de', 'en', 'ua', 'ru'];
 
 const LANG_NAMES = {
   de: 'Deutsch',
   en: 'English',
   ua: 'Українська',
   ru: 'Русский',
-  ar: 'العربية',
 };
 
 const slideDownFadeIn = keyframes`
@@ -504,7 +503,7 @@ function App() {
                 </BrandRow>
                 <Chips>
                   <Chip>{dataNew.length} {footL.questions}</Chip>
-                  <Chip>5 {footL.languages}</Chip>
+                  <Chip>4 {footL.languages}</Chip>
                   <Chip>{footL.free}</Chip>
                 </Chips>
                 <Disclaimer>{disclaimerTexts[language] || disclaimerTexts.de}</Disclaimer>
