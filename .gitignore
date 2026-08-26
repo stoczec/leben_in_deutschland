@@ -33,3 +33,7 @@ playwright/.cache/
 *.njsproj
 *.sln
 *.sw?
+
+# local agent tooling (never committed)
+.claude/
+CLAUDE.md
