@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 import dataNew from '../data/dataNew';
 import { useLanguage } from '../providers/LanguageProvider';
-import { useExam, EXAM_SIZE, PASS_THRESHOLD } from '../providers/ExamProvider';
+import { useExam } from '../providers/ExamProvider';
+import { EXAM_SIZE, PASS_THRESHOLD } from '../data/exam-config';
 import Card from './Card';
 import { shared } from '../assets/styles/themes';
 

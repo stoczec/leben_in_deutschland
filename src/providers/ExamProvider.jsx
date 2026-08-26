@@ -1,25 +1,18 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import dataNew from '../data/dataNew';
-import { LAND_NAMES } from '../data/lands';
+import {
+  ansKeyById,
+  EXAM_SIZE,
+  GENERAL_COUNT,
+  generalIds,
+  LANDS,
+  PASS_THRESHOLD,
+  STATE_COUNT,
+  stateIdsByLand,
+} from '../data/exam-config';
 
 const EXAM_KEY = 'exam';
 const LAND_KEY = 'land';
-// Real Einbürgerungstest: 30 general questions + 3 for the test-taker's federal state.
-export const GENERAL_COUNT = 30;
-export const STATE_COUNT = 3;
-export const EXAM_SIZE = GENERAL_COUNT + STATE_COUNT;
-export const PASS_THRESHOLD = 17;
 const DURATION_MS = 60 * 60 * 1000;
-
-const ansKeyById = new Map(dataNew.map((q) => [q.id, q.answers.ansKey]));
-const generalIds = dataNew.filter((q) => !q.land).map((q) => q.id);
-const stateIdsByLand = dataNew.reduce((acc, q) => {
-  if (q.land) (acc[q.land] = acc[q.land] || []).push(q.id);
-  return acc;
-}, {});
-export const LANDS = Object.keys(stateIdsByLand)
-  .sort()
-  .map((code) => ({ code, name: LAND_NAMES[code] || code }));
 
 const sample = (ids, n) => {
   const pool = [...ids];
