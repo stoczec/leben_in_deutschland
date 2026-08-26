@@ -1,6 +1,0 @@
-{
-  "plugins": [
-    // babel-plugin-import tree-shakes antd named imports
-    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
-  ]
-}

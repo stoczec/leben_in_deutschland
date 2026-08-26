@@ -12,7 +12,7 @@ export default defineConfig(({ command }) => ({
       manifest: {
         name: 'Leben in Deutschland — Einbürgerungstest',
         short_name: 'Leben in DE',
-        description: 'Übe alle 310 Fragen des Einbürgerungstests in 5 Sprachen (de/en/ua/ru/ar).',
+        description: 'Übe alle 460 Fragen des Einbürgerungstests in 4 Sprachen (de/en/ua/ru).',
         lang: 'de',
         dir: 'ltr',
         start_url: '/',
@@ -47,9 +47,16 @@ export default defineConfig(({ command }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'antd-vendor': ['antd', '@ant-design/icons'],
+        // Group by resolved module path. Naming the package instead pulls in the
+        // antd barrel module and defeats tree-shaking.
+        manualChunks(id) {
+          const path = id.replace(/\\/g, '/');
+          // The question catalogue changes far less often than app code.
+          if (/\/src\/data\/(dataNew|lands)\.js$/.test(path)) return 'question-data';
+          const after = path.split('/node_modules/').pop();
+          if (after === path) return;
+          if (/^(react|react-dom|scheduler)\//.test(after)) return 'react-vendor';
+          if (/^(antd|@ant-design\/|rc-)/.test(after)) return 'antd-vendor';
         },
       },
     },
