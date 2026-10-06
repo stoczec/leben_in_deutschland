@@ -5,7 +5,7 @@ import { useLanguage } from '../providers/LanguageProvider';
 import { useProgress } from '../providers/ProgressProvider';
 import { shared } from '../assets/styles/themes';
 import { landName } from '../data/lands';
-import dataNew from '../data/dataNew';
+import dataNew from '../data/dataNew.js?base';
 
 const imgAltLabels = {
   de: (id) => `Abbildung zu Frage ${id}`,
@@ -126,7 +126,7 @@ const Card = forwardRef(
 
     const answersDe = [answerFirstDe, answerSecondDe, answerThirdDe, answerFourthDe];
     const answersTr = [answerFirst, answerSecond, answerThird, answerFourth];
-    const showTranslation = language !== 'de';
+    const showTranslation = language !== 'de' && question != null;
 
     const stateOf = (idx) => {
       if (mode === 'exam') return selected !== 0 && idx === selected ? 'selected' : 'idle';

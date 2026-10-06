@@ -13,7 +13,7 @@ import { CardsContainer } from './CardsContainer';
 import styled, { css, keyframes } from 'styled-components';
 import linkedin from '../assets/linkedin.svg';
 import telegram from '../assets/telegram.svg';
-import dataNew from '../data/dataNew';
+import dataNew from '../data/dataNew.js?base';
 import { CaretUpOutlined } from '@ant-design/icons';
 import { useLanguage } from '../providers/LanguageProvider';
 import { useThemeMode } from '../providers/ThemeProvider';
@@ -227,7 +227,7 @@ function App() {
   });
   const [toolsOpen, setToolsOpen] = useState(false);
   const [filter, setFilter] = useState('all');
-  const { language, changeLanguage } = useLanguage();
+  const { language, translations, changeLanguage } = useLanguage();
   const { mode, toggle, theme } = useThemeMode();
   const { answers, favorites, resetProgress } = useProgress();
   const { session, startExam, land, setLand } = useExam();
@@ -258,9 +258,9 @@ function App() {
       visiblePool.map((q) => ({
         value: q.id,
         label: `${q.id}. ${q.de}`,
-        ftext: `${q.id} ${q.de} ${q[language]}`.toLowerCase(),
+        ftext: `${q.id} ${q.de} ${translations?.[q.id]?.[0] ?? ''}`.toLowerCase(),
       })),
-    [language, visiblePool]
+    [translations, visiblePool]
   );
 
   useEffect(() => {

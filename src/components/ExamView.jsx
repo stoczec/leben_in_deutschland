@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from 'antd';
-import dataNew from '../data/dataNew';
+import dataNew from '../data/dataNew.js?base';
 import { useLanguage } from '../providers/LanguageProvider';
 import { useExam } from '../providers/ExamProvider';
 import { EXAM_SIZE, PASS_THRESHOLD } from '../data/exam-config';
@@ -18,22 +18,25 @@ const L = {
   ar: { question: 'سؤال', answered: 'تمت الإجابة', submit: 'إنهاء', prev: 'رجوع', next: 'التالي', exit: 'خروج', exitConfirm: 'مغادرة الاختبار؟ سيُفقد التقدم.', submitConfirm: (n) => `${n} بلا إجابة. الإنهاء على أي حال؟`, passed: 'ناجح', failed: 'غير ناجح', correct: 'صحيح', wrong: 'خطأ', unanswered: 'بلا إجابة', threshold: (n) => `${n} صحيحة للنجاح`, review: 'مراجعة الإجابات', hideReview: 'النتيجة', newExam: 'اختبار جديد' },
 };
 
-const cardProps = (q, language) => ({
-  id: q.id,
-  land: q.land,
-  questionDe: q.de,
-  answerFirstDe: q.answers[1].de,
-  answerSecondDe: q.answers[2].de,
-  answerThirdDe: q.answers[3].de,
-  answerFourthDe: q.answers[4].de,
-  question: q[language],
-  answerFirst: q.answers[1][language],
-  answerSecond: q.answers[2][language],
-  answerThird: q.answers[3][language],
-  answerFourth: q.answers[4][language],
-  ansKey: q.answers.ansKey,
-  image: q.img,
-});
+const cardProps = (q, translations) => {
+  const tr = translations?.[q.id] ?? [];
+  return {
+    id: q.id,
+    land: q.land,
+    questionDe: q.de,
+    answerFirstDe: q.answers[1].de,
+    answerSecondDe: q.answers[2].de,
+    answerThirdDe: q.answers[3].de,
+    answerFourthDe: q.answers[4].de,
+    question: tr[0],
+    answerFirst: tr[1],
+    answerSecond: tr[2],
+    answerThird: tr[3],
+    answerFourth: tr[4],
+    ansKey: q.answers.ansKey,
+    image: q.img,
+  };
+};
 
 const format = (ms) => {
   const total = Math.max(0, Math.floor(ms / 1000));
@@ -100,7 +103,7 @@ function ScoreRing({ score, total, passed }) {
 }
 
 function ExamRunner({ labels }) {
-  const { language } = useLanguage();
+  const { translations } = useLanguage();
   const { session, answerExam, goTo, submitExam, exitExam, answeredCount } = useExam();
   const { ids, current, answers, endsAt } = session;
   const id = ids[current];
@@ -149,7 +152,7 @@ function ExamRunner({ labels }) {
       <Single>
         <Card
           key={id}
-          {...cardProps(q, language)}
+          {...cardProps(q, translations)}
           variant="hero"
           mode="exam"
           selectedValue={answers[id] ?? 0}
@@ -182,7 +185,7 @@ function ExamRunner({ labels }) {
 }
 
 function ExamResult({ labels }) {
-  const { language } = useLanguage();
+  const { translations } = useLanguage();
   const { session, score, answeredCount, passed, startExam, exitExam } = useExam();
   const [review, setReview] = useState(false);
   const wrong = answeredCount - score;
@@ -228,7 +231,7 @@ function ExamResult({ labels }) {
           {session.ids.map((qId) => (
             <Card
               key={qId}
-              {...cardProps(questionById.get(qId), language)}
+              {...cardProps(questionById.get(qId), translations)}
               mode="review"
               selectedValue={session.answers[qId] ?? 0}
             />

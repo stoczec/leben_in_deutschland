@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import questionLangs from './scripts/vite-plugin-question-langs.js'
 
 export default defineConfig(({ command }) => ({
   plugins: [
     react(),
+    questionLangs(),
     VitePWA({
       disable: command !== 'build',
       registerType: 'prompt',
@@ -52,7 +54,9 @@ export default defineConfig(({ command }) => ({
         manualChunks(id) {
           const path = id.replace(/\\/g, '/');
           // The question catalogue changes far less often than app code.
-          if (/\/src\/data\/(dataNew|lands)\.js$/.test(path)) return 'question-data';
+          if (/\/src\/data\/(dataNew\.js\?base|lands\.js)$/.test(path)) return 'question-data';
+          const lang = path.match(/\/src\/data\/dataNew\.js\?lang=(\w+)$/);
+          if (lang) return `question-${lang[1]}`;
           const after = path.split('/node_modules/').pop();
           if (after === path) return;
           if (/^(react|react-dom|scheduler)\//.test(after)) return 'react-vendor';

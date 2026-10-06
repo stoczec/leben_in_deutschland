@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import dataNew from '../data/dataNew';
+import dataNew from '../data/dataNew.js?base';
 
 const PROGRESS_KEY = 'progress';
 const FAVORITES_KEY = 'favorites';
