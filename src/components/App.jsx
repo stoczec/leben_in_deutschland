@@ -332,6 +332,7 @@ function App() {
               {legalPage ? (
                 <Suspense fallback={null}>
                   <LegalPage
+                    page={legalPage}
                     language={language}
                     onBack={() => setLegalPage(null)}
                   />
@@ -531,6 +532,7 @@ function App() {
             <FooterBottom>
               <Copyright>©2023–2026 · Dmytro Herashchenko</Copyright>
               <LegalLinks>
+                <LegalLink onClick={() => setLegalPage('impressum')}>Impressum</LegalLink>
                 <LegalLink onClick={() => setLegalPage('datenschutz')}>Datenschutz</LegalLink>
               </LegalLinks>
               <BottomNote>{footL.note}</BottomNote>
@@ -563,7 +565,7 @@ const LegalLink = styled.button`
   font: inherit;
   color: ${({ theme }) => theme.textMuted};
   cursor: pointer;
-  padding: 0;
+  padding: 3px 0;
   &:hover {
     color: ${({ theme }) => theme.accent};
   }

@@ -2,13 +2,49 @@ import styled from 'styled-components';
 
 const backLabels = { de: 'Zurück', en: 'Back', ua: 'Назад', ru: 'Назад', ar: 'رجوع' };
 
-export default function LegalPage({ language = 'de', onBack }) {
+export default function LegalPage({ page = 'datenschutz', language = 'de', onBack }) {
   const back = backLabels[language] || backLabels.de;
   return (
     <Wrap>
       <BackButton onClick={onBack}>← {back}</BackButton>
-      <Datenschutz />
+      {page === 'impressum' ? <Impressum /> : <Datenschutz />}
     </Wrap>
+  );
+}
+
+function Address() {
+  return (
+    <>
+      Dmytro Herashchenko
+      <br />
+      c/o IP-Management #12307
+      <br />
+      Ludwig-Erhard-Str. 18
+      <br />
+      20459 Hamburg
+      <br />
+      Deutschland
+    </>
+  );
+}
+
+function Impressum() {
+  return (
+    <Doc>
+      <Title>Impressum</Title>
+
+      <H2>Angaben gemäß § 5 DDG</H2>
+      <P>
+        <Address />
+      </P>
+
+      <H2>Kontakt</H2>
+      <P>
+        E-Mail: dmytro.herashchenko.de@gmail.com
+        <br />
+        Telegram: @DmytroHerashchenko
+      </P>
+    </Doc>
   );
 }
 
@@ -19,7 +55,7 @@ function Datenschutz() {
 
       <H2>1. Verantwortlicher</H2>
       <P>
-        Dmytro Herashchenko
+        <Address />
         <br />
         E-Mail: dmytro.herashchenko.de@gmail.com
       </P>
@@ -70,7 +106,7 @@ function Datenschutz() {
       <H2>7. Keine automatisierte Entscheidungsfindung</H2>
       <P>Es findet kein Profiling und keine automatisierte Entscheidungsfindung (Art. 22 DSGVO) statt.</P>
 
-      <Stand>Stand: Juni 2026</Stand>
+      <Stand>Stand: Oktober 2026</Stand>
     </Doc>
   );
 }
