@@ -1,4 +1,4 @@
-import dataNew from './dataNew';
+import dataNew from './dataNew.js?base';
 import { LAND_NAMES } from './lands';
 
 // Real Einbürgerungstest: 30 general questions + 3 for the test-taker's federal state.

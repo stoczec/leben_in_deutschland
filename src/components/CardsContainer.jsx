@@ -4,7 +4,7 @@ import { useLanguage } from '../providers/LanguageProvider';
 import { useProgress } from '../providers/ProgressProvider';
 import styled, { keyframes } from 'styled-components';
 import { Empty, Pagination } from 'antd';
-import dataNew from '../data/dataNew';
+import dataNew from '../data/dataNew.js?base';
 import { useExam } from '../providers/ExamProvider';
 import { shared } from '../assets/styles/themes';
 
@@ -26,22 +26,25 @@ const emptyLabels = {
 
 const pageSizeOptions = [8, 16, 24, 32];
 
-const cardProps = (q, language) => ({
-  id: q.id,
-  land: q.land,
-  questionDe: q.de,
-  answerFirstDe: q.answers[1].de,
-  answerSecondDe: q.answers[2].de,
-  answerThirdDe: q.answers[3].de,
-  answerFourthDe: q.answers[4].de,
-  question: q[language],
-  answerFirst: q.answers[1][language],
-  answerSecond: q.answers[2][language],
-  answerThird: q.answers[3][language],
-  answerFourth: q.answers[4][language],
-  ansKey: q.answers.ansKey,
-  image: q.img,
-});
+const cardProps = (q, translations) => {
+  const tr = translations?.[q.id] ?? [];
+  return {
+    id: q.id,
+    land: q.land,
+    questionDe: q.de,
+    answerFirstDe: q.answers[1].de,
+    answerSecondDe: q.answers[2].de,
+    answerThirdDe: q.answers[3].de,
+    answerFourthDe: q.answers[4].de,
+    question: tr[0],
+    answerFirst: tr[1],
+    answerSecond: tr[2],
+    answerThird: tr[3],
+    answerFourth: tr[4],
+    ansKey: q.answers.ansKey,
+    image: q.img,
+  };
+};
 
 const readInitialPage = () => {
   const raw = Number(localStorage.getItem('currentPage'));
@@ -51,7 +54,7 @@ const readInitialPage = () => {
 };
 
 export function CardsContainer({ questionNr, filter = 'all' }) {
-  const { language } = useLanguage();
+  const { language, translations } = useLanguage();
   const { answers, favorites } = useProgress();
   const { land } = useExam();
   const [currentPage, setCurrentPage] = useState(readInitialPage);
@@ -125,13 +128,13 @@ export function CardsContainer({ questionNr, filter = 'all' }) {
         ) : (
           <ContainerCard>
             {productsToShow.map((q) => (
-              <Card key={q.id} {...cardProps(q, language)} total={pool.length} />
+              <Card key={q.id} {...cardProps(q, translations)} total={pool.length} />
             ))}
           </ContainerCard>
         )
       ) : (
         <SingleCard>
-          <Card key={question.id} {...cardProps(question, language)} variant="hero" total={pool.length} />
+          <Card key={question.id} {...cardProps(question, translations)} variant="hero" total={pool.length} />
         </SingleCard>
       )}
       {showGrid && !isEmpty ? renderPagination() : ''}
