@@ -1,5 +1,5 @@
 import './fonts';
-import React from 'react';
+import React, { startTransition } from 'react';
 import { createRoot } from 'react-dom/client';
 import GlobalStyle from './assets/styles/GlobalStyle';
 import { LanguageProvider, readSavedLanguage } from './providers/LanguageProvider';
@@ -12,7 +12,8 @@ import { loadTranslations } from './data/translations';
 
 const root = createRoot(document.getElementById('root'));
 // First paint waits for the saved language's chunk so translations do not pop in; German resolves at once.
-loadTranslations(readSavedLanguage()).then(() => root.render(
+// A transition lets React time-slice the first render instead of running it as one blocking task.
+loadTranslations(readSavedLanguage()).then(() => startTransition(() => root.render(
   <React.StrictMode>
     <ThemeProvider>
       <LanguageProvider>
@@ -26,4 +27,4 @@ loadTranslations(readSavedLanguage()).then(() => root.render(
       </LanguageProvider>
     </ThemeProvider>
   </React.StrictMode>
-));
+)));

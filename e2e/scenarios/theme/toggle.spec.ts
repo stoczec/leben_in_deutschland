@@ -5,6 +5,7 @@ test.describe('Theme @critical', () => {
         await page.goto('/');
 
         const html = page.locator('html');
+        await expect(page.getByTestId('theme-toggle')).toBeVisible();
         const before = await html.getAttribute('data-theme');
         expect(['dark', 'light']).toContain(before);
 

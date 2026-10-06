@@ -3,6 +3,7 @@ import { test, expect } from '../../fixtures';
 test.describe('Pagination @critical', () => {
     test('changing page scrolls back to top', async ({ page }) => {
         await page.goto('/');
+        await expect(page.getByRole('listitem', { name: '2' }).first()).toBeVisible();
 
         await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
         await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(500);
