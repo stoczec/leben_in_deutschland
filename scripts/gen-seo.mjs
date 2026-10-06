@@ -284,6 +284,8 @@ async function main() {
     appType: 'custom',
     logLevel: 'warn',
     server: { middlewareMode: true },
+    // Only one SSR module is loaded; Vite 6's client dep scan would still be running at close() and log errors.
+    optimizeDeps: { noDiscovery: true },
   });
   let data;
   try {
